@@ -8,24 +8,21 @@ namespace MoreTransferReasons.HarmonyPatches
     [HarmonyPatch(typeof(TransferManager))]
     public class TransferManagerPatch
     {
-        private delegate void AwakeDelegate();
-        private static AwakeDelegate BaseAwake = AccessTools.MethodDelegate<AwakeDelegate>(typeof(SimulationManagerBase<TransferManager, TransferProperties>).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic), null, true);
-
 		private delegate void UpdateDataDelegate(SimulationManager.UpdateMode mode);
         private static UpdateDataDelegate BaseUpdateData = AccessTools.MethodDelegate<UpdateDataDelegate>(typeof(SimulationManagerBase<TransferManager, TransferProperties>).GetMethod("UpdateData", BindingFlags.Instance | BindingFlags.Public), null, true);
 
-        [HarmonyPatch(typeof(TransferManager), "Awake")]
-        [HarmonyPrefix]
-        public static bool Awake(TransferManager __instance)
-	    {
-            var m_outgoingOffers = (TransferOffer[])typeof(TransferManager).GetField("m_outgoingOffers", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_incomingOffers = (TransferOffer[])typeof(TransferManager).GetField("m_incomingOffers", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_outgoingCount = (ushort[])typeof(TransferManager).GetField("m_outgoingCount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_incomingCount = (ushort[])typeof(TransferManager).GetField("m_incomingCount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_outgoingAmount = (int[])typeof(TransferManager).GetField("m_outgoingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_incomingAmount = (int[])typeof(TransferManager).GetField("m_incomingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
+		public static TransferOffer[] m_outgoingOffers;
+		public static TransferOffer[] m_incomingOffers;
+		public static ushort[] m_outgoingCount;
+		public static ushort[] m_incomingCount;
+		public static int[] m_outgoingAmount;
+		public static int[] m_incomingAmount;
 
-            BaseAwake();
+
+        [HarmonyPatch(typeof(TransferManager), "Awake")]
+        [HarmonyPostfix]
+        public static void Awake(TransferManager __instance)
+	    {
 		    m_outgoingOffers = new TransferOffer[327680];
 		    m_incomingOffers = new TransferOffer[327680];
 		    m_outgoingCount = new ushort[1280];
@@ -39,8 +36,6 @@ namespace MoreTransferReasons.HarmonyPatches
             typeof(TransferManager).GetField("m_incomingCount", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, m_incomingCount);
             typeof(TransferManager).GetField("m_outgoingAmount", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, m_outgoingAmount);
             typeof(TransferManager).GetField("m_incomingAmount", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(__instance, m_incomingAmount);
-
-	        return false;
 	    }
 
 		[HarmonyPatch(typeof(TransferManager), "UpdateData")]
@@ -52,12 +47,6 @@ namespace MoreTransferReasons.HarmonyPatches
 			VehicleManager vehicleManager = Singleton<VehicleManager>.instance;
 			CitizenManager citizenManager = Singleton<CitizenManager>.instance;
 			BuildingManager buildingManager = Singleton<BuildingManager>.instance;
-			var m_outgoingOffers = (TransferOffer[])typeof(TransferManager).GetField("m_outgoingOffers", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_incomingOffers = (TransferOffer[])typeof(TransferManager).GetField("m_incomingOffers", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_outgoingCount = (ushort[])typeof(TransferManager).GetField("m_outgoingCount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_incomingCount = (ushort[])typeof(TransferManager).GetField("m_incomingCount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_outgoingAmount = (int[])typeof(TransferManager).GetField("m_outgoingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            var m_incomingAmount = (int[])typeof(TransferManager).GetField("m_incomingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
 
 			for (int i = 0; i < 160; i++)
 			{
