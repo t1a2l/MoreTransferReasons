@@ -3,12 +3,20 @@ using ColossalFramework.IO;
 using HarmonyLib;
 using System.Reflection;
 using static TransferManager;
+using MoreTransferReasons.Utils;
 
 namespace MoreTransferReasons.HarmonyPatches
 {
 	[HarmonyPatch(typeof(Data))]
 	public class DataPatch
 	{
+		// Status flag - are we loading an expanded TransferManager array?
+        internal static bool s_loadingExpanded = false;
+
+		private const int OriginalTransfersCount = 128;
+        internal const int NewTransfersCount = 160;
+
+
 		[HarmonyPatch(typeof(Data), "Serialize")]
         [HarmonyPrefix]
 		public static bool Serialize(DataSerializer s)
@@ -22,7 +30,7 @@ namespace MoreTransferReasons.HarmonyPatches
             var m_outgoingAmount = (int[])typeof(TransferManager).GetField("m_outgoingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(instance);
             var m_incomingAmount = (int[])typeof(TransferManager).GetField("m_incomingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(instance);
 
-			int num = 160;
+			int num = NewTransfersCount;
 			if (BuildConfig.SAVE_DATA_FORMAT_VERSION < 111004)
 			{
 				num = 96;
@@ -292,9 +300,12 @@ namespace MoreTransferReasons.HarmonyPatches
             var m_outgoingAmount = (int[])typeof(TransferManager).GetField("m_outgoingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(instance);
             var m_incomingAmount = (int[])typeof(TransferManager).GetField("m_incomingAmount", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(instance);
 
+			s_loadingExpanded = Utils.MetaData.LoadingExtended;
+			
 			if (s.version >= 37)
 			{
-				int num = 160;
+				int num = DeserialiseSize();
+				int max =  DeserialiseSize();
 				if (s.version < 225)
 				{
 					num = 64;
@@ -320,7 +331,7 @@ namespace MoreTransferReasons.HarmonyPatches
 					m_incomingAmount[i] = s.ReadInt32();
 					m_outgoingAmount[i] = s.ReadInt32();
 				}
-				for (int j = num; j < 160; j++)
+				for (int j = num; j < max; j++)
 				{
 					m_incomingAmount[j] = 0;
 					m_outgoingAmount[j] = 0;
@@ -339,7 +350,7 @@ namespace MoreTransferReasons.HarmonyPatches
 						m_outgoingCount[num3] = uShort.Read();
 					}
 				}
-				for (int n = num; n < 160; n++)
+				for (int n = num; n < NewTransfersCount; n++)
 				{
 					for (int num4 = 0; num4 < 8; num4++)
 					{
@@ -619,6 +630,11 @@ namespace MoreTransferReasons.HarmonyPatches
             typeof(TransferManager).GetField("m_incomingAmount", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(instance, m_incomingAmount);
 			Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndDeserialize(s, "TransferManager");
 			return false;
+		}
+
+		public static int DeserialiseSize()
+		{
+			return s_loadingExpanded ? NewTransfersCount : OriginalTransfersCount;
 		}
 	}
 }
