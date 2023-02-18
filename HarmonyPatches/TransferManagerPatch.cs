@@ -8,8 +8,8 @@ namespace MoreTransferReasons.HarmonyPatches
     [HarmonyPatch(typeof(TransferManager))]
     public class TransferManagerPatch
     {
-		private delegate void UpdateDataDelegate(SimulationManager.UpdateMode mode);
-        private static UpdateDataDelegate BaseUpdateData = AccessTools.MethodDelegate<UpdateDataDelegate>(typeof(SimulationManagerBase<TransferManager, TransferProperties>).GetMethod("UpdateData", BindingFlags.Instance | BindingFlags.Public), null, true);
+		private delegate void UpdateDataDelegate(SimulationManagerBase<TransferManager, TransferProperties> instance, SimulationManager.UpdateMode mode);
+        private static UpdateDataDelegate BaseUpdateData = AccessTools.MethodDelegate<UpdateDataDelegate>(typeof(SimulationManagerBase<TransferManager, TransferProperties>).GetMethod("UpdateData", BindingFlags.Instance | BindingFlags.Public), null, false);
 
 		public static TransferOffer[] m_outgoingOffers;
 		public static TransferOffer[] m_incomingOffers;
@@ -17,7 +17,6 @@ namespace MoreTransferReasons.HarmonyPatches
 		public static ushort[] m_incomingCount;
 		public static int[] m_outgoingAmount;
 		public static int[] m_incomingAmount;
-
 
         [HarmonyPatch(typeof(TransferManager), "Awake")]
         [HarmonyPostfix]
@@ -43,12 +42,13 @@ namespace MoreTransferReasons.HarmonyPatches
         public static bool UpdateData(TransferManager __instance, SimulationManager.UpdateMode mode)
 		{
 			Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginLoading("TransferManager.UpdateData");
-			BaseUpdateData(mode);
+			BaseUpdateData(__instance, mode);
 			VehicleManager vehicleManager = Singleton<VehicleManager>.instance;
 			CitizenManager citizenManager = Singleton<CitizenManager>.instance;
 			BuildingManager buildingManager = Singleton<BuildingManager>.instance;
 
-			for (int i = 0; i < 160; i++)
+			int max = DataPatch.DeserialiseSize();
+			for (int i = 0; i < max; i++)
 			{
 				for (int j = 0; j < 8; j++)
 				{
@@ -295,3 +295,6 @@ namespace MoreTransferReasons.HarmonyPatches
         
     }
 }
+
+
+

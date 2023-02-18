@@ -3,7 +3,6 @@ using ColossalFramework.IO;
 using HarmonyLib;
 using System.Reflection;
 using static TransferManager;
-using MoreTransferReasons.Utils;
 
 namespace MoreTransferReasons.HarmonyPatches
 {
@@ -350,7 +349,7 @@ namespace MoreTransferReasons.HarmonyPatches
 						m_outgoingCount[num3] = uShort.Read();
 					}
 				}
-				for (int n = num; n < NewTransfersCount; n++)
+				for (int n = num; n < max; n++)
 				{
 					for (int num4 = 0; num4 < 8; num4++)
 					{
