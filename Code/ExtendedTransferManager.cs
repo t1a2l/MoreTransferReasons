@@ -1,4 +1,5 @@
 ﻿using ColossalFramework;
+using ColossalFramework.IO;
 using ColossalFramework.Math;
 using System;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace MoreTransferReasons.Code
 			public ushort Building;
 			public ushort Vehicle;
 			public ushort Citizen;
+			public InstanceID m_object;
 		}
 
 		public enum TransferReason
@@ -27,6 +29,343 @@ namespace MoreTransferReasons.Code
 			DrinkSupplies = 4, // 1024 - 1279
 			Bread = 5, // 1280 - 1535
 			None = 128
+		}
+
+		public class Data : IDataContainer
+		{
+			public void Serialize(DataSerializer s)
+			{
+				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginSerialize(s, "ExtendedTransferManager");
+				ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
+				int num = 6;
+				EncodedArray.Int integer = EncodedArray.Int.BeginWrite(s);
+				for (int j = 0; j < num; j++)
+				{
+					integer.Write(instance.OutgoingIndexes[j]);
+					integer.Write(instance.IncomingIndexes[j]);
+				}
+				integer.EndWrite();
+				EncodedArray.Bool @bool = EncodedArray.Bool.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						@bool.Write(instance.OutgoingOffers[offer_material + i].Active);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						@bool.Write(instance.IncomingOffers[offer_material2 + j].Active);
+					}
+				}
+				@bool.EndWrite();			
+				EncodedArray.Byte byte2 = EncodedArray.Byte.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						byte2.Write((byte)instance.OutgoingOffers[offer_material + i].Amount);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						byte2.Write((byte)instance.IncomingOffers[offer_material2 + j].Amount);
+					}
+				}
+				byte2.EndWrite();
+				EncodedArray.Byte byte3 = EncodedArray.Byte.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						byte3.Write((byte)instance.OutgoingOffers[offer_material + i].Position.x);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						byte3.Write((byte)instance.IncomingOffers[offer_material2 + j].Position.x);
+					}
+				}
+				byte3.EndWrite();
+				EncodedArray.Byte byte4 = EncodedArray.Byte.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						byte3.Write((byte)instance.OutgoingOffers[offer_material + i].Position.y);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						byte3.Write((byte)instance.IncomingOffers[offer_material2 + j].Position.y);
+					}
+				}
+				byte4.EndWrite();
+				EncodedArray.Byte byte5 = EncodedArray.Byte.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						byte3.Write((byte)instance.OutgoingOffers[offer_material + i].Position.z);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						byte3.Write((byte)instance.IncomingOffers[offer_material2 + j].Position.z);
+					}
+				}
+				byte5.EndWrite();
+				EncodedArray.Byte byte6 = EncodedArray.Byte.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						byte6.Write(instance.OutgoingOffers[offer_material + i].m_isLocalPark);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						byte6.Write(instance.IncomingOffers[offer_material2 + j].m_isLocalPark);
+					}
+				}
+				byte6.EndWrite();
+				EncodedArray.Byte byte7 = EncodedArray.Byte.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						byte7.Write((byte)instance.OutgoingOffers[offer_material + i].m_object.Type);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						byte7.Write((byte)instance.IncomingOffers[offer_material2 + j].m_object.Type);
+					}
+				}
+				byte7.EndWrite();
+				EncodedArray.UInt uInt = EncodedArray.UInt.BeginWrite(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						uInt.Write(instance.OutgoingOffers[offer_material + i].m_object.Index);
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						uInt.Write(instance.IncomingOffers[offer_material2 + j].m_object.Index);
+					}
+				}
+				uInt.EndWrite();
+				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndSerialize(s, "ExtendedTransferManager");
+			}
+
+			public void Deserialize(DataSerializer s)
+			{
+				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginDeserialize(s, "ExtendedTransferManager");
+				ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
+				int num = 6;
+				EncodedArray.Bool @bool = EncodedArray.Bool.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].Active = @bool.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].Active = @bool.Read();
+					}
+				}
+				@bool.EndRead();
+				EncodedArray.Byte byte2 = EncodedArray.Byte.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].Amount = byte2.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].Amount = byte2.Read();
+					}
+				}
+				byte2.EndRead();
+				EncodedArray.Byte byte3 = EncodedArray.Byte.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].Position.x = byte3.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].Position.x = byte3.Read();
+					}
+				}
+				byte3.EndRead();
+				EncodedArray.Byte byte4 = EncodedArray.Byte.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].Position.y = byte4.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].Position.y = byte4.Read();
+					}
+				}
+				byte4.EndRead();
+				EncodedArray.Byte byte5 = EncodedArray.Byte.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].Position.z = byte5.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].Position.z = byte5.Read();
+					}
+				}
+				byte5.EndRead();
+				EncodedArray.Byte byte6 = EncodedArray.Byte.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].m_isLocalPark = byte6.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].m_isLocalPark = byte6.Read();
+					}
+				}
+				byte6.EndRead();
+				EncodedArray.Byte byte7 = EncodedArray.Byte.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].m_object.Type = (InstanceType)byte7.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].m_object.Type = (InstanceType)byte7.Read();
+					}
+				}
+				byte7.EndRead();
+				EncodedArray.UInt uInt = EncodedArray.UInt.BeginRead(s);
+				for (int material = 0; material < num; material++)
+				{
+					int material_index = instance.OutgoingIndexes[material];
+					int offer_material = material;
+					offer_material *= 256;
+					for (int i = 0; i < material_index; i++)
+					{
+						instance.OutgoingOffers[offer_material + i].m_object.Index = uInt.Read();
+					}
+					int material_index2 = instance.IncomingIndexes[material];
+					int offer_material2 = material;
+					offer_material2 *= 256;
+					for (uint j = 0u; j < material_index2; j++)
+					{
+						instance.IncomingOffers[offer_material2 + j].m_object.Index = uInt.Read();
+					}
+				}
+				uInt.EndRead();
+				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndDeserialize(s, "TransferManager");
+			}
+
+			public void AfterDeserialize(DataSerializer s)
+			{
+				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginAfterDeserialize(s, "ExtendedTransferManager");
+				Singleton<LoadingManager>.instance.WaitUntilEssentialScenesLoaded();
+				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndAfterDeserialize(s, "ExtendedTransferManager");
+			}
 		}
 
 		int[] IncomingIndexes;
