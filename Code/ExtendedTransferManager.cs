@@ -452,12 +452,12 @@ namespace MoreTransferReasons.Code
 					while(outgoing_amount != 0)
 					{
 						int chosen_index = 0;
-						float min_distance = -1f;
+						double min_distance = Math.Sqrt(65000);
 						for(int i = 0; i < incoming_ocuppied_count; i++)
 						{
 							Offer incoming_offer = IncomingOffers[(int)material * 256 + i];
-							float distance = Vector3.SqrMagnitude(incoming_offer.Position - outgoing_position);
-							if(distance > min_distance)
+							double distance = Vector3.SqrMagnitude(incoming_offer.Position - outgoing_position);
+							if(distance < min_distance)
 							{
 								chosen_index = i;
 								min_distance = distance;
