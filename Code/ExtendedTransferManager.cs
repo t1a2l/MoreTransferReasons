@@ -22,12 +22,13 @@ namespace MoreTransferReasons.Code
 
 		public enum TransferReason
 		{
-			DeliveryLow = 0, // 0 - 255
-			DeliveryNormal = 1, // 256 - 511
-			DeliveryHigh = 2, // 512 - 767
+			MealsDeliveryLow = 0, // 0 - 255
+			MealsDeliveryMedium = 1, // 256 - 511
+			MealsDeliveryHigh = 2, // 512 - 767
 			FoodSupplies = 3, // 768 - 1023
 			DrinkSupplies = 4, // 1024 - 1279
 			Bread = 5, // 1280 - 1535
+			Meals = 6,
 			None = 128
 		}
 
@@ -392,9 +393,9 @@ namespace MoreTransferReasons.Code
 		{
 			return frameIndex switch
 			{
-				1 => TransferReason.DeliveryLow, 
-				3 => TransferReason.DeliveryNormal, 
-				5 => TransferReason.DeliveryHigh, 
+				1 => TransferReason.MealsDeliveryLow, 
+				3 => TransferReason.MealsDeliveryMedium, 
+				5 => TransferReason.MealsDeliveryHigh, 
 				7 => TransferReason.FoodSupplies, 
 				9 => TransferReason.DrinkSupplies, 
 				_ => TransferReason.None, 
@@ -421,6 +422,42 @@ namespace MoreTransferReasons.Code
 				int FreeIndex = (int)material * 256 + index;
 				IncomingOffers[FreeIndex] = offer;
 			}
+		}
+
+		public void RemoveOutgoingOffer(TransferReason material, Offer offer)
+		{
+			int index = OutgoingIndexes[(int)material];
+			for (int num3 = index - 1; num3 >= 0; num3--)
+			{
+				int materail_index = (int)material * 256 + index;
+				if (OutgoingOffers[materail_index].m_object == offer.m_object && OutgoingOffers[materail_index].m_isLocalPark == offer.m_isLocalPark)
+				{
+					OutgoingOffers[(int)material].Amount -= OutgoingOffers[materail_index].Amount;
+					int num5 = (int)material * 256 + --index;
+					ref Offer reference = ref OutgoingOffers[materail_index];
+					reference = OutgoingOffers[num5];
+				}
+			}
+			OutgoingIndexes[(int)material] = (ushort)index;
+			
+		}
+
+		public void RemoveIncomingOffer(TransferReason material, Offer offer)
+		{
+			int index = IncomingIndexes[(int)material];
+			for (int num3 = index - 1; num3 >= 0; num3--)
+			{
+				int materail_index = (int)material * 256 + index;
+				if (IncomingOffers[materail_index].m_object == offer.m_object && IncomingOffers[materail_index].m_isLocalPark == offer.m_isLocalPark)
+				{
+					IncomingOffers[(int)material].Amount -= IncomingOffers[materail_index].Amount;
+					int num5 = (int)material * 256 + --index;
+					ref Offer reference = ref IncomingOffers[materail_index];
+					reference = IncomingOffers[num5];
+				}
+			}
+			IncomingIndexes[(int)material] = (ushort)index;
+			
 		}
 
 		protected override void SimulationStepImpl(int subStep)
@@ -620,7 +657,6 @@ namespace MoreTransferReasons.Code
 
 		private void StartDistrictTransfer(TransferReason material, Offer offerOut, Offer offerIn)
 		{
-			Array16<Building> buildings = Singleton<BuildingManager>.instance.m_buildings;
 			ushort building = offerOut.Building;
 			ushort building2 = offerIn.Building;
 			GetMaterialAmount(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building], material, out var amount, out var _);
