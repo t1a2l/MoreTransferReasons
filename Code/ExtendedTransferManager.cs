@@ -657,8 +657,11 @@ namespace MoreTransferReasons.Code
 
 		private void StartDistrictTransfer(TransferReason material, Offer offerOut, Offer offerIn)
 		{
+			Array16<Building> buildings = Singleton<BuildingManager>.instance.m_buildings;
 			ushort building = offerOut.Building;
 			ushort building2 = offerIn.Building;
+			BuildingInfo info = buildings.m_buffer[(int)building].Info;
+			BuildingInfo info2 = buildings.m_buffer[(int)building2].Info;
 			GetMaterialAmount(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building], material, out var amount, out var _);
 			GetMaterialAmount(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building2], material, out var amount2, out var max2);
 			int num = Math.Min(amount, max2 - amount2);
@@ -666,65 +669,23 @@ namespace MoreTransferReasons.Code
 			{
 				amount = -num;
 				amount2 = num;
-				ModifyMaterialBuffer(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building], material, ref amount);
-				ModifyMaterialBuffer(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building2], material, ref amount2);
+				var method = info.m_buildingAI.GetType().GetMethod("ModifyExtendedMaterialBuffer");
+				if(method != null)
+				{
+					method.Invoke(null, new object[] {building, Singleton<BuildingManager>.instance.m_buildings.m_buffer[building], material, amount});
+				}
+				var method2 = info2.m_buildingAI.GetType().GetMethod("ModifyExtendedMaterialBuffer");
+				if(method2 != null)
+				{
+					method.Invoke(null, new object[] {building2, Singleton<BuildingManager>.instance.m_buildings.m_buffer[building2], material, amount2});
+				}
 			}
 		}
 
 		public void GetMaterialAmount(ushort buildingID, ref Building data, TransferReason material, out int amount, out int max)
 		{
-			int width = data.Width;
-			int length = data.Length;
-			int num = 4000;
-			amount = data.m_customBuffer1;
-			int num2;
-			if (data.Info.m_buildingAI.GetType().Name.Equals("RestaurantAI"))
-			{
-				num2 = CalculateVisitplaceCount(new Randomizer(buildingID), width, length);
-				max = Mathf.Max(num2 * 500, num * 4);
-			}
-			else
-			{
-				num2 = CalculateProductionCapacity(new Randomizer(buildingID), width, length);
-				int consumptionDivider = 1;
-				max = Mathf.Max(num2 * 500 / consumptionDivider, num * 4);
-			}
-		}
-
-		public void ModifyMaterialBuffer(ushort buildingID, ref Building data, TransferReason material, ref int amountDelta)
-		{
-			int width = data.Width;
-			int length = data.Length;
-			int num = 4000;
-			if (data.Info.m_buildingAI.GetType().Name.Equals("RestaurantAI"))
-			{
-				int num2 = CalculateVisitplaceCount(new Randomizer(buildingID), width, length);
-				int num3 = Mathf.Max(num2 * 500, num * 4);
-				int customBuffer2 = data.m_customBuffer1;
-				amountDelta = Mathf.Clamp(amountDelta, 0, num3 - customBuffer2);
-				data.m_customBuffer1 = (ushort)(customBuffer2 + amountDelta);
-			}
-			else
-			{
-				int num2 = CalculateProductionCapacity(new Randomizer(buildingID), width, length);
-				int consumptionDivider = 1;
-				int num3 = Mathf.Max(num2 * 500 / consumptionDivider, num * 4);
-				int customBuffer = data.m_customBuffer1;
-				amountDelta = Mathf.Clamp(amountDelta, 0, num3 - customBuffer);
-				data.m_customBuffer1 = (ushort)(customBuffer + amountDelta);
-			}
-		}
-
-		public int CalculateVisitplaceCount(Randomizer r, int width, int length)
-		{
-			int num = Mathf.Max(200, width * length * 250 + r.Int32(100u)) / 100;
-			return num;
-		}
-
-		public int CalculateProductionCapacity(Randomizer r, int width, int length)
-		{
-			int num = Mathf.Max(100, width * length * 160 + r.Int32(100u)) / 100;
-			return num;
+			amount = 0;
+			max = 0;
 		}
 
 	}
