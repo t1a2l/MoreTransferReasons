@@ -1,13 +1,13 @@
 ﻿using ColossalFramework;
 using ColossalFramework.IO;
-using ColossalFramework.Math;
 using System;
 using UnityEngine;
 
-namespace MoreTransferReasons.Code
+namespace MoreTransferReasons
 {
 	public class ExtendedTransferManager : SimulationManagerBase<TransferManager, TransferProperties>, ISimulationManager
 	{
+
 		public struct Offer
 		{
 			public byte m_isLocalPark;
@@ -16,7 +16,7 @@ namespace MoreTransferReasons.Code
 			public bool Active;
 			public ushort Building;
 			public ushort Vehicle;
-			public ushort Citizen;
+			public uint Citizen;
 			public InstanceID m_object;
 		}
 
@@ -619,39 +619,112 @@ namespace MoreTransferReasons.Code
 			{
 				Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
 				ushort vehicle = offerIn.Vehicle;
-				CustomStartTransfer.VehicleAIStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], offerOut);
 				offerOut.Amount = delta;
+				VehicleInfo info = vehicles.m_buffer[(int)vehicle].Info;
+				if (info.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
+				{
+					extendedVehicleAI.StartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offerOut);
+				}
+				else
+				{
+					 throw new Exception("ExtendedVehicleAI Interface not found");
+				}
 			}
 			else if (active2 && offerOut.Vehicle != 0)
 			{
 				Array16<Vehicle> vehicles2 = Singleton<VehicleManager>.instance.m_vehicles;
 				ushort vehicle2 = offerOut.Vehicle;
-				CustomStartTransfer.VehicleAIStartTransfer(vehicle2, ref vehicles2.m_buffer[vehicle2], offerIn);
 				offerIn.Amount = delta;
+				VehicleInfo info2 = vehicles2.m_buffer[(int)vehicle2].Info;
+				if (info2.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
+				{
+					extendedVehicleAI.StartTransfer(vehicle2, ref vehicles2.m_buffer[(int)vehicle2], material, offerOut);
+				}
+				else
+				{
+					 throw new Exception("ExtendedVehicleAI Interface not found");
+				}
+				
+			}
+			else if (active && offerIn.Citizen != 0U)
+			{
+				Array32<Citizen> citizens = Singleton<CitizenManager>.instance.m_citizens;
+				uint citizen = offerIn.Citizen;
+				offerOut.Amount = delta;
+				CitizenInfo citizenInfo = citizens.m_buffer[(int)((UIntPtr)citizen)].GetCitizenInfo(citizen);
+				if (citizenInfo != null)
+				{
+					if (citizenInfo.m_citizenAI is IExtendedCitizenAI extendedCitizenAI) 
+					{
+						extendedCitizenAI.StartTransfer(citizen, ref citizens.m_buffer[(int)((UIntPtr)citizen)], material, offerOut);
+					}
+					else
+					{
+						 throw new Exception("ExtendedCitizenAI Interface not found");
+					}
+				}
+			}
+			else if (active2 && offerOut.Citizen != 0U)
+			{
+				Array32<Citizen> citizens2 = Singleton<CitizenManager>.instance.m_citizens;
+				uint citizen2 = offerOut.Citizen;
+				offerIn.Amount = delta;
+				CitizenInfo citizenInfo2 = citizens2.m_buffer[(int)((UIntPtr)citizen2)].GetCitizenInfo(citizen2);
+				if (citizenInfo2 != null)
+				{
+					if (citizenInfo2.m_citizenAI is IExtendedCitizenAI extendedCitizenAI) 
+					{
+						extendedCitizenAI.StartTransfer(citizen2, ref citizens2.m_buffer[(int)((UIntPtr)citizen2)], material, offerIn);
+					}	
+					else
+					{
+						 throw new Exception("ExtendedCitizenAI Interface not found");
+					}
+				}
 			}
 			else if (active2 && offerOut.Building != 0)
 			{
 				Array16<Building> buildings = Singleton<BuildingManager>.instance.m_buildings;
+				offerIn.Amount = delta;
 				if (offerOut.m_isLocalPark != 0 && offerOut.m_isLocalPark == offerIn.m_isLocalPark)
 				{
-					StartDistrictTransfer(material, offerOut, offerIn);
-					return;
+					this.StartDistrictTransfer(material, offerOut, offerIn);
 				}
-				ushort building = offerOut.Building;
-				CustomStartTransfer.BuildingAIStartTransfer(building, ref buildings.m_buffer[building], material, offerIn);
-				offerIn.Amount = delta;
+				else
+				{
+					ushort building = offerOut.Building;
+					BuildingInfo info3 = buildings.m_buffer[(int)building].Info;
+					if (info3.m_buildingAI is IExtendedBuildingAI extendedBuildingAI) 
+					{
+						extendedBuildingAI.StartTransfer(building, ref buildings.m_buffer[(int)building], material, offerIn);
+					}	
+					else
+					{
+						 throw new Exception("ExtendedBuildingAI Interface not found");
+					}
+				}
 			}
 			else if (active && offerIn.Building != 0)
 			{
+				Array16<Building> buildings2 = Singleton<BuildingManager>.instance.m_buildings;
+				offerOut.Amount = delta;
 				if (offerIn.m_isLocalPark != 0 && offerIn.m_isLocalPark == offerOut.m_isLocalPark)
 				{
-					StartDistrictTransfer(material, offerOut, offerIn);
-					return;
+					this.StartDistrictTransfer(material, offerOut, offerIn);
 				}
-				Array16<Building> buildings2 = Singleton<BuildingManager>.instance.m_buildings;
-				ushort building2 = offerIn.Building;
-				CustomStartTransfer.BuildingAIStartTransfer(building2, ref buildings2.m_buffer[building2], material, offerOut);
-				offerOut.Amount = delta;
+				else
+				{
+					ushort building2 = offerIn.Building;
+					BuildingInfo info4 = buildings2.m_buffer[(int)building2].Info;
+					if (info4.m_buildingAI is IExtendedBuildingAI extendedBuildingAI) 
+					{
+						extendedBuildingAI.StartTransfer(building2, ref buildings2.m_buffer[(int)building2], material, offerOut);
+					}
+					else
+					{
+						 throw new Exception("ExtendedBuildingAI Interface not found");
+					}
+				}
 			}
 		}
 
@@ -662,30 +735,23 @@ namespace MoreTransferReasons.Code
 			ushort building2 = offerIn.Building;
 			BuildingInfo info = buildings.m_buffer[(int)building].Info;
 			BuildingInfo info2 = buildings.m_buffer[(int)building2].Info;
-			GetMaterialAmount(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building], material, out var amount, out var _);
-			GetMaterialAmount(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building2], material, out var amount2, out var max2);
-			int num = Math.Min(amount, max2 - amount2);
-			if (num > 0)
+			if (info.m_buildingAI is IExtendedBuildingAI extendedBuildingAI && info2.m_buildingAI is IExtendedBuildingAI extendedBuildingAI2) 
 			{
-				amount = -num;
-				amount2 = num;
-				var method = info.m_buildingAI.GetType().GetMethod("ModifyExtendedMaterialBuffer");
-				if(method != null)
+				extendedBuildingAI.GetMaterialAmount(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building], material, out int num, out int num2);
+				extendedBuildingAI2.GetMaterialAmount(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building2], material, out int num3, out int num4);
+				int num5 = Math.Min(num, num4 - num3);
+				if (num5 > 0)
 				{
-					method.Invoke(null, new object[] {building, Singleton<BuildingManager>.instance.m_buildings.m_buffer[building], material, amount});
-				}
-				var method2 = info2.m_buildingAI.GetType().GetMethod("ModifyExtendedMaterialBuffer");
-				if(method2 != null)
-				{
-					method.Invoke(null, new object[] {building2, Singleton<BuildingManager>.instance.m_buildings.m_buffer[building2], material, amount2});
+					num = -num5;
+					num3 = num5;
+					extendedBuildingAI.ModifyMaterialBuffer(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building], material, ref num);
+					extendedBuildingAI2.ModifyMaterialBuffer(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building2], material, ref num3);
 				}
 			}
-		}
-
-		public void GetMaterialAmount(ushort buildingID, ref Building data, TransferReason material, out int amount, out int max)
-		{
-			amount = 0;
-			max = 0;
+			else
+			{
+					throw new Exception("ExtendedBuildingAI Interface not found");
+			}
 		}
 
 	}
