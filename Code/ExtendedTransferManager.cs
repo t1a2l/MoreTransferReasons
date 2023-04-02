@@ -623,7 +623,7 @@ namespace MoreTransferReasons
 				VehicleInfo info = vehicles.m_buffer[(int)vehicle].Info;
 				if (info.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
 				{
-					extendedVehicleAI.StartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offerOut);
+					extendedVehicleAI.ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offerOut);
 				}
 				else
 				{
@@ -638,7 +638,7 @@ namespace MoreTransferReasons
 				VehicleInfo info2 = vehicles2.m_buffer[(int)vehicle2].Info;
 				if (info2.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
 				{
-					extendedVehicleAI.StartTransfer(vehicle2, ref vehicles2.m_buffer[(int)vehicle2], material, offerOut);
+					extendedVehicleAI.ExtendedStartTransfer(vehicle2, ref vehicles2.m_buffer[(int)vehicle2], material, offerOut);
 				}
 				else
 				{
@@ -656,7 +656,7 @@ namespace MoreTransferReasons
 				{
 					if (citizenInfo.m_citizenAI is IExtendedCitizenAI extendedCitizenAI) 
 					{
-						extendedCitizenAI.StartTransfer(citizen, ref citizens.m_buffer[(int)((UIntPtr)citizen)], material, offerOut);
+						extendedCitizenAI.ExtendedStartTransfer(citizen, ref citizens.m_buffer[(int)((UIntPtr)citizen)], material, offerOut);
 					}
 					else
 					{
@@ -674,7 +674,7 @@ namespace MoreTransferReasons
 				{
 					if (citizenInfo2.m_citizenAI is IExtendedCitizenAI extendedCitizenAI) 
 					{
-						extendedCitizenAI.StartTransfer(citizen2, ref citizens2.m_buffer[(int)((UIntPtr)citizen2)], material, offerIn);
+						extendedCitizenAI.ExtendedStartTransfer(citizen2, ref citizens2.m_buffer[(int)((UIntPtr)citizen2)], material, offerIn);
 					}	
 					else
 					{
@@ -696,7 +696,7 @@ namespace MoreTransferReasons
 					BuildingInfo info3 = buildings.m_buffer[(int)building].Info;
 					if (info3.m_buildingAI is IExtendedBuildingAI extendedBuildingAI) 
 					{
-						extendedBuildingAI.StartTransfer(building, ref buildings.m_buffer[(int)building], material, offerIn);
+						extendedBuildingAI.ExtendedStartTransfer(building, ref buildings.m_buffer[(int)building], material, offerIn);
 					}	
 					else
 					{
@@ -718,7 +718,7 @@ namespace MoreTransferReasons
 					BuildingInfo info4 = buildings2.m_buffer[(int)building2].Info;
 					if (info4.m_buildingAI is IExtendedBuildingAI extendedBuildingAI) 
 					{
-						extendedBuildingAI.StartTransfer(building2, ref buildings2.m_buffer[(int)building2], material, offerOut);
+						extendedBuildingAI.ExtendedStartTransfer(building2, ref buildings2.m_buffer[(int)building2], material, offerOut);
 					}
 					else
 					{
@@ -737,15 +737,15 @@ namespace MoreTransferReasons
 			BuildingInfo info2 = buildings.m_buffer[(int)building2].Info;
 			if (info.m_buildingAI is IExtendedBuildingAI extendedBuildingAI && info2.m_buildingAI is IExtendedBuildingAI extendedBuildingAI2) 
 			{
-				extendedBuildingAI.GetMaterialAmount(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building], material, out int num, out int num2);
-				extendedBuildingAI2.GetMaterialAmount(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building2], material, out int num3, out int num4);
+				extendedBuildingAI.ExtendedGetMaterialAmount(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building], material, out int num, out int num2);
+				extendedBuildingAI2.ExtendedGetMaterialAmount(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building2], material, out int num3, out int num4);
 				int num5 = Math.Min(num, num4 - num3);
 				if (num5 > 0)
 				{
 					num = -num5;
 					num3 = num5;
-					extendedBuildingAI.ModifyMaterialBuffer(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building], material, ref num);
-					extendedBuildingAI2.ModifyMaterialBuffer(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building2], material, ref num3);
+					extendedBuildingAI.ExtendedModifyMaterialBuffer(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building], material, ref num);
+					extendedBuildingAI2.ExtendedModifyMaterialBuffer(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)building2], material, ref num3);
 				}
 			}
 			else
