@@ -1,6 +1,7 @@
 ﻿using ICities;
 using CitiesHarmony.API;
 using MoreTransferReasons.Utils;
+using UnityEngine;
 
 namespace MoreTransferReasons
 {
@@ -19,6 +20,29 @@ namespace MoreTransferReasons
         {
             if (HarmonyHelper.IsHarmonyInstalled) Patcher.UnpatchAll();
         }
+
+        public class CustomLoader : LoadingExtensionBase
+        {
+            /// <summary>
+            /// This event is triggerred when a level is loaded
+            /// </summary>
+            public override void OnLevelLoaded(LoadMode mode)
+            {
+                // Instantiate a custom object
+                GameObject go = new GameObject("ExtendedTransferManagerMod");
+                go.AddComponent<ExtendedTransferManagerComponent>();
+
+                base.OnLevelLoaded(mode);
+            }
+        }
+
+        public class ExtendedTransferManagerComponent : MonoBehaviour
+		{
+            void Start()
+            {
+                SimulationManager.RegisterManager(ColossalFramework.Singleton<ExtendedTransferManager>.instance);
+            }
+		}
 
 
     }
