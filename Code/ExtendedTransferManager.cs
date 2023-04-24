@@ -1,11 +1,12 @@
 ﻿using ColossalFramework;
 using ColossalFramework.IO;
+using MoreTransferReasons.Utils;
 using System;
 using UnityEngine;
 
 namespace MoreTransferReasons
 {
-	public class ExtendedTransferManager : SimulationManagerBase<TransferManager, TransferProperties>, ISimulationManager
+	public class ExtendedTransferManager : SimulationManagerBase<ExtendedTransferManager, TransferProperties>, ISimulationManager
 	{
 
 		public struct Offer
@@ -36,6 +37,7 @@ namespace MoreTransferReasons
 		{
 			public void Serialize(DataSerializer s)
 			{
+				LogHelper.Information("Begin Serializing ExtendedTransferManager");
 				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginSerialize(s, "ExtendedTransferManager");
 				ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
 				int num = 6;
@@ -199,10 +201,12 @@ namespace MoreTransferReasons
 				}
 				uInt.EndWrite();
 				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndSerialize(s, "ExtendedTransferManager");
+				LogHelper.Information("Finish Serializing ExtendedTransferManager");
 			}
 
 			public void Deserialize(DataSerializer s)
 			{
+				LogHelper.Information("Begin Deserializing ExtendedTransferManager");
 				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginDeserialize(s, "ExtendedTransferManager");
 				ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
 				int num = 6;
@@ -358,14 +362,17 @@ namespace MoreTransferReasons
 					}
 				}
 				uInt.EndRead();
-				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndDeserialize(s, "TransferManager");
+				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndDeserialize(s, "ExtendedTransferManager");
+				LogHelper.Information("Finish Deserializing ExtendedTransferManager");
 			}
 
 			public void AfterDeserialize(DataSerializer s)
 			{
+				LogHelper.Information("Begin AfterDeserialize ExtendedTransferManager");
 				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginAfterDeserialize(s, "ExtendedTransferManager");
 				Singleton<LoadingManager>.instance.WaitUntilEssentialScenesLoaded();
 				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndAfterDeserialize(s, "ExtendedTransferManager");
+				LogHelper.Information("Finish AfterDeserialize ExtendedTransferManager");
 			}
 		}
 
@@ -488,7 +495,7 @@ namespace MoreTransferReasons
 					int outgoing_amount = outgoing_offer.Amount;
 					while(outgoing_amount != 0)
 					{
-						int chosen_index = 0;
+						int chosen_index = -1;
 						double min_distance = Math.Sqrt(65000);
 						for(int i = 0; i < incoming_ocuppied_count; i++)
 						{
@@ -503,6 +510,10 @@ namespace MoreTransferReasons
 									break;
 								}
 							}
+						}
+						if (chosen_index == -1)
+						{
+							break;
 						}
 						Offer chosen_incoming_offer = IncomingOffers[(int)material * 256 + chosen_index];
 						int incoming_amount = chosen_incoming_offer.Amount;
@@ -549,7 +560,7 @@ namespace MoreTransferReasons
 					int incoming_amount = incoming_offer.Amount;
 					while(incoming_amount != 0)
 					{
-						int chosen_index = 0;
+						int chosen_index = -1;
 						float min_distance = -1f;
 						for(int i = 0; i < outgoing_ocuppied_count; i++)
 						{
@@ -564,6 +575,10 @@ namespace MoreTransferReasons
 									break;
 								}
 							}
+						}
+						if (chosen_index == -1)
+						{
+							break;
 						}
 						Offer chosen_outgoing_offer = OutgoingOffers[(int)material * 256 + chosen_index];
 						int outgoing_amount = chosen_outgoing_offer.Amount;
@@ -604,11 +619,8 @@ namespace MoreTransferReasons
 					}
 				}
 			}
-			for(int k = 0; k < Transfers_Length; k++)
-			{
-				OutgoingIndexes[k] = 0;
-				IncomingIndexes[k] = 0;
-			}
+			OutgoingIndexes[(int)material] = 0;
+			IncomingIndexes[(int)material] = 0;
 		}
 
 		private void StartTransfer(TransferReason material, Offer offerOut, Offer offerIn, int delta)
