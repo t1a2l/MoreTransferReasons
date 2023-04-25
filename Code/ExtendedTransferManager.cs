@@ -496,7 +496,7 @@ namespace MoreTransferReasons
 					while(outgoing_amount != 0)
 					{
 						int chosen_index = -1;
-						double min_distance = Math.Sqrt(65000);
+						double min_distance = Math.Pow(65000, 2);
 						for(int i = 0; i < incoming_ocuppied_count; i++)
 						{
 							Offer incoming_offer = IncomingOffers[(int)material * 256 + i];
