@@ -8,7 +8,6 @@ namespace MoreTransferReasons
 {
 	public class ExtendedTransferManager : SimulationManagerBase<ExtendedTransferManager, TransferProperties>, ISimulationManager
 	{
-
 		public struct Offer
 		{
 			public byte m_isLocalPark;
@@ -405,6 +404,8 @@ namespace MoreTransferReasons
 				5 => TransferReason.MealsDeliveryHigh, 
 				7 => TransferReason.FoodSupplies, 
 				9 => TransferReason.DrinkSupplies, 
+				11 => TransferReason.Bread, 
+				13 => TransferReason.Meals, 
 				_ => TransferReason.None, 
 			};
 		}
