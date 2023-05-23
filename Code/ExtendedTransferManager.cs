@@ -29,7 +29,10 @@ namespace MoreTransferReasons
 			DrinkSupplies = 4, // 1024 - 1279
 			Bread = 5, // 1280 - 1535
 			Meals = 6,
-			None = 128
+			PoliceVanCriminalMove = 7, // carry prisoners from small police stations to big ones
+			PrisonHelicopterCriminalPickup = 8, // pick up from big police stations
+			PrisonHelicopterCriminalMove = 9, // transfer to prison
+			None = 255
 		}
 
 		public class Data : IDataContainer
@@ -39,7 +42,7 @@ namespace MoreTransferReasons
 				LogHelper.Information("Begin Serializing ExtendedTransferManager");
 				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginSerialize(s, "ExtendedTransferManager");
 				ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
-				int num = 6;
+				int num = 128;
 				EncodedArray.Int integer = EncodedArray.Int.BeginWrite(s);
 				for (int j = 0; j < num; j++)
 				{
@@ -208,7 +211,7 @@ namespace MoreTransferReasons
 				LogHelper.Information("Begin Deserializing ExtendedTransferManager");
 				Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginDeserialize(s, "ExtendedTransferManager");
 				ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
-				int num = 6;
+				int num = 128;
 				EncodedArray.Bool @bool = EncodedArray.Bool.BeginRead(s);
 				for (int material = 0; material < num; material++)
 				{
@@ -406,6 +409,9 @@ namespace MoreTransferReasons
 				9 => TransferReason.DrinkSupplies, 
 				11 => TransferReason.Bread, 
 				13 => TransferReason.Meals, 
+				15 => TransferReason.PoliceVanCriminalMove, 
+				17 => TransferReason.PrisonHelicopterCriminalPickup, 
+				19 => TransferReason.PrisonHelicopterCriminalMove,
 				_ => TransferReason.None, 
 			};
 		}
