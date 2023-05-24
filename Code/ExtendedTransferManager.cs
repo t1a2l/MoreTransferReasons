@@ -642,7 +642,7 @@ namespace MoreTransferReasons
 				VehicleInfo info = vehicles.m_buffer[vehicle].Info;
 				if (info.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
 				{
-					extendedVehicleAI.ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offerIn);
+					extendedVehicleAI.ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offerOut);
 				}
 				else
 				{
@@ -657,7 +657,7 @@ namespace MoreTransferReasons
 				VehicleInfo info2 = vehicles2.m_buffer[vehicle2].Info;
 				if (info2.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
 				{
-					extendedVehicleAI.ExtendedStartTransfer(vehicle2, ref vehicles2.m_buffer[vehicle2], material, offerOut);
+					extendedVehicleAI.ExtendedStartTransfer(vehicle2, ref vehicles2.m_buffer[vehicle2], material, offerIn);
 				}
 				else
 				{
