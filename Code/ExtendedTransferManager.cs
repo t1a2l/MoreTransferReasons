@@ -562,7 +562,7 @@ namespace MoreTransferReasons
 				}
 				if(incoming_matched_count < incoming_ocuppied_count)
 				{
-					Offer incoming_offer = IncomingOffers[(int)material * 256 + outgoing_matched_count];
+					Offer incoming_offer = IncomingOffers[(int)material * 256 + incoming_matched_count];
 					Vector3 incoming_position = incoming_offer.Position;
 					int incoming_amount = incoming_offer.Amount;
 					while(incoming_amount != 0)
