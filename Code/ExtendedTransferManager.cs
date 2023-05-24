@@ -639,10 +639,10 @@ namespace MoreTransferReasons
 				Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
 				ushort vehicle = offerIn.Vehicle;
 				offerOut.Amount = delta;
-				VehicleInfo info = vehicles.m_buffer[(int)vehicle].Info;
+				VehicleInfo info = vehicles.m_buffer[vehicle].Info;
 				if (info.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
 				{
-					extendedVehicleAI.ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offerOut);
+					extendedVehicleAI.ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offerIn);
 				}
 				else
 				{
@@ -654,10 +654,10 @@ namespace MoreTransferReasons
 				Array16<Vehicle> vehicles2 = Singleton<VehicleManager>.instance.m_vehicles;
 				ushort vehicle2 = offerOut.Vehicle;
 				offerIn.Amount = delta;
-				VehicleInfo info2 = vehicles2.m_buffer[(int)vehicle2].Info;
+				VehicleInfo info2 = vehicles2.m_buffer[vehicle2].Info;
 				if (info2.m_vehicleAI is IExtendedVehicleAI extendedVehicleAI) 
 				{
-					extendedVehicleAI.ExtendedStartTransfer(vehicle2, ref vehicles2.m_buffer[(int)vehicle2], material, offerOut);
+					extendedVehicleAI.ExtendedStartTransfer(vehicle2, ref vehicles2.m_buffer[vehicle2], material, offerOut);
 				}
 				else
 				{
