@@ -507,6 +507,10 @@ namespace MoreTransferReasons
 						for(int i = 0; i < incoming_ocuppied_count; i++)
 						{
 							Offer incoming_offer = IncomingOffers[(int)material * 256 + i];
+							if(outgoing_offer.Building == incoming_offer.Building)
+							{
+								continue;
+							}
 							double distance = Vector3.SqrMagnitude(incoming_offer.Position - outgoing_position);
 							if(distance < min_distance)
 							{
@@ -572,6 +576,10 @@ namespace MoreTransferReasons
 						for(int i = 0; i < outgoing_ocuppied_count; i++)
 						{
 							Offer outgoing_offer = OutgoingOffers[(int)material * 256 + i];
+							if(incoming_offer.Building == outgoing_offer.Building)
+							{
+								continue;
+							}
 							float distance = Vector3.SqrMagnitude(outgoing_offer.Position - incoming_position);
 							if(distance > min_distance)
 							{
