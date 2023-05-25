@@ -9,7 +9,7 @@ namespace MoreTransferReasons
     {
         string IUserMod.Name => "More Transfer Reasons Mod";
 
-        string IUserMod.Description => "Add more transfer reasons to the game for mod usage";
+        string IUserMod.Description => "Add more transfer reasons to the game for all kinds of mods";
 
         public void OnEnabled()
         {
