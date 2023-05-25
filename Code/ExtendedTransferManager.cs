@@ -18,6 +18,7 @@ namespace MoreTransferReasons
 			public ushort Vehicle;
 			public uint Citizen;
 			public InstanceID m_object;
+			public bool IsWarehouse;
 		}
 
 		public enum TransferReason
@@ -511,6 +512,10 @@ namespace MoreTransferReasons
 							{
 								continue;
 							}
+							if(outgoing_offer.IsWarehouse && incoming_offer.IsWarehouse)
+							{
+								continue;
+							}
 							double distance = Vector3.SqrMagnitude(incoming_offer.Position - outgoing_position);
 							if(distance < min_distance)
 							{
@@ -577,6 +582,10 @@ namespace MoreTransferReasons
 						{
 							Offer outgoing_offer = OutgoingOffers[(int)material * 256 + i];
 							if(incoming_offer.Building == outgoing_offer.Building)
+							{
+								continue;
+							}
+							if(incoming_offer.IsWarehouse && outgoing_offer.IsWarehouse)
 							{
 								continue;
 							}
