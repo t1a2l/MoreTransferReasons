@@ -29,10 +29,13 @@ namespace MoreTransferReasons
 			FoodSupplies = 3, // 768 - 1023
 			DrinkSupplies = 4, // 1024 - 1279
 			Bread = 5, // 1280 - 1535
-			Meals = 6,
+			Empty = 6,
 			PoliceVanCriminalMove = 7, // carry prisoners from small police stations to big ones
 			PrisonHelicopterCriminalPickup = 8, // pick up from big police stations
 			PrisonHelicopterCriminalMove = 9, // transfer to prison
+			MealsLow = 10, 
+			MealsMedium = 11, 
+			MealsHigh = 12, 
 			None = 255
 		}
 
@@ -409,10 +412,13 @@ namespace MoreTransferReasons
 				7 => TransferReason.FoodSupplies, 
 				9 => TransferReason.DrinkSupplies, 
 				11 => TransferReason.Bread, 
-				13 => TransferReason.Meals, 
+				13 => TransferReason.Empty, 
 				15 => TransferReason.PoliceVanCriminalMove, 
 				17 => TransferReason.PrisonHelicopterCriminalPickup, 
 				19 => TransferReason.PrisonHelicopterCriminalMove,
+				21 => TransferReason.MealsLow, 
+				23 => TransferReason.MealsMedium, 
+				25 => TransferReason.MealsHigh, 
 				_ => TransferReason.None, 
 			};
 		}
