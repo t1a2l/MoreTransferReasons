@@ -23,19 +23,19 @@ namespace MoreTransferReasons
 
 		public enum TransferReason
 		{
-			MealsDeliveryLow = 0, // 0 - 255
-			MealsDeliveryMedium = 1, // 256 - 511
-			MealsDeliveryHigh = 2, // 512 - 767
-			FoodSupplies = 3, // 768 - 1023
-			DrinkSupplies = 4, // 1024 - 1279
-			Bread = 5, // 1280 - 1535
-			Empty = 6,
+			MealsDeliveryLow = 0, // deliver low end food
+			MealsDeliveryMedium = 1, // deliver regular food
+			MealsDeliveryHigh = 2, // deliver high end food
+			FoodSupplies = 3, // food materials for restaurants
+			DrinkSupplies = 4, // drink materials for restaurants
+			Bread = 5, // bread
+			CannedFish = 6, // canned fish
 			PoliceVanCriminalMove = 7, // carry prisoners from small police stations to big ones
 			PrisonHelicopterCriminalPickup = 8, // pick up from big police stations
 			PrisonHelicopterCriminalMove = 9, // transfer to prison
-			MealsLow = 10, 
-			MealsMedium = 11, 
-			MealsHigh = 12, 
+			MealsLow = 10, // serve low end food
+			MealsMedium = 11, // serve normal food
+			MealsHigh = 12,  // serve high end food
 			None = 255
 		}
 
@@ -412,7 +412,7 @@ namespace MoreTransferReasons
 				7 => TransferReason.FoodSupplies, 
 				9 => TransferReason.DrinkSupplies, 
 				11 => TransferReason.Bread, 
-				13 => TransferReason.Empty, 
+				13 => TransferReason.CannedFish, 
 				15 => TransferReason.PoliceVanCriminalMove, 
 				17 => TransferReason.PrisonHelicopterCriminalPickup, 
 				19 => TransferReason.PrisonHelicopterCriminalMove,
@@ -460,7 +460,6 @@ namespace MoreTransferReasons
 				}
 			}
 			OutgoingIndexes[(int)material] = (ushort)index;
-			
 		}
 
 		public void RemoveIncomingOffer(TransferReason material, Offer offer)
@@ -478,7 +477,6 @@ namespace MoreTransferReasons
 				}
 			}
 			IncomingIndexes[(int)material] = (ushort)index;
-			
 		}
 
 		protected override void SimulationStepImpl(int subStep)
