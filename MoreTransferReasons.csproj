@@ -44,4 +44,9 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <None Update="PreviewImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
