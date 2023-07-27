@@ -28,14 +28,34 @@ namespace MoreTransferReasons
 			MealsDeliveryHigh = 2, // deliver high end food
 			FoodSupplies = 3, // food materials for restaurants
 			DrinkSupplies = 4, // drink materials for restaurants
-			Bread = 5, // bread
-			CannedFish = 6, // canned fish
+			Bread = 5,
+			CannedFish = 6,
 			PoliceVanCriminalMove = 7, // carry prisoners from small police stations to big ones
 			PrisonHelicopterCriminalPickup = 8, // pick up from big police stations
 			PrisonHelicopterCriminalMove = 9, // transfer to prison
 			MealsLow = 10, // serve low end food
 			MealsMedium = 11, // serve normal food
 			MealsHigh = 12,  // serve high end food
+			Anchovy = 13,
+			Salmon = 14,
+			Shellfish = 15,
+			Tuna = 16,
+			Algae = 17,
+			Seaweed = 18,	
+			Trout = 19,
+			Fruits = 20,
+			Vegetables = 21,
+			Furnitures = 22,
+			IndustrialSteel = 23,
+			Tupperware = 24,
+			Toys = 25,
+			PrintedProducts = 26,
+			TissuePaper = 27,
+			Cloths = 28,
+			PetroleumProducts = 29,
+			Cars = 30,
+			Footwear = 31,
+			Houses = 32,
 			None = 255
 		}
 
