@@ -61,6 +61,7 @@ namespace MoreTransferReasons
 			Cars = 35,
 			Footwear = 36,
 			Houses = 37,
+			CarRent = 38,
 			None = 255
 		}
 
@@ -431,24 +432,51 @@ namespace MoreTransferReasons
 		{
 			return frameIndex switch
 			{
-				1 => TransferReason.MealsDeliveryLow, 
-				3 => TransferReason.MealsDeliveryMedium, 
-				5 => TransferReason.MealsDeliveryHigh, 
-				7 => TransferReason.FoodSupplies, 
-				9 => TransferReason.DrinkSupplies, 
-				11 => TransferReason.Bread, 
-				13 => TransferReason.CannedFish, 
-				15 => TransferReason.PoliceVanCriminalMove, 
-				17 => TransferReason.PrisonHelicopterCriminalPickup, 
+				1 => TransferReason.MealsDeliveryLow,
+				3 => TransferReason.MealsDeliveryMedium,
+				5 => TransferReason.MealsDeliveryHigh,
+				7 => TransferReason.FoodSupplies,
+				9 => TransferReason.DrinkSupplies,
+				11 => TransferReason.Bread,
+				13 => TransferReason.CannedFish,
+				15 => TransferReason.PoliceVanCriminalMove,
+				17 => TransferReason.PrisonHelicopterCriminalPickup,
 				19 => TransferReason.PrisonHelicopterCriminalMove,
-				21 => TransferReason.MealsLow, 
-				23 => TransferReason.MealsMedium, 
-				25 => TransferReason.MealsHigh, 
-				_ => TransferReason.None, 
+				21 => TransferReason.MealsLow,
+				23 => TransferReason.MealsMedium,
+				25 => TransferReason.MealsHigh,
+				27 => TransferReason.Anchovy,
+				29 => TransferReason.Salmon,
+				31 => TransferReason.Shellfish,
+				33 => TransferReason.Tuna,
+				35 => TransferReason.Algae,
+				37 => TransferReason.Seaweed,
+				39 => TransferReason.Trout,
+				41 => TransferReason.Fruits,
+				43 => TransferReason.Vegetables,
+				45 => TransferReason.Cows,
+				47 => TransferReason.HighlandCows,
+				49 => TransferReason.Sheep,
+				51 => TransferReason.Pigs,
+				53 => TransferReason.Furnitures,
+				55 => TransferReason.ElectronicProducts,
+				57 => TransferReason.IndustrialSteel,
+				59 => TransferReason.Tupperware,
+				61 => TransferReason.Toys,
+				63 => TransferReason.PrintedProducts,
+				65 => TransferReason.TissuePaper,
+				67 => TransferReason.Cloths,
+				69 => TransferReason.PetroleumProducts,
+				71 => TransferReason.Cars,
+				73 => TransferReason.Footwear,
+				75 => TransferReason.Houses,
+				77 => TransferReason.CarRent,
+				_ => TransferReason.None,
 			};
 		}
 
-		public void AddOutgoingOffer(TransferReason material, Offer offer)
+
+        public void AddOutgoingOffer(TransferReason material, Offer offer)
 		{
 			int index = OutgoingIndexes[(int)material];
 			if(index < 256)
