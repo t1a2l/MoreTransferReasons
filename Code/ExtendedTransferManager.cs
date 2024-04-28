@@ -472,7 +472,8 @@ namespace MoreTransferReasons
 				73 => TransferReason.Footwear,
 				75 => TransferReason.Houses,
 				77 => TransferReason.CarRent,
-				_ => TransferReason.None,
+                79 => TransferReason.CarBuy,
+                _ => TransferReason.None,
 			};
 		}
 
@@ -844,7 +845,7 @@ namespace MoreTransferReasons
 			}
 			else
 			{
-					throw new Exception("ExtendedBuildingAI Interface not found");
+				throw new Exception("ExtendedBuildingAI Interface not found");
 			}
 		}
 
