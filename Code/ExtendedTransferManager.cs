@@ -62,7 +62,8 @@ namespace MoreTransferReasons
 			Footwear = 36,
 			Houses = 37,
 			CarRent = 38,
-			None = 255
+            CarBuy = 39,
+            None = 255
 		}
 
 		public class Data : IDataContainer
