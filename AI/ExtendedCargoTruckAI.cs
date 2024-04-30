@@ -14,7 +14,7 @@ namespace MoreTransferReasons.AI
         private delegate Color GetColorCarAIDelegate(CarAI instance, ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, InfoManager.SubInfoMode subInfoMode);
         private static readonly GetColorCarAIDelegate GetColorCarAI = AccessTools.MethodDelegate<GetColorCarAIDelegate>(typeof(CarAI).GetMethod("GetColor", BindingFlags.Instance | BindingFlags.Public), null, false);
 
-        private delegate Color ReleaseVehicleCarAIDelegate(CarAI instance, ushort vehicleID, ref Vehicle data);
+        private delegate void ReleaseVehicleCarAIDelegate(CarAI instance, ushort vehicleID, ref Vehicle data);
         private static readonly ReleaseVehicleCarAIDelegate ReleaseVehicleCarAI = AccessTools.MethodDelegate<ReleaseVehicleCarAIDelegate>(typeof(CarAI).GetMethod("ReleaseVehicle", BindingFlags.Instance | BindingFlags.Public), null, false);
 
         public override Color GetColor(ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, InfoManager.SubInfoMode subInfoMode)
