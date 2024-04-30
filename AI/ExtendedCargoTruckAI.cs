@@ -9,7 +9,7 @@ using MoreTransferReasons.Utils;
 
 namespace MoreTransferReasons.AI
 {
-    class ExtendedCargoTruckAI : CargoTruckAI, IExtendedVehicleAI
+    public class ExtendedCargoTruckAI : CargoTruckAI, IExtendedVehicleAI
     {
         private delegate Color GetColorCarAIDelegate(CarAI instance, ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, InfoManager.SubInfoMode subInfoMode);
         private static readonly GetColorCarAIDelegate GetColorCarAI = AccessTools.MethodDelegate<GetColorCarAIDelegate>(typeof(CarAI).GetMethod("GetColor", BindingFlags.Instance | BindingFlags.Public), null, false);
