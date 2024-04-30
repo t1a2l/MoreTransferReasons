@@ -13,7 +13,7 @@ namespace MoreTransferReasons.AI
     public class ExtendedWarehouseAI : WarehouseAI, IExtendedBuildingAI
     {
         private delegate void CreateBuildingPlayerBuildingAIDelegate(PlayerBuildingAI instance, ushort buildingID, ref Building data);
-        private static readonly CreateBuildingPlayerBuildingAIDelegate CreateBuildingPlayerBuildingAI = AccessTools.MethodDelegate<CreateBuildingPlayerBuildingAIDelegate>(typeof(PlayerBuildingAI).GetMethod("CreateBuildin", BindingFlags.Instance | BindingFlags.Public), null, false);
+        private static readonly CreateBuildingPlayerBuildingAIDelegate CreateBuildingPlayerBuildingAI = AccessTools.MethodDelegate<CreateBuildingPlayerBuildingAIDelegate>(typeof(PlayerBuildingAI).GetMethod("CreateBuilding", BindingFlags.Instance | BindingFlags.Public), null, false);
 
         private delegate string GetDebugStringPlayerBuildingAIDelegate(PlayerBuildingAI instance, ushort buildingID, ref Building data);
         private static readonly GetDebugStringPlayerBuildingAIDelegate GetDebugStringPlayerBuildingAI = AccessTools.MethodDelegate<GetDebugStringPlayerBuildingAIDelegate>(typeof(PlayerBuildingAI).GetMethod("GetDebugString", BindingFlags.Instance | BindingFlags.Public), null, false);
