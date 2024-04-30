@@ -1,8 +1,9 @@
 ﻿using ColossalFramework;
 using MoreTransferReasons.Utils;
+using MoreTransferReasons.Managers;
 using UnityEngine;
 
-namespace MoreTransferReasons.Code
+namespace MoreTransferReasons.AI
 {
     public class ExtendedOutsideConnectionAI : OutsideConnectionAI, IExtendedBuildingAI
     {
@@ -66,7 +67,7 @@ namespace MoreTransferReasons.Code
             if (vehicleInfo != null)
             {
                 Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
-                if (ExtedndedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, material, flag3, !flag3))
+                if (ExtedndedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, (byte)material, flag3, !flag3))
                 {
                     vehicleInfo.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
 

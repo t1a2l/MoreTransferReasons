@@ -4,9 +4,9 @@ using MoreTransferReasons.Utils;
 using System;
 using UnityEngine;
 
-namespace MoreTransferReasons
+namespace MoreTransferReasons.Managers
 {
-	public class ExtendedTransferManager : SimulationManagerBase<ExtendedTransferManager, TransferProperties>, ISimulationManager
+    public class ExtendedTransferManager : SimulationManagerBase<ExtendedTransferManager, TransferProperties>, ISimulationManager
 	{
 		public struct Offer
 		{
