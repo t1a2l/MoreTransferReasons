@@ -153,9 +153,22 @@ namespace MoreTransferReasons.Managers
         {
             return UniqueFacultyAI.IncreaseByBonus(UniqueFacultyAI.FacultyBonus.Science, material switch
             {
-                ExtendedTransferManager.TransferReason.Bread => 1500,
-                ExtendedTransferManager.TransferReason.FoodSupplies => 1500,
-                ExtendedTransferManager.TransferReason.DrinkSupplies => 1500,
+                ExtendedTransferManager.TransferReason.FoodSupplies => 400,
+                ExtendedTransferManager.TransferReason.DrinkSupplies => 500,
+                ExtendedTransferManager.TransferReason.Bread => 600,
+                ExtendedTransferManager.TransferReason.CannedFish => 500,
+                ExtendedTransferManager.TransferReason.Furnitures => 1500,
+                ExtendedTransferManager.TransferReason.ElectronicProducts => 2500,
+                ExtendedTransferManager.TransferReason.IndustrialSteel => 4500,
+                ExtendedTransferManager.TransferReason.Tupperware => 2200,
+                ExtendedTransferManager.TransferReason.Toys => 1100,
+                ExtendedTransferManager.TransferReason.PrintedProducts => 1300,
+                ExtendedTransferManager.TransferReason.TissuePaper => 1300,
+                ExtendedTransferManager.TransferReason.Cloths => 900,
+                ExtendedTransferManager.TransferReason.PetroleumProducts => 4200,
+                ExtendedTransferManager.TransferReason.Cars => 13500,
+                ExtendedTransferManager.TransferReason.Footwear => 3500,
+                ExtendedTransferManager.TransferReason.Houses => 45500,
                 _ => 0,
             });
         }

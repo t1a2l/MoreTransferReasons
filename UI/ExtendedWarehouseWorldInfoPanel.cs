@@ -111,9 +111,9 @@ namespace MoreTransferReasons.UI
 
         private WarehouseMode[] m_warehouseModes =
         [
-                WarehouseMode.Balanced,
-                WarehouseMode.Import,
-                WarehouseMode.Export
+            WarehouseMode.Balanced,
+            WarehouseMode.Import,
+            WarehouseMode.Export
         ];
 
         public UIComponent movingPanel
@@ -186,33 +186,49 @@ namespace MoreTransferReasons.UI
         protected override void Start()
         {
             base.Start();
-            List<TransferManager.TransferReason> list = new List<TransferManager.TransferReason>();
-            list.Add(TransferManager.TransferReason.None);
-            list.Add(TransferManager.TransferReason.AnimalProducts);
-            list.Add(TransferManager.TransferReason.Flours);
-            list.Add(TransferManager.TransferReason.Paper);
-            list.Add(TransferManager.TransferReason.PlanedTimber);
-            list.Add(TransferManager.TransferReason.Petroleum);
-            list.Add(TransferManager.TransferReason.Plastics);
-            list.Add(TransferManager.TransferReason.Glass);
-            list.Add(TransferManager.TransferReason.Metals);
-            list.Add(TransferManager.TransferReason.LuxuryProducts);
-            list.Add(TransferManager.TransferReason.Lumber);
-            list.Add(TransferManager.TransferReason.Food);
-            list.Add(TransferManager.TransferReason.Coal);
-            list.Add(TransferManager.TransferReason.Petrol);
-            list.Add(TransferManager.TransferReason.Goods);
+            List<TransferManager.TransferReason> list =
+            [
+                TransferManager.TransferReason.None,
+                TransferManager.TransferReason.AnimalProducts,
+                TransferManager.TransferReason.Flours,
+                TransferManager.TransferReason.Paper,
+                TransferManager.TransferReason.PlanedTimber,
+                TransferManager.TransferReason.Petroleum,
+                TransferManager.TransferReason.Plastics,
+                TransferManager.TransferReason.Glass,
+                TransferManager.TransferReason.Metals,
+                TransferManager.TransferReason.LuxuryProducts,
+                TransferManager.TransferReason.Lumber,
+                TransferManager.TransferReason.Food,
+                TransferManager.TransferReason.Coal,
+                TransferManager.TransferReason.Petrol,
+                TransferManager.TransferReason.Goods,
+            ];
             List<TransferManager.TransferReason> list2 = list;
             if (Singleton<LoadingManager>.instance.SupportsExpansion(Expansion.Urban))
             {
                 list2.Add(TransferManager.TransferReason.Fish);
             }
             m_transferReasons = list2.ToArray();
-            List<ExtendedTransferManager.TransferReason> extendedlist = new List<ExtendedTransferManager.TransferReason>();
-            extendedlist.Add(ExtendedTransferManager.TransferReason.Bread);
-            extendedlist.Add(ExtendedTransferManager.TransferReason.DrinkSupplies);
-            extendedlist.Add(ExtendedTransferManager.TransferReason.FoodSupplies);
-            extendedlist.Add(ExtendedTransferManager.TransferReason.CannedFish);
+            List<ExtendedTransferManager.TransferReason> extendedlist =
+            [
+                ExtendedTransferManager.TransferReason.FoodSupplies,
+                ExtendedTransferManager.TransferReason.DrinkSupplies,
+                ExtendedTransferManager.TransferReason.Bread,
+                ExtendedTransferManager.TransferReason.CannedFish,
+                ExtendedTransferManager.TransferReason.Furnitures,
+                ExtendedTransferManager.TransferReason.ElectronicProducts,
+                ExtendedTransferManager.TransferReason.IndustrialSteel,
+                ExtendedTransferManager.TransferReason.Tupperware,
+                ExtendedTransferManager.TransferReason.Toys,
+                ExtendedTransferManager.TransferReason.PrintedProducts,
+                ExtendedTransferManager.TransferReason.TissuePaper,
+                ExtendedTransferManager.TransferReason.Cloths,
+                ExtendedTransferManager.TransferReason.PetroleumProducts,
+                ExtendedTransferManager.TransferReason.Cars,
+                ExtendedTransferManager.TransferReason.Footwear,
+                ExtendedTransferManager.TransferReason.Houses
+            ];
             List<ExtendedTransferManager.TransferReason> extendedlist2 = extendedlist;
             m_extendedTransferReasons = extendedlist2.ToArray();
             m_Type = Find<UILabel>("Type");

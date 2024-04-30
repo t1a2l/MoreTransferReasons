@@ -832,10 +832,22 @@ namespace MoreTransferReasons.AI
         {
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.Bread:
                 case ExtendedTransferManager.TransferReason.FoodSupplies:
                 case ExtendedTransferManager.TransferReason.DrinkSupplies:
+                case ExtendedTransferManager.TransferReason.Bread:
                 case ExtendedTransferManager.TransferReason.CannedFish:
+                case ExtendedTransferManager.TransferReason.Furnitures:
+                case ExtendedTransferManager.TransferReason.ElectronicProducts:
+                case ExtendedTransferManager.TransferReason.IndustrialSteel:
+                case ExtendedTransferManager.TransferReason.Tupperware:
+                case ExtendedTransferManager.TransferReason.Toys:
+                case ExtendedTransferManager.TransferReason.PrintedProducts:
+                case ExtendedTransferManager.TransferReason.TissuePaper:
+                case ExtendedTransferManager.TransferReason.Cloths:
+                case ExtendedTransferManager.TransferReason.PetroleumProducts:
+                case ExtendedTransferManager.TransferReason.Cars:
+                case ExtendedTransferManager.TransferReason.Footwear:
+                case ExtendedTransferManager.TransferReason.Houses:
                     data.m_flags = (data.m_flags & ~Building.Flags.Content06) | Building.Flags.Content06_Forbid;
                     break;
                 default:
