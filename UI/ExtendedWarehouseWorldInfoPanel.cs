@@ -7,7 +7,6 @@ using ICities;
 using System.Collections;
 using ColossalFramework.Globalization;
 using MoreTransferReasons.AI;
-using MoreTransferReasons.Managers;
 using MoreTransferReasons.Utils;
 
 namespace MoreTransferReasons.UI

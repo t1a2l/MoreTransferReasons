@@ -1,5 +1,4 @@
 ﻿using ColossalFramework;
-using MoreTransferReasons.Managers;
 using MoreTransferReasons.Utils;
 
 namespace MoreTransferReasons.AI

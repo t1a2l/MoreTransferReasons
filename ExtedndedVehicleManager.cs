@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using ColossalFramework.Math;
 
-namespace MoreTransferReasons.Managers
+namespace MoreTransferReasons
 {
     public static class ExtedndedVehicleManager
     {
@@ -67,7 +67,7 @@ namespace MoreTransferReasons.Managers
                 vehicle = item;
                 Vehicle.Frame frame = new Vehicle.Frame(position, Quaternion.identity);
                 instance.m_vehicles.m_buffer[vehicle].m_flags = Vehicle.Flags.Created;
-                instance.m_vehicles.m_buffer[vehicle].m_flags2 = (Vehicle.Flags2)0;
+                instance.m_vehicles.m_buffer[vehicle].m_flags2 = 0;
                 if (transferToSource)
                 {
                     instance.m_vehicles.m_buffer[vehicle].m_flags |= Vehicle.Flags.TransferToSource;

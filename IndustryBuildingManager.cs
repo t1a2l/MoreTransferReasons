@@ -1,7 +1,7 @@
 using ColossalFramework;
 using UnityEngine;
 
-namespace MoreTransferReasons.Managers
+namespace MoreTransferReasons
 {
     public class IndustryBuildingManager
     {
@@ -134,7 +134,7 @@ namespace MoreTransferReasons.Managers
                 TransferManager.TransferReason.Lumber => 0,
                 TransferManager.TransferReason.Petrol => 0,
                 TransferManager.TransferReason.Coal => 0,
-                TransferManager.TransferReason.Goods => (sourceService == ItemClass.Service.Fishing) ? 1500 : 0,
+                TransferManager.TransferReason.Goods => sourceService == ItemClass.Service.Fishing ? 1500 : 0,
                 TransferManager.TransferReason.AnimalProducts => 1500,
                 TransferManager.TransferReason.Flours => 1500,
                 TransferManager.TransferReason.Paper => 1500,
@@ -204,31 +204,31 @@ namespace MoreTransferReasons.Managers
 
         public static string FormatResourceWithUnit(uint amount, TransferManager.TransferReason type)
         {
-	    return string.Concat(str2: (type != TransferManager.TransferReason.Oil && type != TransferManager.TransferReason.Petroleum && type != TransferManager.TransferReason.Petrol) ? ColossalFramework.Globalization.Locale.Get("RESOURCEUNIT_TONS") : ColossalFramework.Globalization.Locale.Get("RESOURCEUNIT_BARRELS"), str0: FormatResource(amount), str1: " ");
+            return string.Concat(str2: type != TransferManager.TransferReason.Oil && type != TransferManager.TransferReason.Petroleum && type != TransferManager.TransferReason.Petrol ? ColossalFramework.Globalization.Locale.Get("RESOURCEUNIT_TONS") : ColossalFramework.Globalization.Locale.Get("RESOURCEUNIT_BARRELS"), str0: FormatResource(amount), str1: " ");
         }
 
         public static string FormatExtendedResourceWithUnit(uint amount, ExtendedTransferManager.TransferReason type)
         {
-	    return string.Concat(str2: ColossalFramework.Globalization.Locale.Get("RESOURCEUNIT_TONS"), str0: FormatResource(amount), str1: " ");
+            return string.Concat(str2: ColossalFramework.Globalization.Locale.Get("RESOURCEUNIT_TONS"), str0: FormatResource(amount), str1: " ");
         }
 
         public static string FormatResource(ulong amount)
         {
-	    float num = amount;
-	    num /= 1000f;
-	    return Mathf.Round(num).ToString();
+            float num = amount;
+            num /= 1000f;
+            return Mathf.Round(num).ToString();
         }
 
         public static string ResourceSpriteName(ExtendedTransferManager.TransferReason transferReason)
-	{
-	    return transferReason.ToString();
-	}
+        {
+            return transferReason.ToString();
+        }
 
         public static Color GetExtendedResourceColor(ExtendedTransferManager.TransferReason resource)
         {
-	    switch (resource)
-	    {
-		case ExtendedTransferManager.TransferReason.MealsDeliveryLow:
+            switch (resource)
+            {
+                case ExtendedTransferManager.TransferReason.MealsDeliveryLow:
                 case ExtendedTransferManager.TransferReason.MealsDeliveryMedium:
                 case ExtendedTransferManager.TransferReason.MealsDeliveryHigh:
                     return Color.Lerp(Color.magenta, Color.black, 0.2f);
@@ -244,8 +244,8 @@ namespace MoreTransferReasons.Managers
                     return Color.Lerp(Color.red, Color.yellow, 0.5f);
                 case ExtendedTransferManager.TransferReason.CannedFish:
                     return Color.Lerp(Color.cyan, Color.blue, 0.5f);
-	    };
-            return Color.Lerp(Color.grey, Color.black, 0.2f);;
+            };
+            return Color.Lerp(Color.grey, Color.black, 0.2f); ;
         }
 
     }
