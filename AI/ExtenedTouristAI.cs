@@ -1,5 +1,4 @@
-﻿using MoreTransferReasons.Managers;
-using MoreTransferReasons.Utils;
+﻿using MoreTransferReasons.Utils;
 
 namespace MoreTransferReasons.AI
 {

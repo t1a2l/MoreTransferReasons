@@ -1,6 +1,4 @@
-﻿using MoreTransferReasons.Managers;
-
-namespace MoreTransferReasons.Utils
+﻿namespace MoreTransferReasons.Utils
 {
     public interface IExtendedVehicleAI
     {
