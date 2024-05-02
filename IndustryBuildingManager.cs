@@ -153,9 +153,9 @@ namespace MoreTransferReasons
         {
             return UniqueFacultyAI.IncreaseByBonus(UniqueFacultyAI.FacultyBonus.Science, material switch
             {
-                ExtendedTransferManager.TransferReason.FoodSupplies => 400,
-                ExtendedTransferManager.TransferReason.DrinkSupplies => 500,
-                ExtendedTransferManager.TransferReason.Bread => 600,
+                ExtendedTransferManager.TransferReason.FoodProducts => 400,
+                ExtendedTransferManager.TransferReason.BeverageProducts => 500,
+                ExtendedTransferManager.TransferReason.BakedGoods => 600,
                 ExtendedTransferManager.TransferReason.CannedFish => 500,
                 ExtendedTransferManager.TransferReason.Furnitures => 1500,
                 ExtendedTransferManager.TransferReason.ElectronicProducts => 2500,
@@ -236,11 +236,11 @@ namespace MoreTransferReasons
                 case ExtendedTransferManager.TransferReason.MealsMedium:
                 case ExtendedTransferManager.TransferReason.MealsHigh:
                     return Color.Lerp(Color.cyan, Color.black, 0.2f);
-                case ExtendedTransferManager.TransferReason.DrinkSupplies:
+                case ExtendedTransferManager.TransferReason.BeverageProducts:
                     return Color.Lerp(Color.white, Color.black, 0.2f);
-                case ExtendedTransferManager.TransferReason.FoodSupplies:
+                case ExtendedTransferManager.TransferReason.FoodProducts:
                     return Color.Lerp(Color.green, Color.red, 0.5f);
-                case ExtendedTransferManager.TransferReason.Bread:
+                case ExtendedTransferManager.TransferReason.BakedGoods:
                     return Color.Lerp(Color.red, Color.yellow, 0.5f);
                 case ExtendedTransferManager.TransferReason.CannedFish:
                     return Color.Lerp(Color.cyan, Color.blue, 0.5f);

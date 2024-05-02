@@ -192,9 +192,9 @@ namespace MoreTransferReasons.AI
             ItemClass.Service service;
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.FoodSupplies:
-                case ExtendedTransferManager.TransferReason.DrinkSupplies:
-                case ExtendedTransferManager.TransferReason.Bread:
+                case ExtendedTransferManager.TransferReason.FoodProducts:
+                case ExtendedTransferManager.TransferReason.BeverageProducts:
+                case ExtendedTransferManager.TransferReason.BakedGoods:
                 case ExtendedTransferManager.TransferReason.CannedFish:
                 case ExtendedTransferManager.TransferReason.Furnitures:
                 case ExtendedTransferManager.TransferReason.ElectronicProducts:
@@ -831,9 +831,9 @@ namespace MoreTransferReasons.AI
         {
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.FoodSupplies:
-                case ExtendedTransferManager.TransferReason.DrinkSupplies:
-                case ExtendedTransferManager.TransferReason.Bread:
+                case ExtendedTransferManager.TransferReason.FoodProducts:
+                case ExtendedTransferManager.TransferReason.BeverageProducts:
+                case ExtendedTransferManager.TransferReason.BakedGoods:
                 case ExtendedTransferManager.TransferReason.CannedFish:
                 case ExtendedTransferManager.TransferReason.Furnitures:
                 case ExtendedTransferManager.TransferReason.ElectronicProducts:

@@ -211,9 +211,9 @@ namespace MoreTransferReasons.UI
             m_transferReasons = list2.ToArray();
             List<ExtendedTransferManager.TransferReason> extendedlist =
             [
-                ExtendedTransferManager.TransferReason.FoodSupplies,
-                ExtendedTransferManager.TransferReason.DrinkSupplies,
-                ExtendedTransferManager.TransferReason.Bread,
+                ExtendedTransferManager.TransferReason.FoodProducts,
+                ExtendedTransferManager.TransferReason.BeverageProducts,
+                ExtendedTransferManager.TransferReason.BakedGoods,
                 ExtendedTransferManager.TransferReason.CannedFish,
                 ExtendedTransferManager.TransferReason.Furnitures,
                 ExtendedTransferManager.TransferReason.ElectronicProducts,
@@ -427,9 +427,9 @@ namespace MoreTransferReasons.UI
                 byte material_byte = (byte)(transferReason - 200);
                 m_resourceProgressBar.progressColor = IndustryBuildingManager.GetExtendedResourceColor((ExtendedTransferManager.TransferReason)actualTransferReason);
                 var extendedTransferReason = (ExtendedTransferManager.TransferReason)actual_material_byte;
-                if(extendedTransferReason == ExtendedTransferManager.TransferReason.DrinkSupplies && m_NameField.text.Contains("Lemonade Factory"))
+                if(extendedTransferReason == ExtendedTransferManager.TransferReason.BeverageProducts && m_NameField.text.Contains("Lemonade Factory"))
                 {
-                    m_NameField.text = "Drinks Factory";
+                    m_NameField.text = "Beverage Products Factory";
                 }
                 m_resourceLabel.text = extendedTransferReason.ToString();
                 m_emptyingOldResource.isVisible = material_byte != actual_material_byte;

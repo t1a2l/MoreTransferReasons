@@ -1,5 +1,4 @@
 ﻿using ColossalFramework;
-using MoreTransferReasons.Utils;
 using UnityEngine;
 
 namespace MoreTransferReasons.AI
@@ -42,23 +41,31 @@ namespace MoreTransferReasons.AI
             VehicleInfo vehicleInfo;
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.FoodSupplies:
-                case ExtendedTransferManager.TransferReason.DrinkSupplies:
-                case ExtendedTransferManager.TransferReason.Bread:
-                case ExtendedTransferManager.TransferReason.CannedFish:
-                case ExtendedTransferManager.TransferReason.Furnitures:
-                case ExtendedTransferManager.TransferReason.ElectronicProducts:
-                case ExtendedTransferManager.TransferReason.IndustrialSteel:
-                case ExtendedTransferManager.TransferReason.Tupperware:
-                case ExtendedTransferManager.TransferReason.Toys:
-                case ExtendedTransferManager.TransferReason.PrintedProducts:
-                case ExtendedTransferManager.TransferReason.TissuePaper:
+                case ExtendedTransferManager.TransferReason.FoodProducts:
+                case ExtendedTransferManager.TransferReason.BeverageProducts: 
+                case ExtendedTransferManager.TransferReason.BakedGoods: // change name
+                case ExtendedTransferManager.TransferReason.CannedFish: 
+                case ExtendedTransferManager.TransferReason.Furnitures: 
+                case ExtendedTransferManager.TransferReason.ElectronicProducts: 
+                case ExtendedTransferManager.TransferReason.Tupperware: 
+                case ExtendedTransferManager.TransferReason.Toys: 
+                case ExtendedTransferManager.TransferReason.PrintedProducts: 
+                case ExtendedTransferManager.TransferReason.TissuePaper: 
                 case ExtendedTransferManager.TransferReason.Cloths:
-                case ExtendedTransferManager.TransferReason.PetroleumProducts:
-                case ExtendedTransferManager.TransferReason.Cars:
                 case ExtendedTransferManager.TransferReason.Footwear:
-                case ExtendedTransferManager.TransferReason.Houses:
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level1);
+                    break;
+                case ExtendedTransferManager.TransferReason.IndustrialSteel: // 7 - special
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level3);
+                    break;
+                case ExtendedTransferManager.TransferReason.PetroleumProducts: // 10 -> special -> gas stations 
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.PlayerIndustryOil, ItemClass.Level.Level1);
+                    break;
+                case ExtendedTransferManager.TransferReason.Cars: // 1 -> 2 -> rental, buy, export
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level2);
+                    break;
+                case ExtendedTransferManager.TransferReason.Houses: // 9 -> to build houses
+                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level4);
                     break;
                 default:
                     return false;
@@ -95,9 +102,9 @@ namespace MoreTransferReasons.AI
             byte district = instance.GetDistrict(data.m_position);
             switch (resource)
             {
-                case ExtendedTransferManager.TransferReason.FoodSupplies:
-                case ExtendedTransferManager.TransferReason.DrinkSupplies:
-                case ExtendedTransferManager.TransferReason.Bread:
+                case ExtendedTransferManager.TransferReason.FoodProducts:
+                case ExtendedTransferManager.TransferReason.BeverageProducts:
+                case ExtendedTransferManager.TransferReason.BakedGoods:
                 case ExtendedTransferManager.TransferReason.CannedFish:
                 case ExtendedTransferManager.TransferReason.Furnitures:
                 case ExtendedTransferManager.TransferReason.ElectronicProducts:
@@ -129,9 +136,9 @@ namespace MoreTransferReasons.AI
             {
                 ExtendedTransferManager.Offer offer = default;
                 offer.Building = buildingID;
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.FoodSupplies, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.DrinkSupplies, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Bread, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.CannedFish, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Furnitures, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.ElectronicProducts, offer);
@@ -150,9 +157,9 @@ namespace MoreTransferReasons.AI
             {
                 ExtendedTransferManager.Offer offer2 = default;
                 offer2.Building = buildingID;
-                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.FoodSupplies, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.DrinkSupplies, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Bread, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.CannedFish, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Furnitures, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.ElectronicProducts, offer2);
@@ -201,15 +208,15 @@ namespace MoreTransferReasons.AI
                         offer.Amount = 1;
                         if (instance.m_randomizer.Int32(16u) == 0)
                         {
-                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.FoodSupplies, offer);
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
                         }
                         if (instance.m_randomizer.Int32(16u) == 0)
                         {
-                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.DrinkSupplies, offer);
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer);
                         }
                         if (instance.m_randomizer.Int32(16u) == 0)
                         {
-                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Bread, offer);
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer);
                         }
                         if (instance.m_randomizer.Int32(16u) == 0)
                         {
@@ -267,9 +274,9 @@ namespace MoreTransferReasons.AI
                     else
                     {
                         offer.Amount = num2;
-                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.FoodSupplies, offer);
-                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.DrinkSupplies, offer);
-                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Bread, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.CannedFish, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Furnitures, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.ElectronicProducts, offer);
@@ -303,15 +310,15 @@ namespace MoreTransferReasons.AI
                     offer2.Amount = 1;
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.FoodSupplies, offer2);
+                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer2);
                     }
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.DrinkSupplies, offer2);
+                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer2);
                     }
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Bread, offer2);
+                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer2);
                     }
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
@@ -369,9 +376,9 @@ namespace MoreTransferReasons.AI
                 else
                 {
                     offer2.Amount = num2;
-                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.FoodSupplies, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.DrinkSupplies, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Bread, offer2);
+                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer2);
+                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer2);
+                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.CannedFish, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Furnitures, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.ElectronicProducts, offer2);
