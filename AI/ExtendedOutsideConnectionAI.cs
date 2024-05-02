@@ -43,7 +43,7 @@ namespace MoreTransferReasons.AI
             {
                 case ExtendedTransferManager.TransferReason.FoodProducts:
                 case ExtendedTransferManager.TransferReason.BeverageProducts: 
-                case ExtendedTransferManager.TransferReason.BakedGoods: // change name
+                case ExtendedTransferManager.TransferReason.BakedGoods:
                 case ExtendedTransferManager.TransferReason.CannedFish: 
                 case ExtendedTransferManager.TransferReason.Furnitures: 
                 case ExtendedTransferManager.TransferReason.ElectronicProducts: 

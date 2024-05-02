@@ -431,6 +431,10 @@ namespace MoreTransferReasons.UI
                 {
                     m_NameField.text = "Beverage Products Factory";
                 }
+                if (extendedTransferReason == ExtendedTransferManager.TransferReason.Houses && m_NameField.text.Contains("Modular"))
+                {
+                    m_NameField.text = "Beverage Products Factory";
+                }
                 m_resourceLabel.text = extendedTransferReason.ToString();
                 m_emptyingOldResource.isVisible = material_byte != actual_material_byte;
                 m_resourceDescription.isVisible = material_byte != 255;
