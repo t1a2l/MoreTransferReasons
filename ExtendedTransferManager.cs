@@ -64,6 +64,9 @@ namespace MoreTransferReasons
             Houses = 38,
             CarRent = 39,
             CarBuy = 40,
+            FuelVehicle = 41,
+            ConstructionResources = 42,
+            OperationResources = 43,
             None = 255
         }
 
@@ -475,6 +478,9 @@ namespace MoreTransferReasons
                 77 => TransferReason.Houses,
                 79 => TransferReason.CarRent,
                 81 => TransferReason.CarBuy,
+                83 => TransferReason.FuelVehicle,
+                85 => TransferReason.ConstructionResources,
+                87 => TransferReason.OperationResources,
                 _ => TransferReason.None,
             };
         }

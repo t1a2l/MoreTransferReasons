@@ -55,10 +55,10 @@ namespace MoreTransferReasons.AI
                 case ExtendedTransferManager.TransferReason.Footwear:
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level1);
                     break;
-                case ExtendedTransferManager.TransferReason.IndustrialSteel: // 7 - special
+                case ExtendedTransferManager.TransferReason.IndustrialSteel: // shipyard, car factory, construction
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level3);
                     break;
-                case ExtendedTransferManager.TransferReason.PetroleumProducts: // 10 -> special -> gas stations 
+                case ExtendedTransferManager.TransferReason.PetroleumProducts: // gas stations, boiler stations, airport fuel, plastic factory
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.PlayerIndustryOil, ItemClass.Level.Level1);
                     break;
                 case ExtendedTransferManager.TransferReason.Cars: // 1 -> 2 -> rental, buy, export

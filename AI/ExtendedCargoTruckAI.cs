@@ -489,10 +489,24 @@ namespace MoreTransferReasons.AI
             }
             BuildingManager instance = Singleton<BuildingManager>.instance;
             BuildingInfo info = instance.m_buildings.m_buffer[data.m_targetBuilding].Info;
-            if (data.m_transferType >= 200 && info.m_buildingAI is not OutsideConnectionAI)
+            if (data.m_transferType >= 200)
             {
                 byte transferType = (byte)(data.m_transferType - 200);
-                ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
+                if ((ExtendedTransferManager.TransferReason)transferType == ExtendedTransferManager.TransferReason.FuelVehicle)
+                {
+                    var building = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_targetBuilding];
+                    var distance = Vector3.Distance(data.GetLastFramePosition(), building.m_position);
+                    if (building.Info.GetAI() is GasStationAI gasStationAI && distance < 80f)
+                    {
+                        FuelVehicle(vehicleID, ref data, gasStationAI, ref building);
+                        __instance.SetTarget(vehicleID, ref data, 0);
+                    }
+                }
+                else
+                {
+                    ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
+                }
+
             }
             else
             {

@@ -269,7 +269,7 @@ namespace MoreTransferReasons.UI
             m_JobsAvailLegend.color = m_UnoccupiedWorkplaceColor;
             m_WorkPlacesEducationChart = Find<UIRadialChart>("WorkPlacesEducationChart");
             m_WorkersEducationChart = Find<UIRadialChart>("WorkersEducationChart");
-            Color[] array = new Color[4] { m_UneducatedColor, m_EducatedColor, m_WellEducatedColor, m_HighlyEducatedColor };
+            Color[] array = [m_UneducatedColor, m_EducatedColor, m_WellEducatedColor, m_HighlyEducatedColor];
             Color32 color;
             for (int i = 0; i < 4; i++)
             {
