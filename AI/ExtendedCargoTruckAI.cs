@@ -327,8 +327,7 @@ namespace MoreTransferReasons.AI
                     {
                         if (data.m_transferSize > 0)
                         {
-
-                            TransferManager.TransferOffer offer = default(TransferManager.TransferOffer);
+                            TransferManager.TransferOffer offer = default;
                             offer.Priority = 7;
                             offer.Vehicle = vehicleID;
                             if (data.m_sourceBuilding != 0)
@@ -492,21 +491,10 @@ namespace MoreTransferReasons.AI
             if (data.m_transferType >= 200)
             {
                 byte transferType = (byte)(data.m_transferType - 200);
-                if ((ExtendedTransferManager.TransferReason)transferType == ExtendedTransferManager.TransferReason.FuelVehicle)
-                {
-                    var building = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_targetBuilding];
-                    var distance = Vector3.Distance(data.GetLastFramePosition(), building.m_position);
-                    if (building.Info.GetAI() is GasStationAI gasStationAI && distance < 80f)
-                    {
-                        FuelVehicle(vehicleID, ref data, gasStationAI, ref building);
-                        __instance.SetTarget(vehicleID, ref data, 0);
-                    }
-                }
-                else
+                if ((ExtendedTransferManager.TransferReason)transferType != ExtendedTransferManager.TransferReason.FuelVehicle)
                 {
                     ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
                 }
-
             }
             else
             {
