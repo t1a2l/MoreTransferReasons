@@ -22,7 +22,7 @@ namespace MoreTransferReasons.AI
                 case InfoManager.InfoMode.Connections:
                     {
                         var transferType = data.m_transferType;
-                        if (data.m_transferType >= 200)
+                        if (data.m_transferType >= 200 && data.m_transferType != 255)
                         {
                             transferType = (byte)(data.m_transferType - 200);
                         }
@@ -69,7 +69,7 @@ namespace MoreTransferReasons.AI
                             }
                         }
                         var transferType = data.m_transferType;
-                        if (data.m_transferType >= 200)
+                        if (data.m_transferType >= 200 && data.m_transferType != 255)
                         {
                             transferType = (byte)(data.m_transferType - 200);
                         }
@@ -109,7 +109,7 @@ namespace MoreTransferReasons.AI
                 if (targetBuilding != 0)
                 {
                     Building.Flags flags = Singleton<BuildingManager>.instance.m_buildings.m_buffer[targetBuilding].m_flags;
-                    if (data.m_transferType >= 200)
+                    if (data.m_transferType >= 200 && data.m_transferType != 255)
                     {
                         byte transferType = (byte)(data.m_transferType - 200);
                         ExtendedTransferManager.TransferReason transferReason = (ExtendedTransferManager.TransferReason)transferType;
@@ -162,7 +162,7 @@ namespace MoreTransferReasons.AI
                 if (info != null)
                 {
                     int amountDelta = data.m_transferSize;
-                    if (data.m_transferType >= 200)
+                    if (data.m_transferType >= 200 && data.m_transferType != 255)
                     {
                         byte transferType = (byte)(data.m_transferType - 200);
                         ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_sourceBuilding, ref instance.m_buildings.m_buffer[data.m_sourceBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
@@ -231,7 +231,7 @@ namespace MoreTransferReasons.AI
             {
                 int amountDelta = Mathf.Min(0, data.m_transferSize - m_cargoCapacity);
                 BuildingInfo info2 = instance.m_buildings.m_buffer[data.m_sourceBuilding].Info;
-                if (data.m_transferType >= 200)
+                if (data.m_transferType >= 200 && data.m_transferType != 255)
                 {
                     byte transferType = (byte)(data.m_transferType - 200);
                     ((IExtendedBuildingAI)info2.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_sourceBuilding, ref instance.m_buildings.m_buffer[data.m_sourceBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
@@ -298,7 +298,7 @@ namespace MoreTransferReasons.AI
             {
                 if ((data.m_flags & Vehicle.Flags.TransferToTarget) != 0)
                 {
-                    if (data.m_transferType >= 200)
+                    if (data.m_transferType >= 200 && data.m_transferType != 255)
                     {
                         byte transferType = (byte)(data.m_transferType - 200);
                         if (data.m_transferSize > 0)
@@ -351,7 +351,7 @@ namespace MoreTransferReasons.AI
                 }
                 if ((data.m_flags & Vehicle.Flags.TransferToSource) != 0)
                 {
-                    if (data.m_transferType >= 200)
+                    if (data.m_transferType >= 200 && data.m_transferType != 255)
                     {
                         byte transferType = (byte)(data.m_transferType - 200);
                         if (data.m_transferSize < m_cargoCapacity)
@@ -423,7 +423,7 @@ namespace MoreTransferReasons.AI
         void IExtendedVehicleAI.ExtendedStartTransfer(ushort vehicleID, ref Vehicle data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
             var transferType = data.m_transferType;
-            if (data.m_transferType >= 200)
+            if (data.m_transferType >= 200 && data.m_transferType != 255)
             {
                 transferType = (byte)(data.m_transferType - 200);
             }
@@ -446,7 +446,7 @@ namespace MoreTransferReasons.AI
                 extended_offer.Vehicle = vehicleID;
                 if ((data.m_flags & Vehicle.Flags.TransferToSource) != 0)
                 {
-                    if (data.m_transferType >= 200)
+                    if (data.m_transferType >= 200 && data.m_transferType != 255)
                     {
                         byte transferType = (byte)(data.m_transferType - 200);
                         Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer((ExtendedTransferManager.TransferReason)transferType, extended_offer);
@@ -458,7 +458,7 @@ namespace MoreTransferReasons.AI
                 }
                 else if ((data.m_flags & Vehicle.Flags.TransferToTarget) != 0)
                 {
-                    if (data.m_transferType >= 200)
+                    if (data.m_transferType >= 200 && data.m_transferType != 255)
                     {
                         byte transferType = (byte)(data.m_transferType - 200);
                         Singleton<ExtendedTransferManager>.instance.RemoveOutgoingOffer((ExtendedTransferManager.TransferReason)transferType, extended_offer);
@@ -488,7 +488,7 @@ namespace MoreTransferReasons.AI
             }
             BuildingManager instance = Singleton<BuildingManager>.instance;
             BuildingInfo info = instance.m_buildings.m_buffer[data.m_targetBuilding].Info;
-            if (data.m_transferType >= 200)
+            if (data.m_transferType >= 200 && data.m_transferType != 255)
             {
                 byte transferType = (byte)(data.m_transferType - 200);
                 if ((ExtendedTransferManager.TransferReason)transferType != ExtendedTransferManager.TransferReason.FuelVehicle)
@@ -568,7 +568,7 @@ namespace MoreTransferReasons.AI
             {
                 int num = data.m_transferSize;
                 BuildingInfo info = Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_sourceBuilding].Info;
-                if (data.m_transferType >= 200)
+                if (data.m_transferType >= 200 && data.m_transferType != 255)
                 {
                     byte transferType = (byte)(data.m_transferType - 200);
                     ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_sourceBuilding, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_sourceBuilding], (ExtendedTransferManager.TransferReason)transferType, ref num);
@@ -670,7 +670,7 @@ namespace MoreTransferReasons.AI
             }
             ushort vehicle;
             bool vehicle_created;
-            if (vehicleData.m_transferType >= 200)
+            if (vehicleData.m_transferType >= 200 && vehicleData.m_transferType != 255)
             {
                 vehicle_created = ExtedndedVehicleManager.CreateVehicle(out vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, vector, vehicleData.m_transferType, transferToSource: false, transferToTarget: true);
             }
@@ -701,7 +701,7 @@ namespace MoreTransferReasons.AI
                 else
                 {
                     vehicleInfo2 = instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, info.m_class.m_service, info.m_class.m_subService, ItemClass.Level.Level4);
-                    if ((object)vehicleInfo2 != null && instance.CreateVehicle(out vehicle2, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo2, vector, TransferManager.TransferReason.None, transferToSource: false, transferToTarget: true))
+                    if (vehicleInfo2 != null && instance.CreateVehicle(out vehicle2, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo2, vector, TransferManager.TransferReason.None, transferToSource: false, transferToTarget: true))
                     {
                         vehicleInfo2.m_vehicleAI.SetSource(vehicle2, ref instance.m_vehicles.m_buffer[vehicle2], num);
                         vehicleInfo2.m_vehicleAI.SetTarget(vehicle2, ref instance.m_vehicles.m_buffer[vehicle2], num2);
