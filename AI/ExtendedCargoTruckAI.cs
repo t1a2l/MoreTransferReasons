@@ -636,6 +636,11 @@ namespace MoreTransferReasons.AI
             return 0;
         }
 
+        protected override bool ChangeVehicleType(ushort vehicleID, ref Vehicle vehicleData, PathUnit.Position pathPos, uint laneID)
+        {
+            return ChangeVehicleType(m_info, vehicleID, ref vehicleData, pathPos, laneID);
+        }
+
         public static bool ChangeVehicleType(VehicleInfo vehicleInfo, ushort vehicleID, ref Vehicle vehicleData, PathUnit.Position pathPos, uint laneID, bool canReturnToSource = false)
         {
             if (!canReturnToSource && (vehicleData.m_flags & (Vehicle.Flags.TransferToSource | Vehicle.Flags.GoingBack)) != 0)
