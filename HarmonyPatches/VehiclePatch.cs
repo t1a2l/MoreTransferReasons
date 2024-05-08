@@ -11,7 +11,7 @@ namespace MoreTransferReasons.HarmonyPatches
     {
         [HarmonyPatch(typeof(Vehicle), "Spawn")]
         [HarmonyPrefix]
-        public static bool Spawn(Vehicle __instance, ushort vehicleID)
+        public static bool Spawn(ref Vehicle __instance, ushort vehicleID)
         {
             VehicleManager instance = Singleton<VehicleManager>.instance;
             VehicleInfo info = __instance.Info;
