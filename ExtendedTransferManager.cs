@@ -857,5 +857,21 @@ namespace MoreTransferReasons
             }
         }
 
+        private TransferReason GetExtendedTransferReason(ushort buildingId)
+        {
+            var building = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingId];
+            var buildingAI = building.Info.GetAI();
+
+            if(buildingAI.GetType().Name.Equals("PrisonCopterPoliceStationAI") && building.Info.m_class.m_level < ItemClass.Level.Level4 && (building.m_flags & Building.Flags.Downgrading) != 0)
+            {
+                return TransferReason.PoliceVanCriminalMove;
+            }
+            if (buildingAI.GetType().Name.Equals("PoliceHelicopterDepotAI") && (building.m_flags & Building.Flags.Downgrading) != 0)
+            {
+                return TransferReason.PrisonHelicopterCriminalPickup;
+            }
+            return TransferReason.None;
+        }
+
     }
 }
