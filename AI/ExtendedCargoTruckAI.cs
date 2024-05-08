@@ -15,6 +15,9 @@ namespace MoreTransferReasons.AI
         private delegate void ReleaseVehicleCarAIDelegate(CarAI instance, ushort vehicleID, ref Vehicle data);
         private static readonly ReleaseVehicleCarAIDelegate ReleaseVehicleCarAI = AccessTools.MethodDelegate<ReleaseVehicleCarAIDelegate>(typeof(CarAI).GetMethod("ReleaseVehicle", BindingFlags.Instance | BindingFlags.Public), null, false);
 
+        private delegate void SimulationStepCarAIDelegate(CarAI instance, ushort vehicleID, ref Vehicle data, Vector3 physicsLodRefPos);
+        private static readonly SimulationStepCarAIDelegate SimulationStepCarAI = AccessTools.MethodDelegate<SimulationStepCarAIDelegate>(typeof(CarAI).GetMethod("SimulationStep", BindingFlags.Instance | BindingFlags.Public, null, [typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)], null), null, false);
+
         public override Color GetColor(ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, InfoManager.SubInfoMode subInfoMode)
         {
             switch (infoMode)
@@ -178,6 +181,27 @@ namespace MoreTransferReasons.AI
             RemoveSource(vehicleID, ref data);
             RemoveTarget(vehicleID, ref data);
             ReleaseVehicleCarAI(this, vehicleID, ref data);
+        }
+
+        public override void SimulationStep(ushort vehicleID, ref Vehicle data, Vector3 physicsLodRefPos)
+        {
+            if ((data.m_flags & Vehicle.Flags.Congestion) != 0)
+            {
+                Singleton<VehicleManager>.instance.ReleaseVehicle(vehicleID);
+                return;
+            }
+            if ((data.m_flags & Vehicle.Flags.WaitingTarget) != 0 && ++data.m_waitCounter > 20)
+            {
+                RemoveOffers(vehicleID, ref data);
+                data.m_flags &= ~Vehicle.Flags.WaitingTarget;
+                data.m_flags |= Vehicle.Flags.GoingBack;
+                data.m_waitCounter = 0;
+                if (!StartPathFind(vehicleID, ref data))
+                {
+                    data.Unspawn(vehicleID);
+                }
+            }
+            SimulationStepCarAI(this, vehicleID, ref data, physicsLodRefPos);
         }
 
         private void RemoveSource(ushort vehicleID, ref Vehicle data)
