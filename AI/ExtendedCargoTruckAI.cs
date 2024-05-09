@@ -458,6 +458,11 @@ namespace MoreTransferReasons.AI
                     SetTarget(vehicleID, ref data, offer.Building);
                 }
             }
+            if (material == ExtendedTransferManager.TransferReason.FuelVehicle)
+            {
+                data.m_transferType = (byte)(material + 200);
+                SetTarget(vehicleID, ref data, offer.Building);
+            }
         }
 
         private void RemoveOffers(ushort vehicleID, ref Vehicle data)
