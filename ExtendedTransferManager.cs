@@ -729,10 +729,6 @@ namespace MoreTransferReasons
                 {
                     extendedVehicleAI.ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offerOut);
                 }
-                else
-                {
-                    throw new Exception("ExtendedVehicleAI Interface not found");
-                }
             }
             else if (active2 && offerOut.Vehicle != 0)
             {
@@ -744,11 +740,6 @@ namespace MoreTransferReasons
                 {
                     extendedVehicleAI.ExtendedStartTransfer(vehicle2, ref vehicles2.m_buffer[vehicle2], material, offerIn);
                 }
-                else
-                {
-                    throw new Exception("ExtendedVehicleAI Interface not found");
-                }
-
             }
             else if (active && offerIn.Citizen != 0U)
             {
@@ -761,10 +752,6 @@ namespace MoreTransferReasons
                     if (citizenInfo.m_citizenAI is IExtendedCitizenAI extendedCitizenAI)
                     {
                         extendedCitizenAI.ExtendedStartTransfer(citizen, ref citizens.m_buffer[(int)(UIntPtr)citizen], material, offerOut);
-                    }
-                    else
-                    {
-                        throw new Exception("ExtendedCitizenAI Interface not found");
                     }
                 }
             }
@@ -779,10 +766,6 @@ namespace MoreTransferReasons
                     if (citizenInfo2.m_citizenAI is IExtendedCitizenAI extendedCitizenAI)
                     {
                         extendedCitizenAI.ExtendedStartTransfer(citizen2, ref citizens2.m_buffer[(int)(UIntPtr)citizen2], material, offerIn);
-                    }
-                    else
-                    {
-                        throw new Exception("ExtendedCitizenAI Interface not found");
                     }
                 }
             }
@@ -802,10 +785,6 @@ namespace MoreTransferReasons
                     {
                         extendedBuildingAI.ExtendedStartTransfer(building, ref buildings.m_buffer[building], material, offerIn);
                     }
-                    else
-                    {
-                        throw new Exception("ExtendedBuildingAI Interface not found");
-                    }
                 }
             }
             else if (active && offerIn.Building != 0)
@@ -823,10 +802,6 @@ namespace MoreTransferReasons
                     if (info4.m_buildingAI is IExtendedBuildingAI extendedBuildingAI)
                     {
                         extendedBuildingAI.ExtendedStartTransfer(building2, ref buildings2.m_buffer[building2], material, offerOut);
-                    }
-                    else
-                    {
-                        throw new Exception("ExtendedBuildingAI Interface not found");
                     }
                 }
             }
@@ -851,10 +826,6 @@ namespace MoreTransferReasons
                     extendedBuildingAI.ExtendedModifyMaterialBuffer(building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building], material, ref num);
                     extendedBuildingAI2.ExtendedModifyMaterialBuffer(building2, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[building2], material, ref num3);
                 }
-            }
-            else
-            {
-                throw new Exception("ExtendedBuildingAI Interface not found");
             }
         }
 

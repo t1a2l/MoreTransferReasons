@@ -681,6 +681,14 @@ namespace MoreTransferReasons.AI
             {
                 return false;
             }
+            if (vehicleData.m_transferType >= 200)
+            {
+                byte transferType = (byte)(vehicleData.m_transferType - 200);
+                if ((ExtendedTransferManager.TransferReason)transferType == ExtendedTransferManager.TransferReason.FuelVehicle)
+                {
+                    return false;
+                }
+            }
             VehicleManager instance = Singleton<VehicleManager>.instance;
             NetManager instance2 = Singleton<NetManager>.instance;
             BuildingManager instance3 = Singleton<BuildingManager>.instance;
