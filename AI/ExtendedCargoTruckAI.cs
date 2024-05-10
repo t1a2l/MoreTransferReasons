@@ -409,7 +409,7 @@ namespace MoreTransferReasons.AI
                     {
                         if (data.m_transferSize < m_cargoCapacity)
                         {
-                            TransferManager.TransferOffer offer2 = default(TransferManager.TransferOffer);
+                            TransferManager.TransferOffer offer2 = default;
                             offer2.Priority = 7;
                             offer2.Vehicle = vehicleID;
                             if (data.m_sourceBuilding != 0)
