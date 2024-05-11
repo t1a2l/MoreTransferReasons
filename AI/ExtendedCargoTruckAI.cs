@@ -116,11 +116,6 @@ namespace MoreTransferReasons.AI
                     {
                         byte transferType = (byte)(data.m_transferType - 200);
                         ExtendedTransferManager.TransferReason transferReason = (ExtendedTransferManager.TransferReason)transferType;
-                        if(transferReason == ExtendedTransferManager.TransferReason.FuelVehicle)
-                        {
-                            target = InstanceID.Empty;
-                            return "Getting fuel";
-                        }
                         if ((data.m_flags & Vehicle.Flags.Exporting) != 0 || (flags & Building.Flags.IncomingOutgoing) != 0)
                         {
                             target = InstanceID.Empty;

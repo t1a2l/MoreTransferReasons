@@ -191,6 +191,7 @@ namespace MoreTransferReasons.AI
         {
             SimulationManager instance = Singleton<SimulationManager>.instance;
             ExtendedTransferManager instance2 = Singleton<ExtendedTransferManager>.instance;
+            cargoCapacity = 10;
             cargoCapacity = (cargoCapacity * productionRate + 99) / 100;
             int num2 = (cargoCapacity + instance.m_randomizer.Int32(16u)) / 16;
             if ((data.m_flags & Building.Flags.Outgoing) != 0)
@@ -206,67 +207,67 @@ namespace MoreTransferReasons.AI
                     if (num7 * num5 + instance.m_randomizer.Int32(256u) >> 8 == 0)
                     {
                         offer.Amount = 1;
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.CannedFish, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Furnitures, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.ElectronicProducts, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.IndustrialSteel, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Tupperware, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Toys, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.PrintedProducts, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.TissuePaper, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Cloths, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.PetroleumProducts, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Cars, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Footwear, offer);
                         }
-                        if (instance.m_randomizer.Int32(32u) == 0)
+                        if (instance.m_randomizer.Int32(16u) == 0)
                         {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Houses, offer);
                         }
@@ -293,6 +294,7 @@ namespace MoreTransferReasons.AI
                     }
                 }
             }
+            
             if ((data.m_flags & Building.Flags.Incoming) == 0)
             {
                 return;
@@ -308,67 +310,67 @@ namespace MoreTransferReasons.AI
                 if (num19 * num17 + instance.m_randomizer.Int32(256u) >> 8 == 0)
                 {
                     offer2.Amount = 1;
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.CannedFish, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Furnitures, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.ElectronicProducts, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.IndustrialSteel, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Tupperware, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Toys, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.PrintedProducts, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.TissuePaper, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Cloths, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.PetroleumProducts, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Cars, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Footwear, offer2);
                     }
-                    if (instance.m_randomizer.Int32(32u) == 0)
+                    if (instance.m_randomizer.Int32(16u) == 0)
                     {
                         instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Houses, offer2);
                     }
