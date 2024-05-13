@@ -18,7 +18,7 @@
             }
             if (material == ExtendedTransferManager.TransferReason.FuelVehicle)
             {
-                data.m_transferType = (byte)(material + 200);
+                data.m_custom = (ushort)material;
                 SetTarget(vehicleID, ref data, offer.Building);
             }
         }

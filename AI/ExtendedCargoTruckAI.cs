@@ -460,7 +460,7 @@ namespace MoreTransferReasons.AI
             }
             if (material == ExtendedTransferManager.TransferReason.FuelVehicle)
             {
-                data.m_transferType = (byte)(material + 200);
+                data.m_custom = (ushort)material;
                 SetTarget(vehicleID, ref data, offer.Building);
             }
         }
@@ -517,17 +517,17 @@ namespace MoreTransferReasons.AI
             }
             BuildingManager instance = Singleton<BuildingManager>.instance;
             BuildingInfo info = instance.m_buildings.m_buffer[data.m_targetBuilding].Info;
-            if (data.m_transferType >= 200 && data.m_transferType != 255)
+            if (data.m_custom != (ushort)ExtendedTransferManager.TransferReason.FuelVehicle)
             {
-                byte transferType = (byte)(data.m_transferType - 200);
-                if ((ExtendedTransferManager.TransferReason)transferType != ExtendedTransferManager.TransferReason.FuelVehicle)
+                if (data.m_transferType >= 200 && data.m_transferType != 255)
                 {
+                    byte transferType = (byte)(data.m_transferType - 200);
                     ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
                 }
-            }
-            else
-            {
-                info.m_buildingAI.ModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (TransferManager.TransferReason)data.m_transferType, ref amountDelta);
+                else
+                {
+                    info.m_buildingAI.ModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (TransferManager.TransferReason)data.m_transferType, ref amountDelta);
+                }
             }
             if ((data.m_flags & Vehicle.Flags.TransferToTarget) != 0)
             {
@@ -676,13 +676,9 @@ namespace MoreTransferReasons.AI
             {
                 return false;
             }
-            if (vehicleData.m_transferType >= 200)
+            if (vehicleData.m_custom == (ushort)ExtendedTransferManager.TransferReason.FuelVehicle)
             {
-                byte transferType = (byte)(vehicleData.m_transferType - 200);
-                if ((ExtendedTransferManager.TransferReason)transferType == ExtendedTransferManager.TransferReason.FuelVehicle)
-                {
-                    return false;
-                }
+                return false;
             }
             VehicleManager instance = Singleton<VehicleManager>.instance;
             NetManager instance2 = Singleton<NetManager>.instance;
