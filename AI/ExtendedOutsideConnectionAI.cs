@@ -64,7 +64,7 @@ namespace MoreTransferReasons.AI
                 case ExtendedTransferManager.TransferReason.Cars: // 1 -> 2 -> rental, buy, export
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level4);
                     break;
-                case ExtendedTransferManager.TransferReason.Houses: // 9 -> to build houses
+                case ExtendedTransferManager.TransferReason.HouseParts: // 9 -> to build houses
                     vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level5);
                     break;
                 default:
@@ -121,7 +121,7 @@ namespace MoreTransferReasons.AI
                 case ExtendedTransferManager.TransferReason.PetroleumProducts:
                 case ExtendedTransferManager.TransferReason.Cars:
                 case ExtendedTransferManager.TransferReason.Footwear:
-                case ExtendedTransferManager.TransferReason.Houses:
+                case ExtendedTransferManager.TransferReason.HouseParts:
                     Singleton<DistrictManager>.instance.m_districts.m_buffer[district].m_importData.m_tempGoods += (uint)amount;
                     break;
             }
@@ -155,7 +155,7 @@ namespace MoreTransferReasons.AI
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.PetroleumProducts, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Cars, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Footwear, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Houses, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.HouseParts, offer);
             }
             if ((data.m_flags & Building.Flags.Incoming) != 0)
             {
@@ -176,7 +176,7 @@ namespace MoreTransferReasons.AI
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.PetroleumProducts, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Cars, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Footwear, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Houses, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.HouseParts, offer2);
             }
         }
 
@@ -273,7 +273,7 @@ namespace MoreTransferReasons.AI
                         }
                         if (instance.m_randomizer.Int32(16u) == 0)
                         {
-                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Houses, offer);
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HouseParts, offer);
                         }
                     }
                     else
@@ -294,7 +294,7 @@ namespace MoreTransferReasons.AI
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.PetroleumProducts, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Cars, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Footwear, offer);
-                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Houses, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HouseParts, offer);
                     }
                 }
             }
@@ -376,7 +376,7 @@ namespace MoreTransferReasons.AI
                     }
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Houses, offer2);
+                        instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.HouseParts, offer2);
                     }
                 }
                 else
@@ -397,7 +397,7 @@ namespace MoreTransferReasons.AI
                     instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.PetroleumProducts, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Cars, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Footwear, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.Houses, offer2);
+                    instance2.AddIncomingOffer(ExtendedTransferManager.TransferReason.HouseParts, offer2);
                 }
             }
         }
