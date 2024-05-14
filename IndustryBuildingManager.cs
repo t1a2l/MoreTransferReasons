@@ -168,7 +168,7 @@ namespace MoreTransferReasons
                 ExtendedTransferManager.TransferReason.PetroleumProducts => 4200,
                 ExtendedTransferManager.TransferReason.Cars => 13500,
                 ExtendedTransferManager.TransferReason.Footwear => 3500,
-                ExtendedTransferManager.TransferReason.Houses => 45500,
+                ExtendedTransferManager.TransferReason.HouseParts => 45500,
                 _ => 0,
             });
         }

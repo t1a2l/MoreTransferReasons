@@ -226,7 +226,7 @@ namespace MoreTransferReasons.UI
                 ExtendedTransferManager.TransferReason.PetroleumProducts,
                 ExtendedTransferManager.TransferReason.Cars,
                 ExtendedTransferManager.TransferReason.Footwear,
-                ExtendedTransferManager.TransferReason.Houses
+                ExtendedTransferManager.TransferReason.HouseParts
             ];
             List<ExtendedTransferManager.TransferReason> extendedlist2 = extendedlist;
             m_extendedTransferReasons = extendedlist2.ToArray();
@@ -428,10 +428,6 @@ namespace MoreTransferReasons.UI
                 m_resourceProgressBar.progressColor = IndustryBuildingManager.GetExtendedResourceColor((ExtendedTransferManager.TransferReason)actualTransferReason);
                 var extendedTransferReason = (ExtendedTransferManager.TransferReason)actual_material_byte;
                 if(extendedTransferReason == ExtendedTransferManager.TransferReason.BeverageProducts && m_NameField.text.Contains("Lemonade Factory"))
-                {
-                    m_NameField.text = "Beverage Products Factory";
-                }
-                if (extendedTransferReason == ExtendedTransferManager.TransferReason.Houses && m_NameField.text.Contains("Modular"))
                 {
                     m_NameField.text = "Beverage Products Factory";
                 }
