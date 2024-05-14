@@ -15,7 +15,7 @@ namespace MoreTransferReasons.Utils
 
         public static void Register()
         {
-            var dictionary = ((Dictionary<string, ItemClass>)typeof(ItemClassCollection).GetField("m_classDict", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null));
+            var dictionary = (Dictionary<string, ItemClass>)typeof(ItemClassCollection).GetField("m_classDict", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
             if (!dictionary.ContainsKey(industrialSteelTransporterVehicle.name))
             {
                 dictionary.Add(industrialSteelTransporterVehicle.name, industrialSteelTransporterVehicle);
