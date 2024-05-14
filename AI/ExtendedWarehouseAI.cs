@@ -538,7 +538,8 @@ namespace MoreTransferReasons.AI
                     int cargo = 0;
                     int capacity = 0;
                     int outside = 0;
-                    ExtendedVehicleManager.CalculateOwnVehicles(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
+                    byte material_byte = (byte)(actualTransferReason - 200);
+                    ExtendedVehicleManager.CalculateOwnVehicles(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)material_byte, ref count, ref cargo, ref capacity, ref outside);
                     buildingData.m_tempExport = (byte)Mathf.Clamp(outside, buildingData.m_tempExport, 255);
                     int count2 = 0;
                     int cargo2 = 0;
@@ -576,7 +577,6 @@ namespace MoreTransferReasons.AI
                     {
                         if (num >= maxLoadSize && (count < num2 || !flag2))
                         {
-                            var material_byte = (byte)(actualTransferReason - 200);
                             ExtendedTransferManager.Offer offer = default;
                             if ((buildingData.m_flags & Building.Flags.Filling) != Building.Flags.None)
                             {
@@ -647,7 +647,6 @@ namespace MoreTransferReasons.AI
                             }
                             if (flag3)
                             {
-                                var material_byte = (byte)(actualTransferReason - 200);
                                 offer2.Building = num3;
                                 offer2.Position = buildingData.m_position;
                                 offer2.Amount = Mathf.Max(1, (m_storageCapacity - num) / maxLoadSize);
@@ -658,7 +657,6 @@ namespace MoreTransferReasons.AI
                     }
                     else if (num > 0 && (count < num2 || !flag2))
                     {
-                        var material_byte = (byte)(actualTransferReason - 200);
                         ExtendedTransferManager.Offer offer3 = default;
                         offer3.Building = num3;
                         offer3.Position = buildingData.m_position;
@@ -929,7 +927,8 @@ namespace MoreTransferReasons.AI
                 int cargo = 0;
                 int capacity = 0;
                 int outside = 0;
-                ExtendedVehicleManager.CalculateOwnVehicles(buildingID, ref data, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
+                byte material_byte = (byte)(actualTransferReason - 200);
+                ExtendedVehicleManager.CalculateOwnVehicles(buildingID, ref data, (ExtendedTransferManager.TransferReason)material_byte, ref count, ref cargo, ref capacity, ref outside);
                 int num2 = data.m_customBuffer1 * 100;
                 int num3 = 0;
                 if (num2 != 0)
