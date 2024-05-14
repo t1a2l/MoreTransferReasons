@@ -1,6 +1,4 @@
-﻿using MoreTransferReasons.Utils;
-
-namespace MoreTransferReasons.AI
+﻿namespace MoreTransferReasons.AI
 {
     public class ExtenedResidentAI : ResidentAI, IExtendedCitizenAI
     {
