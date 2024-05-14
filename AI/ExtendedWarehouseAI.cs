@@ -207,7 +207,7 @@ namespace MoreTransferReasons.AI
                 case ExtendedTransferManager.TransferReason.PetroleumProducts:
                 case ExtendedTransferManager.TransferReason.Cars:
                 case ExtendedTransferManager.TransferReason.Footwear:
-                case ExtendedTransferManager.TransferReason.Houses:
+                case ExtendedTransferManager.TransferReason.HouseParts:
                     service = ItemClass.Service.PlayerIndustry;
                     break;
                 default:
@@ -846,7 +846,7 @@ namespace MoreTransferReasons.AI
                 case ExtendedTransferManager.TransferReason.PetroleumProducts:
                 case ExtendedTransferManager.TransferReason.Cars:
                 case ExtendedTransferManager.TransferReason.Footwear:
-                case ExtendedTransferManager.TransferReason.Houses:
+                case ExtendedTransferManager.TransferReason.HouseParts:
                     data.m_flags = (data.m_flags & ~Building.Flags.Content06) | Building.Flags.Content06_Forbid;
                     break;
                 default:
