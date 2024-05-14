@@ -78,7 +78,7 @@ namespace MoreTransferReasons.AI
                 }
                 Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
                 byte transferType = (byte)(material + 200);
-                if (ExtedndedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, transferType, flag3, !flag3))
+                if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, transferType, flag3, !flag3))
                 {
                     vehicleInfo.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
 

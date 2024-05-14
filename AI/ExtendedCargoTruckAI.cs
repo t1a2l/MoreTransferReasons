@@ -710,7 +710,7 @@ namespace MoreTransferReasons.AI
             bool vehicle_created;
             if (vehicleData.m_transferType >= 200 && vehicleData.m_transferType != 255)
             {
-                vehicle_created = ExtedndedVehicleManager.CreateVehicle(out vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, vector, vehicleData.m_transferType, transferToSource: false, transferToTarget: true);
+                vehicle_created = ExtendedVehicleManager.CreateVehicle(out vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, vector, vehicleData.m_transferType, transferToSource: false, transferToTarget: true);
             }
             else
             {

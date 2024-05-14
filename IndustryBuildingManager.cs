@@ -248,5 +248,51 @@ namespace MoreTransferReasons
             return Color.Lerp(Color.grey, Color.black, 0.2f); ;
         }
 
+
+        public static void ExportResource(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason resource, int amount)
+        {
+            DistrictManager instance = Singleton<DistrictManager>.instance;
+            byte district = instance.GetDistrict(data.m_position);
+            switch (resource)
+            {
+                case ExtendedTransferManager.TransferReason.FoodProducts:
+                case ExtendedTransferManager.TransferReason.BeverageProducts:
+                case ExtendedTransferManager.TransferReason.BakedGoods:
+                case ExtendedTransferManager.TransferReason.CannedFish:
+                case ExtendedTransferManager.TransferReason.Furnitures:
+                case ExtendedTransferManager.TransferReason.ElectronicProducts:
+                case ExtendedTransferManager.TransferReason.Tupperware:
+                case ExtendedTransferManager.TransferReason.Toys:
+                case ExtendedTransferManager.TransferReason.PrintedProducts:
+                case ExtendedTransferManager.TransferReason.TissuePaper:
+                case ExtendedTransferManager.TransferReason.Cloths:
+                case ExtendedTransferManager.TransferReason.Footwear:
+                case ExtendedTransferManager.TransferReason.IndustrialSteel:
+                case ExtendedTransferManager.TransferReason.PetroleumProducts: 
+                case ExtendedTransferManager.TransferReason.Cars: 
+                case ExtendedTransferManager.TransferReason.HouseParts:
+                    Singleton<DistrictManager>.instance.m_districts.m_buffer[district].m_exportData.m_tempGoods += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.Anchovy:
+                case ExtendedTransferManager.TransferReason.Salmon:
+                case ExtendedTransferManager.TransferReason.Shellfish:
+                case ExtendedTransferManager.TransferReason.Tuna:
+                case ExtendedTransferManager.TransferReason.Algae:
+                case ExtendedTransferManager.TransferReason.Seaweed:
+                case ExtendedTransferManager.TransferReason.Trout:
+                    Singleton<DistrictManager>.instance.m_districts.m_buffer[district].m_exportData.m_tempFish += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.Milk:
+                case ExtendedTransferManager.TransferReason.Fruits:
+                case ExtendedTransferManager.TransferReason.Vegetables:
+                case ExtendedTransferManager.TransferReason.Cows:
+                case ExtendedTransferManager.TransferReason.HighlandCows:
+                case ExtendedTransferManager.TransferReason.Sheep:
+                case ExtendedTransferManager.TransferReason.Pigs:
+                    Singleton<DistrictManager>.instance.m_districts.m_buffer[district].m_exportData.m_tempAgricultural += (uint)amount;
+                    break;
+            }
+        }
+
     }
 }

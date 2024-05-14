@@ -179,7 +179,7 @@ namespace MoreTransferReasons.AI
                 return;
             }
             Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
-            if (ExtedndedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position, transferType, transferToSource: false, transferToTarget: true) && transferVehicleService.m_vehicleAI is ExtendedCargoTruckAI cargoTruckAI)
+            if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position, transferType, transferToSource: false, transferToTarget: true) && transferVehicleService.m_vehicleAI is ExtendedCargoTruckAI cargoTruckAI)
             {
                 transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
                 ((IExtendedVehicleAI)cargoTruckAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offer);
@@ -538,7 +538,7 @@ namespace MoreTransferReasons.AI
                     int cargo = 0;
                     int capacity = 0;
                     int outside = 0;
-                    ExtedndedVehicleManager.CalculateOwnVehicles(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
+                    ExtendedVehicleManager.CalculateOwnVehicles(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
                     buildingData.m_tempExport = (byte)Mathf.Clamp(outside, buildingData.m_tempExport, 255);
                     int count2 = 0;
                     int cargo2 = 0;
@@ -719,7 +719,7 @@ namespace MoreTransferReasons.AI
 
         public void CalculateGuestVehiclesExtended(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int count, ref int cargo, ref int capacity, ref int outside)
         {
-            ExtedndedVehicleManager.CalculateGuestVehicles(buildingID, ref data, material, ref count, ref cargo, ref capacity, ref outside);
+            ExtendedVehicleManager.CalculateGuestVehicles(buildingID, ref data, material, ref count, ref cargo, ref capacity, ref outside);
             if (m_subStations <= 0)
             {
                 return;
@@ -732,7 +732,7 @@ namespace MoreTransferReasons.AI
                     ExtendedWarehouseStationAI extendedWarehouseStationAI = info.m_buildingAI as ExtendedWarehouseStationAI;
                     if (extendedWarehouseStationAI != null)
                     {
-                        ExtedndedVehicleManager.CalculateGuestVehicles(subBuilding, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[subBuilding], material, ref count, ref cargo, ref capacity, ref outside);
+                        ExtendedVehicleManager.CalculateGuestVehicles(subBuilding, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[subBuilding], material, ref count, ref cargo, ref capacity, ref outside);
                     }
                 }
             }
@@ -929,7 +929,7 @@ namespace MoreTransferReasons.AI
                 int cargo = 0;
                 int capacity = 0;
                 int outside = 0;
-                ExtedndedVehicleManager.CalculateOwnVehicles(buildingID, ref data, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
+                ExtendedVehicleManager.CalculateOwnVehicles(buildingID, ref data, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
                 int num2 = data.m_customBuffer1 * 100;
                 int num3 = 0;
                 if (num2 != 0)

@@ -60,7 +60,7 @@ namespace MoreTransferReasons.HarmonyPatches
                     num3 += ((!flag) ? (info2.m_generatedInfo.m_size.z * 0.5f) : info2.m_generatedInfo.m_size.y);
                     num3 -= ((!flag3) ? info2.m_attachOffsetFront : info2.m_attachOffsetBack);
                     Vector3 position = lastFrameData.m_position - lastFrameData.m_rotation * new Vector3(0f, (!flag) ? 0f : num3, (!flag) ? num3 : 0f);
-                    ExtedndedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, info2, position, __instance.m_transferType, transferToSource: false, transferToTarget: false);
+                    ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, info2, position, __instance.m_transferType, transferToSource: false, transferToTarget: false);
                     if (vehicle != 0)
                     {
                         instance.m_vehicles.m_buffer[num2].m_trailingVehicle = vehicle;

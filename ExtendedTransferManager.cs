@@ -68,6 +68,7 @@ namespace MoreTransferReasons
             FuelVehicle = 41,
             ConstructionResources = 42,
             OperationResources = 43,
+            Ship = 44,
             None = 255
         }
 

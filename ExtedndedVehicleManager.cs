@@ -5,7 +5,7 @@ using ColossalFramework.Math;
 
 namespace MoreTransferReasons
 {
-    public static class ExtedndedVehicleManager
+    public static class ExtendedVehicleManager
     {
         public static void CalculateOwnVehicles(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int count, ref int cargo, ref int capacity, ref int outside)
         {
