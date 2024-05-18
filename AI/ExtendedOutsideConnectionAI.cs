@@ -91,40 +91,13 @@ namespace MoreTransferReasons.AI
                             vehicleInfo.m_vehicleAI.GetSize(vehicle, ref vehicles.m_buffer[vehicle], out var size, out _);
                             if (!flag3)
                             {
-                                ImportResource(building4, ref buffer[building4], material, size);
+                                IndustryBuildingManager.ImportResource(building4, ref buffer[building4], material, size);
                             }
                         }
                     }
                 }
             }
             return true;
-        }
-
-        public static void ImportResource(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason resource, int amount)
-        {
-            DistrictManager instance = Singleton<DistrictManager>.instance;
-            byte district = instance.GetDistrict(data.m_position);
-            switch (resource)
-            {
-                case ExtendedTransferManager.TransferReason.FoodProducts:
-                case ExtendedTransferManager.TransferReason.BeverageProducts:
-                case ExtendedTransferManager.TransferReason.BakedGoods:
-                case ExtendedTransferManager.TransferReason.CannedFish:
-                case ExtendedTransferManager.TransferReason.Furnitures:
-                case ExtendedTransferManager.TransferReason.ElectronicProducts:
-                case ExtendedTransferManager.TransferReason.IndustrialSteel:
-                case ExtendedTransferManager.TransferReason.Tupperware:
-                case ExtendedTransferManager.TransferReason.Toys:
-                case ExtendedTransferManager.TransferReason.PrintedProducts:
-                case ExtendedTransferManager.TransferReason.TissuePaper:
-                case ExtendedTransferManager.TransferReason.Cloths:
-                case ExtendedTransferManager.TransferReason.PetroleumProducts:
-                case ExtendedTransferManager.TransferReason.Cars:
-                case ExtendedTransferManager.TransferReason.Footwear:
-                case ExtendedTransferManager.TransferReason.HouseParts:
-                    Singleton<DistrictManager>.instance.m_districts.m_buffer[district].m_importData.m_tempGoods += (uint)amount;
-                    break;
-            }
         }
 
         public override void ReleaseBuilding(ushort buildingID, ref Building data)

@@ -1,13 +1,33 @@
 using ColossalFramework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using static DistrictPark;
-using static MoreTransferReasons.PedestrianZoneExtendedTransferReasonManager;
 
 namespace MoreTransferReasons
 {
     public class ExtendedDistrictPark
     {
+        public struct PedestrianZoneExtendedTransferReason
+        {
+            public ExtendedTransferManager.TransferReason m_material;
+
+            public bool m_activeIn;
+
+            public bool m_activeOut;
+
+            public DeliveryCategories m_deliveryCategory;
+
+            public VehicleInfo.VehicleCategory m_vehicleCategory;
+
+            public int m_averageTruckCapacity;
+        }
+
+        public static PedestrianZoneExtendedTransferReason[] kPedestrianZoneExtendedTransferReasons;
+
+        public static int pedestrianExtendedReasonsCount => kPedestrianZoneExtendedTransferReasons.Length;
+
         public DistrictAreaResourceData m_milkData;
 
         public DistrictAreaResourceData m_fruitsData;
@@ -59,6 +79,301 @@ namespace MoreTransferReasons
         public DistrictAreaResourceData m_woolData;
 
         public DistrictAreaResourceData m_cottonData;
+
+        static ExtendedDistrictPark()
+        {
+            kPedestrianZoneExtendedTransferReasons =
+            [
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Milk,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Fruits,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Vegetables,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Cows,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.HighlandCows,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Sheep,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Pigs,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.FoodProducts,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.BeverageProducts,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.BakedGoods,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.CannedFish,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Furnitures,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.ElectronicProducts,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.IndustrialSteel,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Tupperware,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Toys,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.PrintedProducts,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.TissuePaper,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Cloths,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.PetroleumProducts,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Cars,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 5
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Footwear,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.HouseParts,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 1
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Wool,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Cotton,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Anchovy,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Salmon,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Shellfish,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Tuna,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Algae,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Seaweed,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                }
+            ];
+
+            var hashSet = new HashSet<DeliveryCategories>(kDeliveryCategories);
+
+            for (int i = 0; i < kPedestrianZoneExtendedTransferReasons.Length; i++)
+            {
+                hashSet.Add(kPedestrianZoneExtendedTransferReasons[i].m_deliveryCategory);
+            }
+
+            kDeliveryCategories = hashSet.ToArray();
+        }
 
         public void AddExtendedExportAmount(ExtendedTransferManager.TransferReason material, int amount)
         {
@@ -710,7 +1025,7 @@ namespace MoreTransferReasons
             return false;
         }
 
-        public bool TryGetRandomServicePoint(DeliveryCategories deliveryCategory, out ushort buildingID)
+        public static bool TryGetRandomServicePoint(DeliveryCategories deliveryCategory, out ushort buildingID)
         {
             if (deliveryCategory != 0 && IsServicePointDelivery(deliveryCategory, out var index))
             {
@@ -738,6 +1053,136 @@ namespace MoreTransferReasons
             index = Array.FindIndex(kPedestrianZoneExtendedTransferReasons, (PedestrianZoneExtendedTransferReason i) => i.m_material == material);
             return index >= 0;
         }
+
+        public void AddMaterialRequest(ushort buildingID, ExtendedTransferManager.TransferReason material)
+        {
+            var m_materialRequest = (Queue<ushort>[])typeof(DistrictPark).GetField("m_materialRequest", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
+            if (IsPedestrianReason(material, out var index) && m_materialRequest[index].All((ushort id) => id != buildingID))
+            {
+                m_materialRequest[index].Enqueue(buildingID);
+                typeof(DistrictPark).GetField("m_materialRequest", BindingFlags.Instance | BindingFlags.Public).SetValue(null, m_materialRequest);
+            }
+        }
+
+        public void AddMaterialSuggestion(ushort buildingID, ExtendedTransferManager.TransferReason material)
+        {
+            var m_materialSuggestion = (Queue<ushort>[])typeof(DistrictPark).GetField("m_materialRequest", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
+            if (IsPedestrianReason(material, out var index) && m_materialSuggestion[index].All((ushort id) => id != buildingID))
+            {
+                m_materialSuggestion[index].Enqueue(buildingID);
+                typeof(DistrictPark).GetField("m_materialSuggestion", BindingFlags.Instance | BindingFlags.Public).SetValue(null, m_materialSuggestion);
+            }
+        }
+
+        public void ModifyMaterialBuffer(ExtendedTransferManager.TransferReason material, ref int amountDelta)
+        {
+            var m_materialRequest = (Queue<ushort>[])typeof(DistrictPark).GetField("m_materialRequest", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
+            var m_materialSuggestion = (Queue<ushort>[])typeof(DistrictPark).GetField("m_materialSuggestion", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
+            if (IsPedestrianReason(material, out var index))
+            {
+                int num = 0;
+                if (amountDelta > 0)
+                {
+                    Queue<ushort> queue = m_materialRequest[index];
+                    int count = queue.Count;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if (queue.Count <= 0)
+                        {
+                            break;
+                        }
+                        if (num >= amountDelta)
+                        {
+                            break;
+                        }
+                        int num2 = amountDelta - num;
+                        int amountDelta2 = num2;
+                        ushort num3 = queue.Dequeue();
+                        BuildingInfo info = Singleton<BuildingManager>.instance.m_buildings.m_buffer[num3].Info;
+                        if (!(info == null))
+                        {
+                            info.m_buildingAI.ModifyMaterialBuffer(num3, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[num3], material, ref amountDelta2);
+                            num += amountDelta2;
+                            if (amountDelta2 <= num2)
+                            {
+                                Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer(material, new ExtendedTransferManager.Offer
+                                {
+                                    Building = num3
+                                });
+                            }
+                            else
+                            {
+                                queue.Enqueue(num3);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Queue<ushort> queue2 = m_materialSuggestion[index];
+                    int count2 = queue2.Count;
+                    for (int j = 0; j < count2; j++)
+                    {
+                        if (queue2.Count <= 0)
+                        {
+                            break;
+                        }
+                        if (num <= amountDelta)
+                        {
+                            break;
+                        }
+                        int num4 = amountDelta - num;
+                        int amountDelta3 = num4;
+                        ushort num5 = queue2.Dequeue();
+                        BuildingInfo info2 = Singleton<BuildingManager>.instance.m_buildings.m_buffer[num5].Info;
+                        if (!(info2 == null))
+                        {
+                            info2.m_buildingAI.ModifyMaterialBuffer(num5, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[num5], material, ref amountDelta3);
+                            num += amountDelta3;
+                            if (amountDelta3 >= num4)
+                            {
+                                Singleton<ExtendedTransferManager>.instance.RemoveOutgoingOffer(material, new ExtendedTransferManager.Offer
+                                {
+                                    Building = num5
+                                });
+                            }
+                            else
+                            {
+                                queue2.Enqueue(num5);
+                            }
+                        }
+                    }
+                }
+                amountDelta = num;
+                if (amountDelta > 0)
+                {
+                    var m_tempIncome = (uint[])typeof(DistrictPark).GetField("m_tempIncome", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
+                    m_tempIncome[index] += (uint)amountDelta;
+                    typeof(DistrictPark).GetField("m_tempIncome", BindingFlags.Instance | BindingFlags.Public).SetValue(null, m_tempIncome);
+                }
+                else
+                {
+                    var m_tempOutcome = (uint[])typeof(DistrictPark).GetField("m_tempOutcome", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
+                    m_tempOutcome[index] -= (uint)amountDelta;
+                    typeof(DistrictPark).GetField("m_tempOutcome", BindingFlags.Instance | BindingFlags.Public).SetValue(null, m_tempOutcome);
+                }
+            }
+            else
+            {
+                amountDelta = 0;
+            }
+        }
+
+        public void StartLocalTransfer(ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
+        {
+            BuildingAI buildingAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[offer.Building].Info.m_buildingAI;
+            ((IExtendedBuildingAI)buildingAI).ExtendedGetMaterialAmount(offer.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[offer.Building], material, out var amount, out var max);
+            int amountDelta = -(max - amount);
+            ModifyMaterialBuffer(material, ref amountDelta);
+            amountDelta = -amountDelta;
+            ((IExtendedBuildingAI)buildingAI).ExtendedModifyMaterialBuffer(offer.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[offer.Building], material, ref amountDelta);
+        }
+
 
     }
 }

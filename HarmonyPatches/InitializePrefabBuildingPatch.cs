@@ -17,6 +17,12 @@ namespace MoreTransferReasons.HarmonyPatches
                 var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedOutsideConnectionAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
             }
+            else if (oldAI != null && oldAI is ServicePointAI)
+            {
+                Object.DestroyImmediate(oldAI);
+                var newAI = __instance.gameObject.AddComponent<ExtendedServicePointAI>();
+                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+            }
             else if(oldAI != null && oldAI is WarehouseAI)
             {
                 Object.DestroyImmediate(oldAI);

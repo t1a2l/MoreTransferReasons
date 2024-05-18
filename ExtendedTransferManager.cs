@@ -493,9 +493,39 @@ namespace MoreTransferReasons
             };
         }
 
-
         public void AddOutgoingOffer(TransferReason material, Offer offer)
         {
+            if (offer.Building != 0)
+            {
+                Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
+                byte park = Singleton<DistrictManager>.instance.GetPark(buffer[offer.Building].m_position);
+                if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
+                {
+                    bool flag = false;
+                    if ((Singleton<DistrictManager>.instance.m_parks.m_buffer[park].m_parkPolicies & DistrictPolicies.Park.ForceServicePoint) != 0)
+                    {
+                        flag = true;
+                    }
+                    else
+                    {
+                        ushort accessSegment = buffer[offer.Building].m_accessSegment;
+                        if (accessSegment == 0 && (buffer[offer.Building].m_problems & new Notification.ProblemStruct(Notification.Problem1.RoadNotConnected, Notification.Problem2.NotInPedestrianZone)).IsNone)
+                        {
+                            buffer[offer.Building].Info.m_buildingAI.CheckRoadAccess(offer.Building, ref buffer[offer.Building]);
+                            accessSegment = buffer[offer.Building].m_accessSegment;
+                        }
+                        if (accessSegment != 0 && (Singleton<NetManager>.instance.m_segments.m_buffer[accessSegment].Info.m_vehicleCategories & reason.m_vehicleCategory) == 0)
+                        {
+                            flag = true;
+                        }
+                    }
+                    if (flag)
+                    {
+                        offer.m_isLocalPark = park;
+                        ExtendedDistrictManager.IndustryParks[park].AddMaterialSuggestion(offer.Building, material);
+                    }
+                }
+            }
             int index = OutgoingIndexes[(int)material];
             if (index < 256)
             {
@@ -507,6 +537,37 @@ namespace MoreTransferReasons
 
         public void AddIncomingOffer(TransferReason material, Offer offer)
         {
+            if (offer.Building != 0)
+            {
+                Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
+                byte park = Singleton<DistrictManager>.instance.GetPark(buffer[offer.Building].m_position);
+                if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
+                {
+                    bool flag = false;
+                    if ((Singleton<DistrictManager>.instance.m_parks.m_buffer[park].m_parkPolicies & DistrictPolicies.Park.ForceServicePoint) != 0)
+                    {
+                        flag = true;
+                    }
+                    else
+                    {
+                        ushort accessSegment = buffer[offer.Building].m_accessSegment;
+                        if (accessSegment == 0 && (buffer[offer.Building].m_problems & new Notification.ProblemStruct(Notification.Problem1.RoadNotConnected, Notification.Problem2.NotInPedestrianZone)).IsNone)
+                        {
+                            buffer[offer.Building].Info.m_buildingAI.CheckRoadAccess(offer.Building, ref buffer[offer.Building]);
+                            accessSegment = buffer[offer.Building].m_accessSegment;
+                        }
+                        if (accessSegment != 0 && (Singleton<NetManager>.instance.m_segments.m_buffer[accessSegment].Info.m_vehicleCategories & reason.m_vehicleCategory) == 0)
+                        {
+                            flag = true;
+                        }
+                    }
+                    if (flag)
+                    {
+                        offer.m_isLocalPark = park;
+                        ExtendedDistrictManager.IndustryParks[park].AddMaterialRequest(offer.Building, material);
+                    }
+                }
+            }
             int index = IncomingIndexes[(int)material];
             if (index < 256)
             {
