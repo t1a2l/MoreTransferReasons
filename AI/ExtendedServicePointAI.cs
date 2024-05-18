@@ -1,4 +1,5 @@
 ﻿using ColossalFramework;
+using System;
 using UnityEngine;
 
 namespace MoreTransferReasons.AI
@@ -111,7 +112,7 @@ namespace MoreTransferReasons.AI
                     return;
                 }
                 Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
-                if (Singleton<VehicleManager>.instance.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].m_position, material, flag, !flag))
+                if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].m_position, (byte)material, flag, !flag))
                 {
                     vehicleInfo.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
                     ((IExtendedVehicleAI)vehicleInfo.m_vehicleAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offer);
@@ -129,6 +130,18 @@ namespace MoreTransferReasons.AI
         {
             amount = 0;
             max = 0;
+        }
+
+        private void IncreaseTrafficRate(ushort buildingID, ref Building buildingData, DistrictPark.DeliveryCategories deliveryCategory)
+        {
+            if ((m_deliveryCategories & deliveryCategory & DistrictPark.DeliveryCategories.Cargo) != 0)
+            {
+                buildingData.m_cargoTrafficRate = (buildingData.m_cargoTrafficRate & 0xFFFFFF00u) + Math.Min((buildingData.m_cargoTrafficRate & 0xFF) + 1, 255u);
+            }
+            else if ((m_deliveryCategories & deliveryCategory & DistrictPark.DeliveryCategories.Garbage) != 0)
+            {
+                buildingData.m_garbageTrafficRate = (buildingData.m_garbageTrafficRate & 0xFFFFFF00u) + Math.Min((buildingData.m_garbageTrafficRate & 0xFF) + 1, 255u);
+            }
         }
     }
 }

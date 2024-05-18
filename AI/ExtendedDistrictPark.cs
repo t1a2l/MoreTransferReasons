@@ -1,4 +1,5 @@
 using ColossalFramework;
+using Epic.OnlineServices.Presence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1101,7 +1102,7 @@ namespace MoreTransferReasons
                         BuildingInfo info = Singleton<BuildingManager>.instance.m_buildings.m_buffer[num3].Info;
                         if (!(info == null))
                         {
-                            info.m_buildingAI.ModifyMaterialBuffer(num3, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[num3], material, ref amountDelta2);
+                            ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(num3, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[num3], material, ref amountDelta2);
                             num += amountDelta2;
                             if (amountDelta2 <= num2)
                             {
@@ -1137,7 +1138,7 @@ namespace MoreTransferReasons
                         BuildingInfo info2 = Singleton<BuildingManager>.instance.m_buildings.m_buffer[num5].Info;
                         if (!(info2 == null))
                         {
-                            info2.m_buildingAI.ModifyMaterialBuffer(num5, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[num5], material, ref amountDelta3);
+                            ((IExtendedBuildingAI)info2.m_buildingAI).ExtendedModifyMaterialBuffer(num5, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[num5], material, ref amountDelta3);
                             num += amountDelta3;
                             if (amountDelta3 >= num4)
                             {
