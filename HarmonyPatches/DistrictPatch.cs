@@ -182,14 +182,14 @@ namespace MoreTransferReasons.HarmonyPatches
                         __instance.m_parks.m_buffer[park].m_finalServicePointList = new ushort[255];
                         __instance.m_parks.m_buffer[park].m_zoneFocus = ZoneFocus.Neutral;
                         __instance.m_parks.m_buffer[park].m_zonesDirty = true;
-                        __instance.m_parks.m_buffer[park].m_tempIncome = new uint[pedestrianReasonsCount];
-                        __instance.m_parks.m_buffer[park].m_finalIncome = new uint[pedestrianReasonsCount];
-                        __instance.m_parks.m_buffer[park].m_tempOutcome = new uint[pedestrianReasonsCount];
-                        __instance.m_parks.m_buffer[park].m_finalOutcome = new uint[pedestrianReasonsCount];
-                        __instance.m_parks.m_buffer[park].m_tempImport = new byte[pedestrianReasonsCount];
-                        __instance.m_parks.m_buffer[park].m_finalImport = new byte[pedestrianReasonsCount];
-                        __instance.m_parks.m_buffer[park].m_tempExport = new byte[pedestrianReasonsCount];
-                        __instance.m_parks.m_buffer[park].m_finalExport = new byte[pedestrianReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_tempIncome = new uint[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_finalIncome = new uint[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_tempOutcome = new uint[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_finalOutcome = new uint[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_tempImport = new byte[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_finalImport = new byte[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_tempExport = new byte[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        __instance.m_parks.m_buffer[park].m_finalExport = new byte[pedestrianReasonsCount + ExtendedDistrictPark.pedestrianExtendedReasonsCount];
                         __instance.m_parks.m_buffer[park].m_tempGoodsSold = 0u;
                         __instance.m_parks.m_buffer[park].m_finalGoodsSold = 0u;
                         __instance.m_parks.m_buffer[park].m_cargoServicePointExist = false;
@@ -226,7 +226,7 @@ namespace MoreTransferReasons.HarmonyPatches
         }
 
         [HarmonyPatch(typeof(DistrictPark), "AddParkInOffers")]
-        [HarmonyPostfix]
+        [HarmonyPrefix]
         public static bool AddParkInOffers(DistrictPark __instance, byte parkID)
         {
             if (!__instance.m_cargoServicePointExist && !__instance.m_garbageServicePointExist)
@@ -411,7 +411,7 @@ namespace MoreTransferReasons.HarmonyPatches
         }
 
         [HarmonyPatch(typeof(DistrictPark), "AddParkOutOffers")]
-        [HarmonyPostfix]
+        [HarmonyPrefix]
         public static bool AddParkOutOffers(DistrictPark __instance, byte parkID)
         {
             if (!__instance.m_cargoServicePointExist && !__instance.m_garbageServicePointExist)
@@ -589,6 +589,94 @@ namespace MoreTransferReasons.HarmonyPatches
                     {
                         offer.Amount = Math.Min(num7 - l, 10);
                         Singleton<ExtendedTransferManager>.instance.AddOutgoingOffer(material, offer);
+                    }
+                }
+            }
+            return false;
+        }
+
+        [HarmonyPatch(typeof(DistrictPark), "CalculateImport")]
+        [HarmonyPrefix]
+        public static bool CalculateImport(DistrictPark __instance, byte parkID)
+        {
+            Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
+            Vehicle[] buffer2 = Singleton<VehicleManager>.instance.m_vehicles.m_buffer;
+            for (int i = 0; i < __instance.m_finalGateCount; i++)
+            {
+                ushort num = __instance.m_finalServicePointList[i];
+                if ((buffer[num].m_problems & Notification.Problem1.TurnedOff).IsNotNone)
+                {
+                    continue;
+                }
+                ServicePointAI servicePointAI = buffer[num].Info.m_buildingAI as ServicePointAI;
+                if (servicePointAI == null)
+                {
+                    continue;
+                }
+                ushort num2 = buffer[num].m_guestVehicles;
+                int num3 = 0;
+                while (num2 != 0 && (buffer2[num2].m_flags & Vehicle.Flags.Importing) != 0)
+                {
+                    if(buffer2[num2].m_transferType > 200 && buffer2[num2].m_transferType != 255 && ExtendedDistrictPark.IsPedestrianReason((ExtendedTransferManager.TransferReason)buffer2[num2].m_transferType, out var index1))
+                    {
+                        __instance.m_tempImport[index1] = (byte)Math.Min(__instance.m_tempImport[index1] + 1, 255);
+                    }
+                    else
+                    {
+                        if (IsPedestrianReason((TransferManager.TransferReason)buffer2[num2].m_transferType, out var index2))
+                        {
+                            __instance.m_tempImport[index2] = (byte)Math.Min(__instance.m_tempImport[index2] + 1, 255);
+                        }
+                    }
+                    num2 = buffer2[num2].m_nextGuestVehicle;
+                    if (++num3 > 16384)
+                    {
+                        CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
+                        break;
+                    }
+                }
+            }
+            return false;
+        }
+
+        [HarmonyPatch(typeof(DistrictPark), "CalculateExport")]
+        [HarmonyPrefix]
+        public static bool CalculateExport(DistrictPark __instance, byte parkID)
+        {
+            Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
+            Vehicle[] buffer2 = Singleton<VehicleManager>.instance.m_vehicles.m_buffer;
+            for (int i = 0; i < __instance.m_finalGateCount; i++)
+            {
+                ushort num = __instance.m_finalServicePointList[i];
+                if ((buffer[num].m_problems & Notification.Problem1.TurnedOff).IsNotNone)
+                {
+                    continue;
+                }
+                ServicePointAI servicePointAI = buffer[num].Info.m_buildingAI as ServicePointAI;
+                if (servicePointAI == null)
+                {
+                    continue;
+                }
+                ushort num2 = buffer[num].m_ownVehicles;
+                int num3 = 0;
+                while (num2 != 0 && (buffer2[num2].m_flags & Vehicle.Flags.Exporting) != 0)
+                {
+                    if (buffer2[num2].m_transferType > 200 && buffer2[num2].m_transferType != 255 && ExtendedDistrictPark.IsPedestrianReason((ExtendedTransferManager.TransferReason)buffer2[num2].m_transferType, out var index1))
+                    {
+                        __instance.m_tempExport[index1] = (byte)Math.Min(__instance.m_tempExport[index1] + 1, 255);
+                    }
+                    else
+                    {
+                        if (IsPedestrianReason((TransferManager.TransferReason)buffer2[num2].m_transferType, out var index2))
+                        {
+                            __instance.m_tempExport[index2] = (byte)Math.Min(__instance.m_tempExport[index2] + 1, 255);
+                        }
+                    }
+                    num2 = buffer2[num2].m_nextOwnVehicle;
+                    if (++num3 > 16384)
+                    {
+                        CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
+                        break;
                     }
                 }
             }
