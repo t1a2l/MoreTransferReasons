@@ -20,6 +20,7 @@ namespace MoreTransferReasons
             public uint Citizen;
             public InstanceID m_object;
             public bool IsWarehouse;
+            public byte Park;
         }
 
         public enum TransferReason
@@ -69,6 +70,8 @@ namespace MoreTransferReasons
             ConstructionResources = 42,
             OperationResources = 43,
             Ship = 44,
+            Wool = 45,
+            Cotton = 46,
             None = 255
         }
 
@@ -483,6 +486,9 @@ namespace MoreTransferReasons
                 83 => TransferReason.FuelVehicle,
                 85 => TransferReason.ConstructionResources,
                 87 => TransferReason.OperationResources,
+                89 => TransferReason.Ship,
+                91 => TransferReason.Cotton,
+                93 => TransferReason.Wool,
                 _ => TransferReason.None,
             };
         }
@@ -720,6 +726,14 @@ namespace MoreTransferReasons
         {
             bool active = offerIn.Active;
             bool active2 = offerOut.Active;
+            if (offerOut.Park != 0 && ExtendedDistrictManager.IndustryParks[offerOut.Park].TryGetRandomServicePoint(material, out var buildingID))
+            {
+                offerOut.Building = buildingID;
+            }
+            if (offerIn.Park != 0 && ExtendedDistrictManager.IndustryParks[offerIn.Park].TryGetRandomServicePoint(material, out var buildingID2))
+            {
+                offerIn.Building = buildingID2;
+            }
             if (active && offerIn.Vehicle != 0)
             {
                 Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
