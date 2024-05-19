@@ -3,6 +3,7 @@ using HarmonyLib;
 using MoreTransferReasons.AI;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using static DistrictPark;
 
 namespace MoreTransferReasons.HarmonyPatches
@@ -17,41 +18,45 @@ namespace MoreTransferReasons.HarmonyPatches
             ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
             if (__result)
             {
-                instance2.m_industryParks.m_buffer[park].m_milkData = default;
-                instance2.m_industryParks.m_buffer[park].m_fruitsData = default;
-                instance2.m_industryParks.m_buffer[park].m_vegetablesData = default;
-                instance2.m_industryParks.m_buffer[park].m_cowsData = default;
-                instance2.m_industryParks.m_buffer[park].m_highlandCowsData = default;
-                instance2.m_industryParks.m_buffer[park].m_sheepData = default;
-                instance2.m_industryParks.m_buffer[park].m_pigsData = default;
-                instance2.m_industryParks.m_buffer[park].m_foodProductsData = default;
-                instance2.m_industryParks.m_buffer[park].m_beverageProductsData = default;
-                instance2.m_industryParks.m_buffer[park].m_bakedGoodsData = default;
-                instance2.m_industryParks.m_buffer[park].m_cannedFishData = default;
-                instance2.m_industryParks.m_buffer[park].m_furnituresData = default;
-                instance2.m_industryParks.m_buffer[park].m_electronicProductsData = default;
-                instance2.m_industryParks.m_buffer[park].m_industrialSteelData = default;
-                instance2.m_industryParks.m_buffer[park].m_tupperwareData = default;
-                instance2.m_industryParks.m_buffer[park].m_toysData = default;
-                instance2.m_industryParks.m_buffer[park].m_printedProductsData = default;
-                instance2.m_industryParks.m_buffer[park].m_tissuePaperData = default;
-                instance2.m_industryParks.m_buffer[park].m_clothsData = default;
-                instance2.m_industryParks.m_buffer[park].m_petroleumProductsData = default;
-                instance2.m_industryParks.m_buffer[park].m_carsData = default;
-                instance2.m_industryParks.m_buffer[park].m_footwearData = default;
-                instance2.m_industryParks.m_buffer[park].m_housePartsData = default;
-                instance2.m_industryParks.m_buffer[park].m_shipData = default;
-                instance2.m_industryParks.m_buffer[park].m_woolData = default;
-                instance2.m_industryParks.m_buffer[park].m_cottonData = default;
-                if(type == ParkType.PedestrianZone)
+                if(instance2.m_industryParks.CreateItem(out var item)) 
                 {
-                    instance2.m_industryParks.m_buffer[park].m_tempIncome = new uint[ExtendedDistrictPark.pedestrianExtendedReasonsCount];
-                    instance2.m_industryParks.m_buffer[park].m_tempOutcome = new uint[ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                    park = item;
+                    instance2.m_industryParks.m_buffer[park].m_milkData = default;
+                    instance2.m_industryParks.m_buffer[park].m_fruitsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_vegetablesData = default;
+                    instance2.m_industryParks.m_buffer[park].m_cowsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_highlandCowsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_sheepData = default;
+                    instance2.m_industryParks.m_buffer[park].m_pigsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_foodProductsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_beverageProductsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_bakedGoodsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_cannedFishData = default;
+                    instance2.m_industryParks.m_buffer[park].m_furnituresData = default;
+                    instance2.m_industryParks.m_buffer[park].m_electronicProductsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_industrialSteelData = default;
+                    instance2.m_industryParks.m_buffer[park].m_tupperwareData = default;
+                    instance2.m_industryParks.m_buffer[park].m_toysData = default;
+                    instance2.m_industryParks.m_buffer[park].m_printedProductsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_tissuePaperData = default;
+                    instance2.m_industryParks.m_buffer[park].m_clothsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_petroleumProductsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_carsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_footwearData = default;
+                    instance2.m_industryParks.m_buffer[park].m_housePartsData = default;
+                    instance2.m_industryParks.m_buffer[park].m_shipData = default;
+                    instance2.m_industryParks.m_buffer[park].m_woolData = default;
+                    instance2.m_industryParks.m_buffer[park].m_cottonData = default;
+                    if (type == ParkType.PedestrianZone)
+                    {
+                        instance2.m_industryParks.m_buffer[park].m_tempIncome = new uint[ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                        instance2.m_industryParks.m_buffer[park].m_tempOutcome = new uint[ExtendedDistrictPark.pedestrianExtendedReasonsCount];
 
-                    instance2.m_industryParks.m_buffer[park].m_extendedMaterialRequest = (from i in Enumerable.Range(0, ExtendedDistrictPark.pedestrianExtendedReasonsCount)
-                                                                              select new Queue<ushort>()).ToArray();
-                    instance2.m_industryParks.m_buffer[park].m_extendedMaterialSuggestion = (from i in Enumerable.Range(0, ExtendedDistrictPark.pedestrianExtendedReasonsCount)
-                                                                                 select new Queue<ushort>()).ToArray();
+                        instance2.m_industryParks.m_buffer[park].m_extendedMaterialRequest = (from i in Enumerable.Range(0, ExtendedDistrictPark.pedestrianExtendedReasonsCount)
+                                                                                              select new Queue<ushort>()).ToArray();
+                        instance2.m_industryParks.m_buffer[park].m_extendedMaterialSuggestion = (from i in Enumerable.Range(0, ExtendedDistrictPark.pedestrianExtendedReasonsCount)
+                                                                                                 select new Queue<ushort>()).ToArray();
+                    }
                 }
             }
         }
@@ -79,12 +84,12 @@ namespace MoreTransferReasons.HarmonyPatches
                 case ParkType.PedestrianZone:
                     instance2.m_industryParks.m_buffer[parkID].PedestrianZoneSimulationStep(__instance, parkID);
                     break;
-            }
+            } 
         }
 
         [HarmonyPatch(typeof(DistrictPark), nameof(DistrictPark.totalCargoFlow), MethodType.Getter)]
         [HarmonyPrefix]
-        public static bool TotalCargoFlow(DistrictPark __instance, byte parkID, ref uint __result)
+        public static bool TotalCargoFlow(DistrictPark __instance, ref uint __result)
         {
             uint num = 0u;
             for (int i = 0; i < pedestrianReasonsCount; i++)
