@@ -288,6 +288,8 @@ namespace MoreTransferReasons
                 case ExtendedTransferManager.TransferReason.HighlandCows:
                 case ExtendedTransferManager.TransferReason.Sheep:
                 case ExtendedTransferManager.TransferReason.Pigs:
+                case ExtendedTransferManager.TransferReason.Wool:
+                case ExtendedTransferManager.TransferReason.Cotton:
                     Singleton<DistrictManager>.instance.m_districts.m_buffer[district].m_exportData.m_tempAgricultural += (uint)amount;
                     break;
             }
