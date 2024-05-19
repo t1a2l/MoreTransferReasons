@@ -1,5 +1,6 @@
 ﻿using ColossalFramework;
 using ColossalFramework.IO;
+using MoreTransferReasons.AI;
 using MoreTransferReasons.Utils;
 using System;
 using System.Collections.Generic;
@@ -498,6 +499,7 @@ namespace MoreTransferReasons
             if (offer.Building != 0)
             {
                 Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
+                ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
                 byte park = Singleton<DistrictManager>.instance.GetPark(buffer[offer.Building].m_position);
                 if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
                 {
@@ -522,7 +524,7 @@ namespace MoreTransferReasons
                     if (flag)
                     {
                         offer.m_isLocalPark = park;
-                        ExtendedDistrictManager.IndustryParks[park].AddMaterialSuggestion(offer.Building, material);
+                        instance2.m_industryParks.m_buffer[park].AddMaterialSuggestion(offer.Building, material);
                     }
                 }
             }
@@ -539,6 +541,7 @@ namespace MoreTransferReasons
         {
             if (offer.Building != 0)
             {
+                ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
                 Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
                 byte park = Singleton<DistrictManager>.instance.GetPark(buffer[offer.Building].m_position);
                 if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
@@ -564,7 +567,7 @@ namespace MoreTransferReasons
                     if (flag)
                     {
                         offer.m_isLocalPark = park;
-                        ExtendedDistrictManager.IndustryParks[park].AddMaterialRequest(offer.Building, material);
+                        instance2.m_industryParks.m_buffer[park].AddMaterialRequest(offer.Building, material);
                     }
                 }
             }
@@ -785,13 +788,14 @@ namespace MoreTransferReasons
 
         private void StartTransfer(TransferReason material, Offer offerOut, Offer offerIn, int delta)
         {
+            ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
             bool active = offerIn.Active;
             bool active2 = offerOut.Active;
-            if (offerOut.Park != 0 && ExtendedDistrictManager.IndustryParks[offerOut.Park].TryGetRandomServicePoint(material, out var buildingID))
+            if (offerOut.Park != 0 && instance2.m_industryParks.m_buffer[offerOut.Park].TryGetRandomServicePoint(material, out var buildingID))
             {
                 offerOut.Building = buildingID;
             }
-            if (offerIn.Park != 0 && ExtendedDistrictManager.IndustryParks[offerIn.Park].TryGetRandomServicePoint(material, out var buildingID2))
+            if (offerIn.Park != 0 && instance2.m_industryParks.m_buffer[offerIn.Park].TryGetRandomServicePoint(material, out var buildingID2))
             {
                 offerIn.Building = buildingID2;
             }

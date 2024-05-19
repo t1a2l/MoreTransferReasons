@@ -10,6 +10,7 @@ namespace MoreTransferReasons.AI
         {
             int amountDelta2 = amountDelta;
             DistrictManager instance = Singleton<DistrictManager>.instance;
+            ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
             byte park = instance.GetPark(data.m_position);
             if (park != 0 && instance.m_parks.m_buffer[park].IsPedestrianZone && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
             {
@@ -18,7 +19,7 @@ namespace MoreTransferReasons.AI
                 {
                     amountDelta = (int)Mathf.Clamp(amountDelta, (float)(-reason.m_averageTruckCapacity) / 2f, (float)reason.m_averageTruckCapacity / 2f);
                 }
-                ExtendedDistrictManager.IndustryParks[park].ModifyMaterialBuffer(material, ref amountDelta);
+                instance2.m_industryParks.m_buffer[park].ModifyMaterialBuffer(material, ref amountDelta);
                 amountDelta += amountDelta2;
                 if (amountDelta != 0)
                 {
@@ -39,6 +40,7 @@ namespace MoreTransferReasons.AI
         public void ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
             DistrictManager instance = Singleton<DistrictManager>.instance;
+            ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
             byte park = instance.GetPark(data.m_position);
             byte park2 = instance.GetPark(offer.Position);
             if (park == 0)
@@ -47,7 +49,7 @@ namespace MoreTransferReasons.AI
             }
             if (park == park2)
             {
-                ExtendedDistrictManager.IndustryParks[park].StartLocalTransfer(material, offer);
+                instance2.m_industryParks.m_buffer[park].StartLocalTransfer(material, offer);
             }
             else
             {
