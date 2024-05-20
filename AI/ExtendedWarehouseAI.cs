@@ -38,6 +38,12 @@ namespace MoreTransferReasons.AI
         [CustomizableProperty("Storage Type")]
         public ExtendedTransferManager.TransferReason m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
 
+        [CustomizableProperty("Is Farm Industry")]
+        public bool m_isFarmIndustry = false;
+
+        [CustomizableProperty("Is Fish Industry")]
+        public bool m_isFishIndustry = false;
+
         [NonSerialized]
         private int m_subStations = -1;
 
@@ -405,7 +411,7 @@ namespace MoreTransferReasons.AI
                     {
                         if (num >= maxLoadSize && (count < num2 || !flag2))
                         {
-                            TransferManager.TransferOffer offer = default(TransferManager.TransferOffer);
+                            TransferManager.TransferOffer offer = default;
                             if ((buildingData.m_flags & Building.Flags.Filling) != Building.Flags.None)
                             {
                                 offer.Priority = 0;

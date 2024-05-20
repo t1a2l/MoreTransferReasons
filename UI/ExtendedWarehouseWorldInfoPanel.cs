@@ -40,6 +40,10 @@ namespace MoreTransferReasons.UI
 
         private UIDropDown m_dropdownResource;
 
+        private UIDropDown m_dropdownFarmResource;
+
+        private UIDropDown m_dropdownFishResource;
+
         private UIDropDown m_dropdownMode;
 
         private UIProgressBar m_resourceProgressBar;
@@ -106,7 +110,11 @@ namespace MoreTransferReasons.UI
 
         private TransferManager.TransferReason[] m_transferReasons;
 
-        private ExtendedTransferManager.TransferReason[] m_extendedTransferReasons;
+        private ExtendedTransferManager.TransferReason[] m_extendedUniqueTransferReasons;
+
+        private ExtendedTransferManager.TransferReason[] m_extendedFishTypesTransferReasons;
+
+        private ExtendedTransferManager.TransferReason[] m_extendedFarmTransferReasons;
 
         private WarehouseMode[] m_warehouseModes =
         [
@@ -208,8 +216,9 @@ namespace MoreTransferReasons.UI
             {
                 list2.Add(TransferManager.TransferReason.Fish);
             }
+
             m_transferReasons = list2.ToArray();
-            List<ExtendedTransferManager.TransferReason> extendedlist =
+            List<ExtendedTransferManager.TransferReason> extendedUniqueProductslist =
             [
                 ExtendedTransferManager.TransferReason.FoodProducts,
                 ExtendedTransferManager.TransferReason.BeverageProducts,
@@ -228,8 +237,32 @@ namespace MoreTransferReasons.UI
                 ExtendedTransferManager.TransferReason.Footwear,
                 ExtendedTransferManager.TransferReason.HouseParts
             ];
-            List<ExtendedTransferManager.TransferReason> extendedlist2 = extendedlist;
-            m_extendedTransferReasons = extendedlist2.ToArray();
+            List<ExtendedTransferManager.TransferReason> extendedUniqueProductslist2 = extendedUniqueProductslist;
+            m_extendedUniqueTransferReasons = extendedUniqueProductslist2.ToArray();
+
+            List<ExtendedTransferManager.TransferReason> extendedFishTypeslist =
+            [
+                ExtendedTransferManager.TransferReason.Anchovy,
+                ExtendedTransferManager.TransferReason.Salmon,
+                ExtendedTransferManager.TransferReason.Shellfish,
+                ExtendedTransferManager.TransferReason.Tuna,
+                ExtendedTransferManager.TransferReason.Trout,
+                ExtendedTransferManager.TransferReason.Algae,
+                ExtendedTransferManager.TransferReason.Seaweed
+            ];
+            List<ExtendedTransferManager.TransferReason> extendedFishTypeslist2 = extendedFishTypeslist;
+            m_extendedFishTypesTransferReasons = extendedFishTypeslist2.ToArray();
+
+            List<ExtendedTransferManager.TransferReason> extendedFarmlist =
+            [
+                ExtendedTransferManager.TransferReason.Milk,
+                ExtendedTransferManager.TransferReason.Fruits,
+                ExtendedTransferManager.TransferReason.Vegetables,
+                ExtendedTransferManager.TransferReason.Cotton,
+            ];
+            List<ExtendedTransferManager.TransferReason> extendedFarmlist2 = extendedFarmlist;
+            m_extendedFarmTransferReasons = extendedFarmlist2.ToArray();
+
             m_Type = Find<UILabel>("Type");
             m_Upkeep = Find<UILabel>("Upkeep");
             m_Info = Find<UILabel>("Info");
@@ -241,9 +274,13 @@ namespace MoreTransferReasons.UI
             m_OnOff = Find<UICheckBox>("On/Off");
             m_OnOff.eventCheckChanged += OnOnOffChanged;
             m_dropdownResource = Find<UIDropDown>("Dropdown");
+            m_dropdownFarmResource = Find<UIDropDown>("Dropdown");
+            m_dropdownFishResource = Find<UIDropDown>("Dropdown");
             m_dropdownMode = Find<UIDropDown>("DropdownMode");
             RefreshDropdownLists();
             m_dropdownResource.eventSelectedIndexChanged += OnDropdownResourceChanged;
+            m_dropdownFarmResource.eventSelectedIndexChanged += OnDropdownResourceChanged;
+            m_dropdownFishResource.eventSelectedIndexChanged += OnDropdownResourceChanged;
             m_dropdownMode.eventSelectedIndexChanged += OnDropdownModeChanged;
             m_resourceProgressBar = Find<UIProgressBar>("ResourceProgessBar");
             m_RebuildButton = Find<UIButton>("RebuildButton");
@@ -307,37 +344,70 @@ namespace MoreTransferReasons.UI
         private void OnDropdownResourceChanged(UIComponent component, int index)
         {
             ExtendedWarehouseAI ai = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building].Info.m_buildingAI as ExtendedWarehouseAI;
+            TransferManager.TransferReason[] transferReasons = m_transferReasons;
+            ExtendedTransferManager.TransferReason[] extendedTransferReasons2 = m_extendedUniqueTransferReasons;
+
+            if (ai.m_isFarmIndustry)
+            {
+                transferReasons = [TransferManager.TransferReason.Grain];
+                extendedTransferReasons2 = m_extendedFarmTransferReasons;
+            }
+            else if (ai.m_isFishIndustry)
+            {
+                transferReasons = [];
+                extendedTransferReasons2 = m_extendedFishTypesTransferReasons;
+            }
+
             Singleton<SimulationManager>.instance.AddAction(delegate
             {
-                if (index < m_transferReasons.Length)
+                if (index < transferReasons.Length)
                 {
-                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], m_transferReasons[index]);
+                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], transferReasons[index]);
                 }
                 else
                 {
-                    ai.SetExtendedTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], m_extendedTransferReasons[index - m_transferReasons.Length]);
+                    ai.SetExtendedTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], extendedTransferReasons2[index - transferReasons.Length]);
                 }
             });
         }
 
         private void RefreshDropdownLists()
         {
-            string[] array = new string[m_transferReasons.Length + m_extendedTransferReasons.Length];
+            string[] array = new string[m_transferReasons.Length + m_extendedUniqueTransferReasons.Length];
             for (int i = 0; i < m_transferReasons.Length; i++)
             {
-                string text = array[i] = Locale.Get("WAREHOUSEPANEL_RESOURCE", m_transferReasons[i].ToString());
+                array[i] = Locale.Get("WAREHOUSEPANEL_RESOURCE", m_transferReasons[i].ToString());
             }
             for (int j = m_transferReasons.Length; j < array.Length; j++)
             {
-                string text = (array[j] = m_extendedTransferReasons[j - m_transferReasons.Length].ToString());
+                array[j] = m_extendedUniqueTransferReasons[j - m_transferReasons.Length].ToString();
             }
             m_dropdownResource.items = array;
-            array = new string[m_warehouseModes.Length];
+
+            string[] array1 = new string[m_extendedFarmTransferReasons.Length + 1];
+            for (int i = 0; i < 1; i++)
+            {
+                array1[i] = Locale.Get("WAREHOUSEPANEL_RESOURCE", TransferManager.TransferReason.Grain.ToString());
+            }
+            for (int j = 1; j < array1.Length; j++)
+            {
+                array1[j] = m_extendedFarmTransferReasons[j - 1].ToString();
+            }
+            m_dropdownFarmResource.items = array1;
+
+            string[] array2 = new string[m_extendedFishTypesTransferReasons.Length];
+            for (int j = 0; j < array2.Length; j++)
+            {
+                array[j] = m_extendedFishTypesTransferReasons[j].ToString();
+            }
+            m_dropdownFishResource.items = array2;
+
+            string[] array3 = new string[m_warehouseModes.Length];
             for (int k = 0; k < m_warehouseModes.Length; k++)
             {
-                string text2 = array[k] = Locale.Get("WAREHOUSEPANEL_MODE", m_warehouseModes[k].ToString());
+                array3[k] = Locale.Get("WAREHOUSEPANEL_MODE", m_warehouseModes[k].ToString());
             }
-            m_dropdownMode.items = array;
+            m_dropdownMode.items = array3;
         }
 
         protected override void OnSetTarget()
@@ -349,16 +419,48 @@ namespace MoreTransferReasons.UI
             if (m_resourcePanel.isVisible)
             {
                 int num = 0;
-                TransferManager.TransferReason[] transferReasons = m_transferReasons;
-                ExtendedTransferManager.TransferReason[] extendedTransferReasons2 = m_extendedTransferReasons;
                 var material_byte = extendedWarehouseAI.GetExtendedTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building]);
-                if(material_byte < 200 || material_byte == 255)
+                TransferManager.TransferReason[] transferReasons = m_transferReasons;
+                ExtendedTransferManager.TransferReason[] extendedTransferReasons2 = m_extendedUniqueTransferReasons;
+                m_dropdownResource.isVisible = true;
+                m_dropdownFarmResource.isVisible = false;
+                m_dropdownFishResource.isVisible = false;
+
+                if (extendedWarehouseAI.m_isFarmIndustry)
+                {
+                    transferReasons = [TransferManager.TransferReason.Grain];
+                    extendedTransferReasons2 = m_extendedFarmTransferReasons;
+                    m_dropdownResource.isVisible = false;
+                    m_dropdownFarmResource.isVisible = true;
+                    m_dropdownFishResource.isVisible = false;
+                }
+                else if (extendedWarehouseAI.m_isFishIndustry)
+                {
+                    transferReasons = [];
+                    extendedTransferReasons2 = m_extendedFishTypesTransferReasons;
+                    m_dropdownResource.isVisible = false;
+                    m_dropdownFarmResource.isVisible = false;
+                    m_dropdownFishResource.isVisible = true;
+                }
+
+                if (material_byte < 200 || material_byte == 255)
                 {
                     foreach (TransferManager.TransferReason transferReason in transferReasons)
                     {
                         if ((byte)transferReason == material_byte)
                         {
-                            m_dropdownResource.selectedIndex = num;
+                            if (extendedWarehouseAI.m_isFarmIndustry)
+                            {
+                                m_dropdownFarmResource.selectedIndex = num;
+                            }
+                            else if (extendedWarehouseAI.m_isFishIndustry)
+                            {
+                                m_dropdownFishResource.selectedIndex = num;
+                            }
+                            else
+                            {
+                                m_dropdownResource.selectedIndex = num;
+                            } 
                             break;
                         }
                         num++;
@@ -372,7 +474,18 @@ namespace MoreTransferReasons.UI
                     {
                         if ((byte)extendedTransferReason == extended_material_byte)
                         {
-                            m_dropdownResource.selectedIndex = num;
+                            if (extendedWarehouseAI.m_isFarmIndustry)
+                            {
+                                m_dropdownFarmResource.selectedIndex = num;
+                            }
+                            else if (extendedWarehouseAI.m_isFishIndustry)
+                            {
+                                m_dropdownFishResource.selectedIndex = num;
+                            }
+                            else
+                            {
+                                m_dropdownResource.selectedIndex = num;
+                            }
                             break;
                         }
                         num++;

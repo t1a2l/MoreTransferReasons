@@ -41,6 +41,15 @@ namespace MoreTransferReasons.HarmonyPatches
                 var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedWarehouseAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
             }
+            else if ((__instance.name.Contains("Grain Silo 01") || __instance.name.Contains("Grain Silo 02") || __instance.name.Contains("Barn 01") || __instance.name.Contains("Barn 02")) && __instance.GetAI() is not ExtendedWarehouseAI && !__instance.name.Contains("Sub"))
+            {
+                Object.DestroyImmediate(oldAI);
+                var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseAI>();
+                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+                newAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
+                newAI.m_storageType = TransferManager.TransferReason.None;
+                newAI.m_isFarmIndustry = true;
+            }
         }
     }
 }
