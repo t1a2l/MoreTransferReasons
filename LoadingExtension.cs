@@ -6,7 +6,9 @@ namespace MoreTransferReasons
 {
     public class LoadingExtension : LoadingExtensionBase
     {
-        private static GameObject _gameObject;
+        private static GameObject _gameObject1;
+
+        private static GameObject _gameObject2;
 
         public override void OnCreated(ILoading loading)
         {
@@ -17,19 +19,23 @@ namespace MoreTransferReasons
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
-            _gameObject = new("ExtendedTransferManagerMod");
-            _gameObject.AddComponent<ExtendedTransferManagerComponent>();
+            _gameObject1 = new("ExtendedTransferManagerMod");
+            _gameObject1.AddComponent<ExtendedTransferManagerComponent>();
+            _gameObject2 = new("ExtendedDistrictManager");
+            _gameObject2.AddComponent<ExtendedDistrictManagerComponent>();
         }
 
         public override void OnLevelUnloading()
         {
             base.OnLevelUnloading();
-            if (_gameObject == null)
+            if (_gameObject1 == null && _gameObject2 == null)
             {
                 return;
             }
-            Object.Destroy(_gameObject);
-            _gameObject = null;
+            Object.Destroy(_gameObject1);
+            Object.Destroy(_gameObject2);
+            _gameObject1 = null;
+            _gameObject2 = null;
         } 
 
         public override void OnReleased()

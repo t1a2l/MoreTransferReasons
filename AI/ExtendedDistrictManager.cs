@@ -1,6 +1,9 @@
 ﻿using ColossalFramework.IO;
 using ColossalFramework;
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using static DistrictPark;
 
 namespace MoreTransferReasons.AI
 {
@@ -278,7 +281,55 @@ namespace MoreTransferReasons.AI
         {
             base.Awake();
             m_industryParks = new Array8<ExtendedDistrictPark>(128u);
+            CreatePark(out var district, DistrictPark.ParkType.None, DistrictPark.ParkLevel.None);
         }
 
+        public bool CreatePark(out byte park, DistrictPark.ParkType type, DistrictPark.ParkLevel level)
+        {
+            if (m_industryParks.CreateItem(out var item))
+            {
+                park = item;
+                m_industryParks.m_buffer[park].m_milkData = default;
+                m_industryParks.m_buffer[park].m_fruitsData = default;
+                m_industryParks.m_buffer[park].m_vegetablesData = default;
+                m_industryParks.m_buffer[park].m_cowsData = default;
+                m_industryParks.m_buffer[park].m_highlandCowsData = default;
+                m_industryParks.m_buffer[park].m_sheepData = default;
+                m_industryParks.m_buffer[park].m_pigsData = default;
+                m_industryParks.m_buffer[park].m_foodProductsData = default;
+                m_industryParks.m_buffer[park].m_beverageProductsData = default;
+                m_industryParks.m_buffer[park].m_bakedGoodsData = default;
+                m_industryParks.m_buffer[park].m_cannedFishData = default;
+                m_industryParks.m_buffer[park].m_furnituresData = default;
+                m_industryParks.m_buffer[park].m_electronicProductsData = default;
+                m_industryParks.m_buffer[park].m_industrialSteelData = default;
+                m_industryParks.m_buffer[park].m_tupperwareData = default;
+                m_industryParks.m_buffer[park].m_toysData = default;
+                m_industryParks.m_buffer[park].m_printedProductsData = default;
+                m_industryParks.m_buffer[park].m_tissuePaperData = default;
+                m_industryParks.m_buffer[park].m_clothsData = default;
+                m_industryParks.m_buffer[park].m_petroleumProductsData = default;
+                m_industryParks.m_buffer[park].m_carsData = default;
+                m_industryParks.m_buffer[park].m_footwearData = default;
+                m_industryParks.m_buffer[park].m_housePartsData = default;
+                m_industryParks.m_buffer[park].m_shipData = default;
+                m_industryParks.m_buffer[park].m_woolData = default;
+                m_industryParks.m_buffer[park].m_cottonData = default;
+                if (type == ParkType.PedestrianZone)
+                {
+                    m_industryParks.m_buffer[park].m_tempIncome = new uint[ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+                    m_industryParks.m_buffer[park].m_tempOutcome = new uint[ExtendedDistrictPark.pedestrianExtendedReasonsCount];
+
+                    m_industryParks.m_buffer[park].m_extendedMaterialRequest = (from i in Enumerable.Range(0, ExtendedDistrictPark.pedestrianExtendedReasonsCount)
+                                                                                            select new Queue<ushort>()).ToArray();
+                    m_industryParks.m_buffer[park].m_extendedMaterialSuggestion = (from i in Enumerable.Range(0, ExtendedDistrictPark.pedestrianExtendedReasonsCount)
+                                                                                                select new Queue<ushort>()).ToArray();
+                }
+                return true;
+            }
+            park = 0;
+            return false;
+        }
+        
     }
 }

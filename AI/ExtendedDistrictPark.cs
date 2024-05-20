@@ -8,7 +8,7 @@ using static DistrictPark;
 
 namespace MoreTransferReasons
 {
-    public class ExtendedDistrictPark
+    public struct ExtendedDistrictPark
     {
         public struct PedestrianZoneExtendedTransferReason
         {
