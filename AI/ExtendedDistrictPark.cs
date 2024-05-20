@@ -383,12 +383,6 @@ namespace MoreTransferReasons
 
             kDeliveryCategories = hashSet.ToArray();
 
-            var pedestrianReasonsCount = (int)typeof(DistrictPark).GetField("pedestrianReasonsCount", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static).GetValue(null);
-
-            pedestrianReasonsCount += pedestrianExtendedReasonsCount;
-
-            typeof(DistrictPark).GetField("pedestrianReasonsCount", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static).SetValue(null, pedestrianReasonsCount);
-
         }
 
         public void AddExtendedExportAmount(ExtendedTransferManager.TransferReason material, int amount)
