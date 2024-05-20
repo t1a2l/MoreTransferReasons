@@ -11,7 +11,7 @@ namespace MoreTransferReasons.Utils
 {
     internal static class TextureUtils
     {
-        internal static Dictionary<string, UITextureAtlas> m_atlasStore = new();
+        internal static Dictionary<string, UITextureAtlas> m_atlasStore = [];
         static string PATH => "MoreTransferReasons.Utils.Atlas.";
         static string ModPath => GetPlugin().modPath;
         public static string FILE_PATH = ModPath;
