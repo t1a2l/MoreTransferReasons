@@ -405,7 +405,7 @@ namespace MoreTransferReasons.UI
             string[] array2 = new string[m_extendedFishTypesTransferReasons.Length];
             for (int j = 0; j < array2.Length; j++)
             {
-                array[j] = m_extendedFishTypesTransferReasons[j].ToString();
+                array2[j] = m_extendedFishTypesTransferReasons[j].ToString();
             }
             m_dropdownFishResource.items = array2;
 

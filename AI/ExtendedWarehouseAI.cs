@@ -795,7 +795,13 @@ namespace MoreTransferReasons.AI
             {
                 return;
             }
-            ExtendedTransferManager.TransferReason old_material = (ExtendedTransferManager.TransferReason)(data.m_seniors - 200);
+            var old_material_byte = data.m_seniors;
+            if (data.m_seniors != 255)
+            {
+                old_material_byte = (byte)(data.m_seniors - 200);
+            }
+
+            ExtendedTransferManager.TransferReason old_material = (ExtendedTransferManager.TransferReason)old_material_byte;
             if (old_material != ExtendedTransferManager.TransferReason.None)
             {
                 ExtendedTransferManager.Offer offer = default;
