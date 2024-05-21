@@ -256,11 +256,11 @@ namespace MoreTransferReasons.UI
 
             List<ExtendedTransferManager.TransferReason> extendedFarmlist =
             [
-                ExtendedTransferManager.TransferReason.None,
                 ExtendedTransferManager.TransferReason.Milk,
                 ExtendedTransferManager.TransferReason.Fruits,
                 ExtendedTransferManager.TransferReason.Vegetables,
                 ExtendedTransferManager.TransferReason.Cotton,
+                ExtendedTransferManager.TransferReason.Wool,
             ];
             List<ExtendedTransferManager.TransferReason> extendedFarmlist2 = extendedFarmlist;
             m_extendedFarmTransferReasons = extendedFarmlist2.ToArray();
@@ -352,28 +352,33 @@ namespace MoreTransferReasons.UI
         {
             ExtendedWarehouseAI ai = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building].Info.m_buildingAI as ExtendedWarehouseAI;
             TransferManager.TransferReason[] transferReasons = m_transferReasons;
-            ExtendedTransferManager.TransferReason[] extendedTransferReasons2 = m_extendedUniqueTransferReasons;
+            ExtendedTransferManager.TransferReason[] extendedTransferReasons = m_extendedUniqueTransferReasons;
 
             if (ai.m_isFarmIndustry)
             {
-                transferReasons = [TransferManager.TransferReason.Grain];
-                extendedTransferReasons2 = m_extendedFarmTransferReasons;
+                transferReasons = [
+                    TransferManager.TransferReason.None,
+                    TransferManager.TransferReason.Grain
+                ];
+                extendedTransferReasons = m_extendedFarmTransferReasons;
             }
             else if (ai.m_isFishIndustry)
             {
                 transferReasons = [];
-                extendedTransferReasons2 = m_extendedFishTypesTransferReasons;
+                extendedTransferReasons = m_extendedFishTypesTransferReasons;
             }
 
             Singleton<SimulationManager>.instance.AddAction(delegate
             {
                 if (index < transferReasons.Length)
                 {
-                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], (byte)transferReasons[index]);
+                    var chosen_reason = (byte)transferReasons[index];
+                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], chosen_reason);
                 }
                 else
                 {
-                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], (byte)extendedTransferReasons2[index - transferReasons.Length]);
+                    var chosen_reason = (byte)(extendedTransferReasons[index - transferReasons.Length] + 200);
+                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], chosen_reason);
                 }
             });
         }
@@ -391,14 +396,12 @@ namespace MoreTransferReasons.UI
             }
             m_dropdownResource.items = array;
 
-            string[] array1 = new string[m_extendedFarmTransferReasons.Length + 1];
-            for (int i = 0; i < m_extendedFarmTransferReasons.Length; i++)
+            string[] array1 = new string[m_extendedFarmTransferReasons.Length + 2];
+            array1[0] = Locale.Get("WAREHOUSEPANEL_RESOURCE", TransferManager.TransferReason.None.ToString());
+            array1[1] = Locale.Get("WAREHOUSEPANEL_RESOURCE", TransferManager.TransferReason.Grain.ToString());
+            for (int j = 2; j < array1.Length; j++)
             {
-                array1[i] = m_extendedFarmTransferReasons[i].ToString();
-            }
-            for (int j = m_extendedFarmTransferReasons.Length; j < array1.Length; j++)
-            {
-                array1[j] = Locale.Get("WAREHOUSEPANEL_RESOURCE", TransferManager.TransferReason.Grain.ToString());
+                array1[j] = m_extendedFarmTransferReasons[j].ToString();
             }
             m_dropdownFarmResource.items = array1;
 
@@ -555,7 +558,7 @@ namespace MoreTransferReasons.UI
                 m_resourceLabel.text = extendedTransferReason.ToString();
                 m_emptyingOldResource.isVisible = material_byte != actual_material_byte;
                 m_resourceDescription.isVisible = material_byte != 255;
-                m_resourceDescription.text = GenerateExtendedResourceDescription((ExtendedTransferManager.TransferReason)actual_material_byte, isForWarehousePanel: true);
+                m_resourceDescription.text = GenerateExtendedResourceDescription((ExtendedTransferManager.TransferReason)material_byte, isForWarehousePanel: true);
                 m_resourceSprite.atlas = TextureUtils.GetAtlas("MoreTransferReasonsAtlas");
                 m_resourceSprite.spriteName = extendedTransferReason.ToString();
                 var FormatResource = IndustryWorldInfoPanel.FormatResource((uint)num);
@@ -1019,17 +1022,56 @@ namespace MoreTransferReasons.UI
             }
             text += Environment.NewLine;
             text += Environment.NewLine;
-            text = text + "- " + Locale.Get("RESOURCE_CANNOTBEIMPORTED");
+            switch (resource)
+            {
+                case ExtendedTransferManager.TransferReason.FoodProducts:
+                case ExtendedTransferManager.TransferReason.BeverageProducts:
+                case ExtendedTransferManager.TransferReason.BakedGoods:
+                case ExtendedTransferManager.TransferReason.CannedFish:
+                case ExtendedTransferManager.TransferReason.Furnitures:
+                case ExtendedTransferManager.TransferReason.ElectronicProducts:
+                case ExtendedTransferManager.TransferReason.IndustrialSteel:
+                case ExtendedTransferManager.TransferReason.Tupperware:
+                case ExtendedTransferManager.TransferReason.Toys:
+                case ExtendedTransferManager.TransferReason.PrintedProducts:
+                case ExtendedTransferManager.TransferReason.TissuePaper:
+                case ExtendedTransferManager.TransferReason.Cloths:
+                case ExtendedTransferManager.TransferReason.PetroleumProducts:
+                case ExtendedTransferManager.TransferReason.Cars:
+                case ExtendedTransferManager.TransferReason.Footwear:
+                case ExtendedTransferManager.TransferReason.HouseParts:
+                    text = text + "- " + Locale.Get("RESOURCE_CANBEIMPORTED_COST");
+                    break;
+                default:
+                    text = text + "- " + Locale.Get("RESOURCE_CANNOTBEIMPORTED");
+                    break;
+            }
             text += Environment.NewLine;
-            text += Environment.NewLine;
-            text = "Cannot be exported";
+            text = text + "- " + Locale.Get("RESOURCE_CANBEEXPORTED_COST");
             if (isForWarehousePanel)
             {
                 return text;
             }
             text += Environment.NewLine;
             text += Environment.NewLine;
-            return text + "- " + Locale.Get("RESOURCE_STOREINWAREHOUSE");
+            switch (resource)
+            {
+                case ExtendedTransferManager.TransferReason.Anchovy:
+                case ExtendedTransferManager.TransferReason.Salmon:
+                case ExtendedTransferManager.TransferReason.Shellfish:
+                case ExtendedTransferManager.TransferReason.Tuna:
+                case ExtendedTransferManager.TransferReason.Trout:
+                case ExtendedTransferManager.TransferReason.Algae:
+                case ExtendedTransferManager.TransferReason.Seaweed:
+                case ExtendedTransferManager.TransferReason.Milk:
+                case ExtendedTransferManager.TransferReason.Fruits:
+                case ExtendedTransferManager.TransferReason.Vegetables:
+                case ExtendedTransferManager.TransferReason.Cotton:
+                case ExtendedTransferManager.TransferReason.Wool:
+                    return text + "- " + LocaleFormatter.FormatGeneric("RESOURCE_STOREINSTORAGEBUILDING", resource.ToString());
+                default:
+                    return text + "- " + Locale.Get("RESOURCE_STOREINWAREHOUSE");
+            }
         }
 
         private static string FormatResourceWithUnit(uint amount)

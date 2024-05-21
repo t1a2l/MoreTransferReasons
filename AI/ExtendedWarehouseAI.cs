@@ -217,23 +217,25 @@ namespace MoreTransferReasons.AI
 
         void IExtendedBuildingAI.ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
-            var transferType = GetExtendedTransferReason(buildingID, ref data);
-            var actual_reason_byte = (byte)(GetExtendedActualTransferReason(buildingID, ref data) - 200);
-            ExtendedTransferManager.TransferReason actualTransferReason = (ExtendedTransferManager.TransferReason)actual_reason_byte;
-            if (material != actualTransferReason)
+            var actual_reason_byte = GetExtendedActualTransferReason(buildingID, ref data);
+            if(actual_reason_byte >= 200 && actual_reason_byte != 255)
             {
-                return;
-            }
-            VehicleInfo transferVehicleService = GetExtendedTransferVehicleService(material, ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);
-            if (transferVehicleService == null)
-            {
-                return;
-            }
-            Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
-            if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position, transferType, transferToSource: false, transferToTarget: true) && transferVehicleService.m_vehicleAI is ExtendedCargoTruckAI cargoTruckAI)
-            {
-                transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
-                ((IExtendedVehicleAI)cargoTruckAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offer);
+                ExtendedTransferManager.TransferReason actualTransferReason = (ExtendedTransferManager.TransferReason)actual_reason_byte;
+                if (material != actualTransferReason)
+                {
+                    return;
+                }
+                VehicleInfo transferVehicleService = GetExtendedTransferVehicleService(material, ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);
+                if (transferVehicleService == null)
+                {
+                    return;
+                }
+                Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
+                if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position, actual_reason_byte, transferToSource: false, transferToTarget: true) && transferVehicleService.m_vehicleAI is ExtendedCargoTruckAI cargoTruckAI)
+                {
+                    transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
+                    ((IExtendedVehicleAI)cargoTruckAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offer);
+                }
             }
         }
 
@@ -398,6 +400,7 @@ namespace MoreTransferReasons.AI
         protected override void ProduceGoods(ushort buildingID, ref Building buildingData, ref Building.Frame frameData, int productionRate, int finalProductionRate, ref Citizen.BehaviourData behaviour, int aliveWorkerCount, int totalWorkerCount, int workPlaceCount, int aliveVisitorCount, int totalVisitorCount, int visitPlaceCount)
         {
             DistrictManager instance = Singleton<DistrictManager>.instance;
+            ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
             byte b = instance.GetPark(buildingData.m_position);
             if (b != 0 && !instance.m_parks.m_buffer[b].IsIndustry)
             {
@@ -596,11 +599,11 @@ namespace MoreTransferReasons.AI
                     int cargo2 = 0;
                     int capacity2 = 0;
                     int outside2 = 0;
-                    CalculateGuestVehiclesExtended(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count2, ref cargo2, ref capacity2, ref outside2);
+                    CalculateGuestVehiclesExtended(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)material_byte, ref count2, ref cargo2, ref capacity2, ref outside2);
                     buildingData.m_tempImport = (byte)Mathf.Clamp(outside2, buildingData.m_tempImport, 255);
                     if (b != 0)
                     {
-                        instance.m_parks.m_buffer[b].AddBufferStatus((TransferManager.TransferReason)actualTransferReason, num, cargo2, m_storageCapacity);
+                        instance2.m_industryParks.m_buffer[b].AddBufferStatus((ExtendedTransferManager.TransferReason)material_byte, num, cargo2, m_storageCapacity);
                     }
                     ushort num3 = buildingID;
                     if (m_subStations > 0)
@@ -732,8 +735,9 @@ namespace MoreTransferReasons.AI
                     }
                     if (actualTransferReason != transferReason && buildingData.m_customBuffer1 == 0)
                     {
+
                         buildingData.m_adults = buildingData.m_seniors;
-                        SetExtendedContentFlags(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)transferReason);
+                        SetExtendedContentFlags(buildingID, ref buildingData, (ExtendedTransferManager.TransferReason)(transferReason - 200));
                     }
                 }
                 int num5 = finalProductionRate * m_noiseAccumulation / 100;
@@ -947,6 +951,20 @@ namespace MoreTransferReasons.AI
         {
             switch (material)
             {
+                case ExtendedTransferManager.TransferReason.Anchovy:
+                case ExtendedTransferManager.TransferReason.Salmon:
+                case ExtendedTransferManager.TransferReason.Shellfish:
+                case ExtendedTransferManager.TransferReason.Tuna:
+                case ExtendedTransferManager.TransferReason.Trout:
+                case ExtendedTransferManager.TransferReason.Algae:
+                case ExtendedTransferManager.TransferReason.Seaweed:
+                case ExtendedTransferManager.TransferReason.Milk:
+                case ExtendedTransferManager.TransferReason.Fruits:
+                case ExtendedTransferManager.TransferReason.Vegetables:
+                case ExtendedTransferManager.TransferReason.Cotton:
+                case ExtendedTransferManager.TransferReason.Wool:
+                    data.m_flags = (data.m_flags & ~Building.Flags.Content01_Forbid) | Building.Flags.LevelUpEducation;
+                    break;
                 case ExtendedTransferManager.TransferReason.FoodProducts:
                 case ExtendedTransferManager.TransferReason.BeverageProducts:
                 case ExtendedTransferManager.TransferReason.BakedGoods:
@@ -1104,7 +1122,7 @@ namespace MoreTransferReasons.AI
             }
             if (m_extendedStorageType != ExtendedTransferManager.TransferReason.None)
             {
-                return (byte)m_extendedStorageType;
+                return (byte)(m_extendedStorageType + 200);
             }
             return data.m_seniors;
         }
@@ -1117,7 +1135,7 @@ namespace MoreTransferReasons.AI
             }
             if (m_extendedStorageType != ExtendedTransferManager.TransferReason.None)
             {
-                return (byte)m_extendedStorageType;
+                return (byte)(m_extendedStorageType + 200);
             }
             return data.m_adults;
         }
