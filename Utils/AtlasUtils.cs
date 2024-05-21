@@ -48,7 +48,7 @@ namespace MoreTransferReasons.Utils
                 TextureUtils.InitialiseAtlas("MoreTransferReasonsAtlas");
                 for (int i = 0; i < SpriteNames.Length; i++)
                 {
-                    TextureUtils.AddSpriteToAtlas(new Rect(32 * i + 2, 2, 32, 32), SpriteNames[i], "MoreTransferReasonsAtlas");
+                    TextureUtils.AddSpriteToAtlas(new Rect(34 * i, 1, 32, 32), SpriteNames[i], "MoreTransferReasonsAtlas");
                 }
             }
         }

@@ -12,6 +12,7 @@ namespace MoreTransferReasons
 
         public void OnEnabled()
         {
+            AtlasUtils.CreateAtlas();
             HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
         }
 
