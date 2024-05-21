@@ -1,12 +1,10 @@
 ﻿using ColossalFramework.DataBinding;
 using ColossalFramework.Math;
 using ColossalFramework;
-using MoreTransferReasons.Utils;
 using System;
 using UnityEngine;
 using HarmonyLib;
 using System.Reflection;
-using static RenderManager;
 
 namespace MoreTransferReasons.AI
 {
@@ -789,45 +787,106 @@ namespace MoreTransferReasons.AI
             }
         }
 
-        public void SetExtendedTransferReason(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material)
+        public void SetTransferReason(ushort buildingID, ref Building data, byte material)
         {
-            if (m_extendedStorageType != ExtendedTransferManager.TransferReason.None)
+            // normal tranfer type or none
+            if (material < 200 || material == 255)
             {
-                return;
+                // same normal tranfer type
+                if (data.m_seniors < 200)
+                {
+                    // check if different
+                    if (material != data.m_seniors)
+                    {
+                        TransferManager.TransferReason old_material = (TransferManager.TransferReason)data.m_seniors;
+                        if (old_material != TransferManager.TransferReason.None)
+                        {
+                            TransferManager.TransferOffer offer = default;
+                            offer.Building = buildingID;
+                            Singleton<TransferManager>.instance.RemoveIncomingOffer(old_material, offer);
+                            CancelIncomingTransfer(buildingID, ref data, old_material);
+                        }
+                    }
+                }
+                else if (data.m_seniors > 200 && data.m_seniors != 255)
+                {
+                    // must be different
+                    ExtendedTransferManager.TransferReason old_material = (ExtendedTransferManager.TransferReason)(data.m_seniors - 200);
+                    if (old_material != ExtendedTransferManager.TransferReason.None)
+                    {
+                        ExtendedTransferManager.Offer offer = default;
+                        offer.Building = buildingID;
+                        Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer(old_material, offer);
+                        CancelExtendedIncomingTransfer(buildingID, ref data, old_material);
+                    }
+                }
+                data.m_seniors = material;
+                if (data.m_customBuffer1 == 0)
+                {
+                    data.m_adults = material;
+                    SetContentFlags(buildingID, ref data, (TransferManager.TransferReason)material);
+                }
+                Notification.ProblemStruct problems = data.m_problems;
+                if ((TransferManager.TransferReason)material == TransferManager.TransferReason.None)
+                {
+                    data.m_problems = Notification.AddProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
+                }
+                else
+                {
+                    data.m_problems = Notification.RemoveProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
+                }
+                if (data.m_problems != problems)
+                {
+                    Singleton<BuildingManager>.instance.UpdateNotifications(buildingID, problems, data.m_problems);
+                }
             }
-            var old_material_byte = data.m_seniors;
-            if (data.m_seniors != 255)
+            else // extended transfer type
             {
-                old_material_byte = (byte)(data.m_seniors - 200);
-            }
-
-            ExtendedTransferManager.TransferReason old_material = (ExtendedTransferManager.TransferReason)old_material_byte;
-            if (old_material != ExtendedTransferManager.TransferReason.None)
-            {
-                ExtendedTransferManager.Offer offer = default;
-                offer.Building = buildingID;
-                Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer(old_material, offer);
-                CancelExtendedIncomingTransfer(buildingID, ref data, old_material);
-            }
-            // set new transfer reason
-            data.m_seniors = (byte)((byte)material + 200);
-            if (data.m_customBuffer1 == 0)
-            {
-                data.m_adults = (byte)((byte)material + 200);
-                SetExtendedContentFlags(buildingID, ref data, material);
-            }
-            Notification.ProblemStruct problems = data.m_problems;
-            if (material == ExtendedTransferManager.TransferReason.None)
-            {
-                data.m_problems = Notification.AddProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
-            }
-            else
-            {
-                data.m_problems = Notification.RemoveProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
-            }
-            if (data.m_problems != problems)
-            {
-                Singleton<BuildingManager>.instance.UpdateNotifications(buildingID, problems, data.m_problems);
+                // different normal tranfer type
+                if (data.m_seniors < 200)
+                {
+                    TransferManager.TransferReason old_material = (TransferManager.TransferReason)data.m_seniors;
+                    if (old_material != TransferManager.TransferReason.None)
+                    {
+                        TransferManager.TransferOffer offer = default;
+                        offer.Building = buildingID;
+                        Singleton<TransferManager>.instance.RemoveIncomingOffer(old_material, offer);
+                        CancelIncomingTransfer(buildingID, ref data, old_material);
+                    }
+                }
+                else if (data.m_seniors > 200 && data.m_seniors != 255)
+                {
+                    if (material != data.m_seniors)
+                    {
+                        ExtendedTransferManager.TransferReason old_material = (ExtendedTransferManager.TransferReason)(data.m_seniors - 200);
+                        if (old_material != ExtendedTransferManager.TransferReason.None)
+                        {
+                            ExtendedTransferManager.Offer offer = default;
+                            offer.Building = buildingID;
+                            Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer(old_material, offer);
+                            CancelExtendedIncomingTransfer(buildingID, ref data, old_material);
+                        }
+                    }
+                }
+                data.m_seniors = (byte)(material + 200);
+                if (data.m_customBuffer1 == 0)
+                {
+                    data.m_adults = (byte)(material + 200);
+                    SetExtendedContentFlags(buildingID, ref data, (ExtendedTransferManager.TransferReason)material);
+                }
+                Notification.ProblemStruct problems = data.m_problems;
+                if ((ExtendedTransferManager.TransferReason)material == ExtendedTransferManager.TransferReason.None)
+                {
+                    data.m_problems = Notification.AddProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
+                }
+                else
+                {
+                    data.m_problems = Notification.RemoveProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
+                }
+                if (data.m_problems != problems)
+                {
+                    Singleton<BuildingManager>.instance.UpdateNotifications(buildingID, problems, data.m_problems);
+                }
             }
         }
 
@@ -909,6 +968,29 @@ namespace MoreTransferReasons.AI
                 default:
                     data.m_flags &= ~Building.Flags.ContentMask;
                     break;
+            }
+        }
+
+        private void CancelIncomingTransfer(ushort buildingID, ref Building data, TransferManager.TransferReason material)
+        {
+            VehicleManager instance = Singleton<VehicleManager>.instance;
+            ushort num = data.m_guestVehicles;
+            int num2 = 0;
+            while (num != 0)
+            {
+                ushort nextGuestVehicle = instance.m_vehicles.m_buffer[num].m_nextGuestVehicle;
+                if ((TransferManager.TransferReason)instance.m_vehicles.m_buffer[num].m_transferType == material && (instance.m_vehicles.m_buffer[num].m_flags & (Vehicle.Flags.TransferToTarget | Vehicle.Flags.GoingBack)) == Vehicle.Flags.TransferToTarget && instance.m_vehicles.m_buffer[num].m_targetBuilding == buildingID)
+                {
+                    VehicleInfo info = instance.m_vehicles.m_buffer[num].Info;
+                    info.m_vehicleAI.SetTarget(num, ref instance.m_vehicles.m_buffer[num], 0);
+                }
+
+                num = nextGuestVehicle;
+                if (++num2 > 16384)
+                {
+                    CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
+                    break;
+                }
             }
         }
 

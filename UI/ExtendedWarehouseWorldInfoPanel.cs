@@ -369,11 +369,11 @@ namespace MoreTransferReasons.UI
             {
                 if (index < transferReasons.Length)
                 {
-                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], transferReasons[index]);
+                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], (byte)transferReasons[index]);
                 }
                 else
                 {
-                    ai.SetExtendedTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], extendedTransferReasons2[index - transferReasons.Length]);
+                    ai.SetTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building], (byte)extendedTransferReasons2[index - transferReasons.Length]);
                 }
             });
         }
@@ -428,15 +428,16 @@ namespace MoreTransferReasons.UI
                 int num = 0;
                 var material_byte = extendedWarehouseAI.GetExtendedTransferReason(m_InstanceID.Building, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building]);
                 TransferManager.TransferReason[] transferReasons = m_transferReasons;
-                ExtendedTransferManager.TransferReason[] extendedTransferReasons2 = m_extendedUniqueTransferReasons;
+                ExtendedTransferManager.TransferReason[] extendedTransferReasons = m_extendedUniqueTransferReasons;
                 m_dropdownResource.isVisible = true;
                 m_dropdownFarmResource.isVisible = false;
                 m_dropdownFishResource.isVisible = false;
 
+
                 if (extendedWarehouseAI.m_isFarmIndustry)
                 {
                     transferReasons = [TransferManager.TransferReason.Grain];
-                    extendedTransferReasons2 = m_extendedFarmTransferReasons;
+                    extendedTransferReasons = m_extendedFarmTransferReasons;
                     m_dropdownResource.isVisible = false;
                     m_dropdownFarmResource.isVisible = true;
                     m_dropdownFishResource.isVisible = false;
@@ -444,7 +445,7 @@ namespace MoreTransferReasons.UI
                 else if (extendedWarehouseAI.m_isFishIndustry)
                 {
                     transferReasons = [];
-                    extendedTransferReasons2 = m_extendedFishTypesTransferReasons;
+                    extendedTransferReasons = m_extendedFishTypesTransferReasons;
                     m_dropdownResource.isVisible = false;
                     m_dropdownFarmResource.isVisible = false;
                     m_dropdownFishResource.isVisible = true;
@@ -475,9 +476,9 @@ namespace MoreTransferReasons.UI
                 }
                 else if(material_byte >= 200)
                 {
-                    num = 16;
+                    num = transferReasons.Length;
                     byte extended_material_byte = (byte)(material_byte - 200);
-                    foreach (ExtendedTransferManager.TransferReason extendedTransferReason in extendedTransferReasons2)
+                    foreach (ExtendedTransferManager.TransferReason extendedTransferReason in extendedTransferReasons)
                     {
                         if ((byte)extendedTransferReason == extended_material_byte)
                         {
