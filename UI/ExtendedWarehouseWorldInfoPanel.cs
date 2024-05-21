@@ -401,7 +401,7 @@ namespace MoreTransferReasons.UI
             array1[1] = Locale.Get("WAREHOUSEPANEL_RESOURCE", TransferManager.TransferReason.Grain.ToString());
             for (int j = 2; j < array1.Length; j++)
             {
-                array1[j] = m_extendedFarmTransferReasons[j].ToString();
+                array1[j] = m_extendedFarmTransferReasons[j - 2].ToString();
             }
             m_dropdownFarmResource.items = array1;
 

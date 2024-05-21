@@ -872,10 +872,10 @@ namespace MoreTransferReasons.AI
                         }
                     }
                 }
-                data.m_seniors = (byte)(material + 200);
+                data.m_seniors = material;
                 if (data.m_customBuffer1 == 0)
                 {
-                    data.m_adults = (byte)(material + 200);
+                    data.m_adults = material;
                     SetExtendedContentFlags(buildingID, ref data, (ExtendedTransferManager.TransferReason)material);
                 }
                 Notification.ProblemStruct problems = data.m_problems;
