@@ -35,7 +35,7 @@ namespace MoreTransferReasons
 
             }
             int num;
-            if (material >= 200)
+            if (material >= 200 && material != 255)
             {
                 byte transferType = (byte)(material - 200);
                 num = (amount * GetExtendedResourcePrice((ExtendedTransferManager.TransferReason)transferType, info.m_class.m_service) + 50) / 100;
@@ -153,22 +153,35 @@ namespace MoreTransferReasons
         {
             return UniqueFacultyAI.IncreaseByBonus(UniqueFacultyAI.FacultyBonus.Science, material switch
             {
-                ExtendedTransferManager.TransferReason.FoodProducts => 400,
-                ExtendedTransferManager.TransferReason.BeverageProducts => 500,
-                ExtendedTransferManager.TransferReason.BakedGoods => 600,
-                ExtendedTransferManager.TransferReason.CannedFish => 500,
-                ExtendedTransferManager.TransferReason.Furnitures => 1500,
-                ExtendedTransferManager.TransferReason.ElectronicProducts => 2500,
-                ExtendedTransferManager.TransferReason.IndustrialSteel => 4500,
-                ExtendedTransferManager.TransferReason.Tupperware => 2200,
-                ExtendedTransferManager.TransferReason.Toys => 1100,
-                ExtendedTransferManager.TransferReason.PrintedProducts => 1300,
-                ExtendedTransferManager.TransferReason.TissuePaper => 1300,
-                ExtendedTransferManager.TransferReason.Cloths => 900,
-                ExtendedTransferManager.TransferReason.PetroleumProducts => 4200,
-                ExtendedTransferManager.TransferReason.Cars => 13500,
-                ExtendedTransferManager.TransferReason.Footwear => 3500,
-                ExtendedTransferManager.TransferReason.HouseParts => 45500,
+                ExtendedTransferManager.TransferReason.FoodProducts => 10000,
+                ExtendedTransferManager.TransferReason.BeverageProducts => 10000,
+                ExtendedTransferManager.TransferReason.BakedGoods => 10000,
+                ExtendedTransferManager.TransferReason.CannedFish => 10000,
+                ExtendedTransferManager.TransferReason.Furnitures => 10000,
+                ExtendedTransferManager.TransferReason.ElectronicProducts => 10000,
+                ExtendedTransferManager.TransferReason.IndustrialSteel => 10000,
+                ExtendedTransferManager.TransferReason.Tupperware => 10000,
+                ExtendedTransferManager.TransferReason.Toys => 10000,
+                ExtendedTransferManager.TransferReason.PrintedProducts => 10000,
+                ExtendedTransferManager.TransferReason.TissuePaper => 10000,
+                ExtendedTransferManager.TransferReason.Cloths => 10000,
+                ExtendedTransferManager.TransferReason.PetroleumProducts => 10000,
+                ExtendedTransferManager.TransferReason.Cars => 10000,
+                ExtendedTransferManager.TransferReason.Footwear => 10000,
+                ExtendedTransferManager.TransferReason.HouseParts => 10000,
+                ExtendedTransferManager.TransferReason.Ship => 10000,
+                ExtendedTransferManager.TransferReason.Milk => 1500,
+                ExtendedTransferManager.TransferReason.Fruits => 1500,
+                ExtendedTransferManager.TransferReason.Vegetables => 1500,
+                ExtendedTransferManager.TransferReason.Cotton => 1500,
+                ExtendedTransferManager.TransferReason.Wool => 1500,
+                ExtendedTransferManager.TransferReason.Anchovy => 600,
+                ExtendedTransferManager.TransferReason.Salmon => 600,
+                ExtendedTransferManager.TransferReason.Shellfish => 600,
+                ExtendedTransferManager.TransferReason.Tuna => 600,
+                ExtendedTransferManager.TransferReason.Trout => 600,
+                ExtendedTransferManager.TransferReason.Algae => 600,
+                ExtendedTransferManager.TransferReason.Seaweed => 600,
                 _ => 0,
             });
         }
