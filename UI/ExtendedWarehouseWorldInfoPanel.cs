@@ -242,6 +242,7 @@ namespace MoreTransferReasons.UI
 
             List<ExtendedTransferManager.TransferReason> extendedFishTypeslist =
             [
+                ExtendedTransferManager.TransferReason.None,
                 ExtendedTransferManager.TransferReason.Anchovy,
                 ExtendedTransferManager.TransferReason.Salmon,
                 ExtendedTransferManager.TransferReason.Shellfish,
@@ -255,6 +256,7 @@ namespace MoreTransferReasons.UI
 
             List<ExtendedTransferManager.TransferReason> extendedFarmlist =
             [
+                ExtendedTransferManager.TransferReason.None,
                 ExtendedTransferManager.TransferReason.Milk,
                 ExtendedTransferManager.TransferReason.Fruits,
                 ExtendedTransferManager.TransferReason.Vegetables,
@@ -274,8 +276,13 @@ namespace MoreTransferReasons.UI
             m_OnOff = Find<UICheckBox>("On/Off");
             m_OnOff.eventCheckChanged += OnOnOffChanged;
             m_dropdownResource = Find<UIDropDown>("Dropdown");
-            m_dropdownFarmResource = Find<UIDropDown>("Dropdown");
-            m_dropdownFishResource = Find<UIDropDown>("Dropdown");
+
+            GameObject DropdownResourceFarm = Instantiate(m_dropdownResource.gameObject, m_dropdownResource.parent.transform);
+            GameObject DropdownResourceFish = Instantiate(m_dropdownResource.gameObject, m_dropdownResource.parent.transform);
+
+            m_dropdownFarmResource = DropdownResourceFarm.GetComponent<UIDropDown>();
+            m_dropdownFishResource = DropdownResourceFish.GetComponent<UIDropDown>();
+
             m_dropdownMode = Find<UIDropDown>("DropdownMode");
             RefreshDropdownLists();
             m_dropdownResource.eventSelectedIndexChanged += OnDropdownResourceChanged;
@@ -385,13 +392,13 @@ namespace MoreTransferReasons.UI
             m_dropdownResource.items = array;
 
             string[] array1 = new string[m_extendedFarmTransferReasons.Length + 1];
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < m_extendedFarmTransferReasons.Length; i++)
             {
-                array1[i] = Locale.Get("WAREHOUSEPANEL_RESOURCE", TransferManager.TransferReason.Grain.ToString());
+                array1[i] = m_extendedFarmTransferReasons[i].ToString();
             }
-            for (int j = 1; j < array1.Length; j++)
+            for (int j = m_extendedFarmTransferReasons.Length; j < array1.Length; j++)
             {
-                array1[j] = m_extendedFarmTransferReasons[j - 1].ToString();
+                array1[j] = Locale.Get("WAREHOUSEPANEL_RESOURCE", TransferManager.TransferReason.Grain.ToString());
             }
             m_dropdownFarmResource.items = array1;
 
@@ -415,7 +422,7 @@ namespace MoreTransferReasons.UI
             base.OnSetTarget();
             ExtendedWarehouseAI extendedWarehouseAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_InstanceID.Building].Info.m_buildingAI as ExtendedWarehouseAI;
             m_resourcePanel.isVisible = (extendedWarehouseAI.m_storageType == TransferManager.TransferReason.None && extendedWarehouseAI.m_extendedStorageType == ExtendedTransferManager.TransferReason.None);
-            base.component.height = ((!m_resourcePanel.isVisible) ? (m_originalHeight - m_resourcePanel.height) : m_originalHeight);
+            base.component.height = (!m_resourcePanel.isVisible) ? (m_originalHeight - m_resourcePanel.height) : m_originalHeight;
             if (m_resourcePanel.isVisible)
             {
                 int num = 0;
@@ -548,7 +555,7 @@ namespace MoreTransferReasons.UI
                 m_emptyingOldResource.isVisible = material_byte != actual_material_byte;
                 m_resourceDescription.isVisible = material_byte != 255;
                 m_resourceDescription.text = GenerateExtendedResourceDescription((ExtendedTransferManager.TransferReason)actual_material_byte, isForWarehousePanel: true);
-                m_resourceSprite.atlas = TextureUtils.GetAtlas("IndustriesAtlas");
+                m_resourceSprite.atlas = TextureUtils.GetAtlas("MoreTransferReasonsAtlas");
                 m_resourceSprite.spriteName = extendedTransferReason.ToString();
                 var FormatResource = IndustryWorldInfoPanel.FormatResource((uint)num);
                 var formatResourceWithUnit = FormatResourceWithUnit((uint)extendedWarehouseAI.m_storageCapacity);

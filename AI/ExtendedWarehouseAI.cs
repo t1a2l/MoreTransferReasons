@@ -6,6 +6,7 @@ using System;
 using UnityEngine;
 using HarmonyLib;
 using System.Reflection;
+using static RenderManager;
 
 namespace MoreTransferReasons.AI
 {
@@ -13,6 +14,9 @@ namespace MoreTransferReasons.AI
     {
         private delegate void CreateBuildingPlayerBuildingAIDelegate(PlayerBuildingAI instance, ushort buildingID, ref Building data);
         private static readonly CreateBuildingPlayerBuildingAIDelegate CreateBuildingPlayerBuildingAI = AccessTools.MethodDelegate<CreateBuildingPlayerBuildingAIDelegate>(typeof(PlayerBuildingAI).GetMethod("CreateBuilding", BindingFlags.Instance | BindingFlags.Public), null, false);
+
+        private delegate void BuildingLoadedPlayerBuildingAIDelegate(PlayerBuildingAI instance, ushort buildingID, ref Building data, uint version);
+        private static readonly BuildingLoadedPlayerBuildingAIDelegate BuildingLoadedPlayerBuildingAI = AccessTools.MethodDelegate<BuildingLoadedPlayerBuildingAIDelegate>(typeof(PlayerBuildingAI).GetMethod("BuildingLoaded", BindingFlags.Instance | BindingFlags.Public), null, false);
 
         private delegate string GetDebugStringPlayerBuildingAIDelegate(PlayerBuildingAI instance, ushort buildingID, ref Building data);
         private static readonly GetDebugStringPlayerBuildingAIDelegate GetDebugStringPlayerBuildingAI = AccessTools.MethodDelegate<GetDebugStringPlayerBuildingAIDelegate>(typeof(PlayerBuildingAI).GetMethod("GetDebugString", BindingFlags.Instance | BindingFlags.Public), null, false);
@@ -163,10 +167,53 @@ namespace MoreTransferReasons.AI
             Singleton<CitizenManager>.instance.CreateUnits(out data.m_citizenUnits, ref Singleton<SimulationManager>.instance.m_randomizer, buildingID, 0, 0, workCount);
             data.m_seniors = byte.MaxValue;
             data.m_adults = byte.MaxValue;
+
+            ExtendedWarehouseAI extendedWarehouseAI = data.Info.m_buildingAI as ExtendedWarehouseAI;
+            if (data.Info.name.Contains("Warehouse Yard 01") || data.Info.name.Contains("Small Warehouse 01") || data.Info.name.Contains("Medium Warehouse 01") || data.Info.name.Contains("Large Warehouse 01"))
+            {
+                extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
+                extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
+                extendedWarehouseAI.m_isFarmIndustry = false;
+                extendedWarehouseAI.m_isFishIndustry = false;
+            }
+            if (data.Info.name.Contains("Grain Silo 01") || data.Info.name.Contains("Grain Silo 02") || data.Info.name.Contains("Barn 01") || data.Info.name.Contains("Barn 02"))
+            {
+                extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
+                extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
+                extendedWarehouseAI.m_isFarmIndustry = true;
+                extendedWarehouseAI.m_isFishIndustry = false;
+            }
+
             if (GetExtendedTransferReason(buildingID, ref data) == (byte)TransferManager.TransferReason.None)
             {
                 data.m_problems = Notification.AddProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
             }
+            CountStations();
+        }
+
+        public override void BuildingLoaded(ushort buildingID, ref Building data, uint version)
+        {
+            BuildingLoadedPlayerBuildingAI(this, buildingID, ref data, version);
+            int workCount = m_workPlaceCount0 + m_workPlaceCount1 + m_workPlaceCount2 + m_workPlaceCount3;
+            EnsureCitizenUnits(buildingID, ref data, 0, workCount);
+
+            ExtendedWarehouseAI extendedWarehouseAI = data.Info.m_buildingAI as ExtendedWarehouseAI;
+            if (data.Info.name.Contains("Warehouse Yard 01") || data.Info.name.Contains("Small Warehouse 01") || data.Info.name.Contains("Medium Warehouse 01") || data.Info.name.Contains("Large Warehouse 01"))
+            {
+                extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
+                extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
+                extendedWarehouseAI.m_isFarmIndustry = false;
+                extendedWarehouseAI.m_isFishIndustry = false;
+            }
+            if (data.Info.name.Contains("Grain Silo 01") || data.Info.name.Contains("Grain Silo 02") || data.Info.name.Contains("Barn 01") || data.Info.name.Contains("Barn 02"))
+            {
+                extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
+                extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
+                extendedWarehouseAI.m_isFarmIndustry = true;
+                extendedWarehouseAI.m_isFishIndustry = false;
+            }
+
+
             CountStations();
         }
 
@@ -748,13 +795,13 @@ namespace MoreTransferReasons.AI
             {
                 return;
             }
-            ExtendedTransferManager.TransferReason seniors = (ExtendedTransferManager.TransferReason)data.m_seniors;
-            if (seniors != ExtendedTransferManager.TransferReason.None)
+            ExtendedTransferManager.TransferReason old_material = (ExtendedTransferManager.TransferReason)(data.m_seniors - 200);
+            if (old_material != ExtendedTransferManager.TransferReason.None)
             {
                 ExtendedTransferManager.Offer offer = default;
                 offer.Building = buildingID;
-                Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer(seniors, offer);
-                CancelExtendedIncomingTransfer(buildingID, ref data, seniors);
+                Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer(old_material, offer);
+                CancelExtendedIncomingTransfer(buildingID, ref data, old_material);
             }
             // set new transfer reason
             data.m_seniors = (byte)((byte)material + 200);
