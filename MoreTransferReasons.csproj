@@ -24,6 +24,12 @@
     <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(ModDirectory)" />
   </Target>
   <ItemGroup>
+    <None Remove="Utils\Atlas\MoreTransferReasonsAtlas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\Atlas\MoreTransferReasonsAtlas.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="CitiesHarmony.API" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
@@ -48,8 +54,5 @@
     <None Update="PreviewImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\Atlas\" />
   </ItemGroup>
 </Project>
