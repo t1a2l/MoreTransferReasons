@@ -15,7 +15,7 @@ namespace MoreTransferReasons
             while (num != 0)
             {
                 byte material_byte = (byte)(material + 200);
-                if ((ExtendedTransferManager.TransferReason)instance.m_vehicles.m_buffer[num].m_transferType == (ExtendedTransferManager.TransferReason)material_byte)
+                if (instance.m_vehicles.m_buffer[num].m_transferType == material_byte)
                 {
                     VehicleInfo info = instance.m_vehicles.m_buffer[num].Info;
                     info.m_vehicleAI.GetSize(num, ref instance.m_vehicles.m_buffer[num], out var size, out var max);
@@ -40,7 +40,7 @@ namespace MoreTransferReasons
             while (num != 0)
             {
                 byte material_byte = (byte)(material + 200);
-                if ((ExtendedTransferManager.TransferReason)instance.m_vehicles.m_buffer[num].m_transferType == (ExtendedTransferManager.TransferReason)material_byte)
+                if (instance.m_vehicles.m_buffer[num].m_transferType == material_byte)
                 {
                     VehicleInfo info = instance.m_vehicles.m_buffer[num].Info;
                     info.m_vehicleAI.GetSize(num, ref instance.m_vehicles.m_buffer[num], out var size, out var max);

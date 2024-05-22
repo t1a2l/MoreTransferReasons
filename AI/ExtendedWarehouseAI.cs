@@ -3,9 +3,8 @@ using ColossalFramework.Math;
 using ColossalFramework;
 using System;
 using UnityEngine;
-using HarmonyLib;
-using System.Reflection;
 using ColossalFramework.Globalization;
+using ICities;
 
 namespace MoreTransferReasons.AI
 {
@@ -303,7 +302,7 @@ namespace MoreTransferReasons.AI
 
         public override void ReleaseBuilding(ushort buildingID, ref Building data)
         {
-            if (IsFull(buildingID, ref data) && (object)m_fullPassMilestone != null)
+            if (IsFull(buildingID, ref data) && m_fullPassMilestone is not null)
             {
                 m_fullPassMilestone.Relock();
             }
@@ -439,6 +438,13 @@ namespace MoreTransferReasons.AI
                 {
                     transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
                     ((IExtendedVehicleAI)cargoTruckAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[(int)vehicle], material, offer);
+                    ushort building = offer.Building;
+                    if (building != 0 && (Singleton<BuildingManager>.instance.m_buildings.m_buffer[building].m_flags & Building.Flags.IncomingOutgoing) != 0)
+                    {
+                        transferVehicleService.m_vehicleAI.GetSize(vehicle, ref vehicles.m_buffer[vehicle], out var size, out var _);
+                        IndustryBuildingManager.ExportResource(buildingID, ref data, material, size);
+                    }
+                    data.m_outgoingProblemTimer = 0;
                 }
             }
         }
@@ -550,27 +556,34 @@ namespace MoreTransferReasons.AI
 
         public override void ModifyMaterialBuffer(ushort buildingID, ref Building data, TransferManager.TransferReason material, ref int amountDelta)
         {
-            if (material == (TransferManager.TransferReason)GetExtendedActualTransferReason(buildingID, ref data))
+            var actual_reason_byte = GetExtendedActualTransferReason(buildingID, ref data);
+            if (actual_reason_byte < 200)
             {
-                int num = data.m_customBuffer1 * 100;
-                amountDelta = Mathf.Clamp(amountDelta, -num, m_storageCapacity - num);
-                data.m_customBuffer1 = (ushort)((num + amountDelta) / 100);
-            }
-            else
-            {
-                base.ModifyMaterialBuffer(buildingID, ref data, material, ref amountDelta);
+                if (actual_reason_byte != (byte)material)
+                {
+                    int num = data.m_customBuffer1 * 100;
+                    amountDelta = Mathf.Clamp(amountDelta, -num, m_storageCapacity - num);
+                    data.m_customBuffer1 = (ushort)((num + amountDelta) / 100);
+                }
+                else
+                {
+                    base.ModifyMaterialBuffer(buildingID, ref data, material, ref amountDelta);
+                }
             }
         }
 
         void IExtendedBuildingAI.ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
         {
-            var actual_reason_byte = (byte)(GetExtendedActualTransferReason(buildingID, ref data) - 200);
-            ExtendedTransferManager.TransferReason actualTransferReason = (ExtendedTransferManager.TransferReason)actual_reason_byte;
-            if (material == actualTransferReason)
+            var actual_reason_byte = GetExtendedActualTransferReason(buildingID, ref data);
+            if(actual_reason_byte >= 200 && actual_reason_byte != 255)
             {
-                int num = data.m_customBuffer1 * 100;
-                amountDelta = Mathf.Clamp(amountDelta, -num, m_storageCapacity - num);
-                data.m_customBuffer1 = (ushort)((num + amountDelta) / 100);
+                ExtendedTransferManager.TransferReason actualTransferReason = (ExtendedTransferManager.TransferReason)(actual_reason_byte - 200);
+                if (material == actualTransferReason)
+                {
+                    int num = data.m_customBuffer1 * 100;
+                    amountDelta = Mathf.Clamp(amountDelta, -num, m_storageCapacity - num);
+                    data.m_customBuffer1 = (ushort)((num + amountDelta) / 100);
+                }
             }
         }
 
@@ -621,7 +634,7 @@ namespace MoreTransferReasons.AI
             while (num != 0)
             {
                 ushort nextGuestVehicle = buffer[num].m_nextGuestVehicle;
-                if (buffer[num].m_targetBuilding == buildingID && ((uint)buffer[num].m_transferType & (uint)material) != 0)
+                if (buffer[num].m_targetBuilding == buildingID && (buffer[num].m_transferType & (byte)material) != 0)
                 {
                     VehicleInfo info = buffer[num].Info;
                     if (info != null)
@@ -642,11 +655,12 @@ namespace MoreTransferReasons.AI
         {
             Vehicle[] buffer = Singleton<VehicleManager>.instance.m_vehicles.m_buffer;
             ushort num = data.m_guestVehicles;
+            var material_byte = (byte)(material + 200);
             int num2 = 0;
             while (num != 0)
             {
                 ushort nextGuestVehicle = buffer[num].m_nextGuestVehicle;
-                if (buffer[num].m_targetBuilding == buildingID && ((uint)buffer[num].m_transferType & (uint)material) != 0)
+                if (buffer[num].m_targetBuilding == buildingID && ((uint)buffer[num].m_transferType & material_byte) != 0)
                 {
                     VehicleInfo info = buffer[num].Info;
                     if (info != null)
@@ -667,7 +681,8 @@ namespace MoreTransferReasons.AI
         {
             base.CheckRoadAccess(buildingID, ref data);
             Notification.ProblemStruct problems = data.m_problems;
-            if (GetExtendedTransferReason(buildingID, ref data) == (byte)TransferManager.TransferReason.None)
+            var actual_reason_byte = GetExtendedTransferReason(buildingID, ref data);
+            if (actual_reason_byte == 255)
             {
                 data.m_problems = Notification.AddProblems(data.m_problems, Notification.Problem1.ResourceNotSelected);
             }
@@ -1170,7 +1185,7 @@ namespace MoreTransferReasons.AI
             CitizenManager instance = Singleton<CitizenManager>.instance;
             Randomizer r = new Randomizer(buildingID);
             CitizenInfo groupAnimalInfo = instance.GetGroupAnimalInfo(ref r, m_info.m_class.m_service, m_info.m_class.m_subService);
-            if ((object)groupAnimalInfo != null && instance.CreateCitizenInstance(out var instance2, ref Singleton<SimulationManager>.instance.m_randomizer, groupAnimalInfo, 0u))
+            if (groupAnimalInfo is not null && instance.CreateCitizenInstance(out var instance2, ref Singleton<SimulationManager>.instance.m_randomizer, groupAnimalInfo, 0u))
             {
                 groupAnimalInfo.m_citizenAI.SetSource(instance2, ref instance.m_instances.m_buffer[instance2], buildingID);
                 groupAnimalInfo.m_citizenAI.SetTarget(instance2, ref instance.m_instances.m_buffer[instance2], buildingID);
@@ -1470,11 +1485,12 @@ namespace MoreTransferReasons.AI
         {
             VehicleManager instance = Singleton<VehicleManager>.instance;
             ushort num = data.m_guestVehicles;
+            var material_byte = (byte)(material + 200);
             int num2 = 0;
             while (num != 0)
             {
                 ushort nextGuestVehicle = instance.m_vehicles.m_buffer[num].m_nextGuestVehicle;
-                if ((ExtendedTransferManager.TransferReason)instance.m_vehicles.m_buffer[num].m_transferType == material && (instance.m_vehicles.m_buffer[num].m_flags & (Vehicle.Flags.TransferToTarget | Vehicle.Flags.GoingBack)) == Vehicle.Flags.TransferToTarget && instance.m_vehicles.m_buffer[num].m_targetBuilding == buildingID)
+                if (instance.m_vehicles.m_buffer[num].m_transferType == material_byte && (instance.m_vehicles.m_buffer[num].m_flags & (Vehicle.Flags.TransferToTarget | Vehicle.Flags.GoingBack)) == Vehicle.Flags.TransferToTarget && instance.m_vehicles.m_buffer[num].m_targetBuilding == buildingID)
                 {
                     VehicleInfo info = instance.m_vehicles.m_buffer[num].Info;
                     info.m_vehicleAI.SetTarget(num, ref instance.m_vehicles.m_buffer[num], 0);
