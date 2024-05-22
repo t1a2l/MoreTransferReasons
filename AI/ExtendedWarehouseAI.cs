@@ -194,24 +194,6 @@ namespace MoreTransferReasons.AI
             BuildingLoadedPlayerBuildingAI(this, buildingID, ref data, version);
             int workCount = m_workPlaceCount0 + m_workPlaceCount1 + m_workPlaceCount2 + m_workPlaceCount3;
             EnsureCitizenUnits(buildingID, ref data, 0, workCount);
-
-            ExtendedWarehouseAI extendedWarehouseAI = data.Info.m_buildingAI as ExtendedWarehouseAI;
-            if (data.Info.name.Contains("Warehouse Yard 01") || data.Info.name.Contains("Small Warehouse 01") || data.Info.name.Contains("Medium Warehouse 01") || data.Info.name.Contains("Large Warehouse 01"))
-            {
-                extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
-                extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
-                extendedWarehouseAI.m_isFarmIndustry = false;
-                extendedWarehouseAI.m_isFishIndustry = false;
-            }
-            if (data.Info.name.Contains("Grain Silo 01") || data.Info.name.Contains("Grain Silo 02") || data.Info.name.Contains("Barn 01") || data.Info.name.Contains("Barn 02"))
-            {
-                extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
-                extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
-                extendedWarehouseAI.m_isFarmIndustry = true;
-                extendedWarehouseAI.m_isFishIndustry = false;
-            }
-
-
             CountStations();
         }
 

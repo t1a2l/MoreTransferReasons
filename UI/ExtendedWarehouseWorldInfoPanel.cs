@@ -439,7 +439,10 @@ namespace MoreTransferReasons.UI
 
                 if (extendedWarehouseAI.m_isFarmIndustry)
                 {
-                    transferReasons = [TransferManager.TransferReason.Grain];
+                    transferReasons = [
+                        TransferManager.TransferReason.None,
+                        TransferManager.TransferReason.Grain
+                    ];
                     extendedTransferReasons = m_extendedFarmTransferReasons;
                     m_dropdownResource.isVisible = false;
                     m_dropdownFarmResource.isVisible = true;
