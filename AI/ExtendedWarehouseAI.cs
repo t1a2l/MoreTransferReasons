@@ -210,7 +210,7 @@ namespace MoreTransferReasons.AI
                 int outside = 0;
                 CalculateGuestVehicles(buildingID, ref data, (TransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
                 int num = data.m_customBuffer1 * 100;
-                return StringUtils.SafeFormat("{0}\n{1}: {2} (+{3})", GetDebugStringPlayerBuildingAI(this, buildingID, ref data), (TransferManager.TransferReason)actualTransferReason, num, cargo);
+                return StringUtils.SafeFormat("{0}\n{1}: {2} (+{3})", base.GetDebugString(buildingID, ref data), (TransferManager.TransferReason)actualTransferReason, num, cargo);
             }
             else if (actualTransferReason != 255 && actualTransferReason >= 200)
             {
@@ -221,11 +221,11 @@ namespace MoreTransferReasons.AI
                 int outside = 0;
                 CalculateGuestVehiclesExtended(buildingID, ref data, (ExtendedTransferManager.TransferReason)actualTransferReason, ref count, ref cargo, ref capacity, ref outside);
                 int num = data.m_customBuffer1 * 100;
-                return StringUtils.SafeFormat("{0}\n{1}: {2} (+{3})", GetDebugStringPlayerBuildingAI(this, buildingID, ref data), (ExtendedTransferManager.TransferReason)material_byte, num, cargo);
+                return StringUtils.SafeFormat("{0}\n{1}: {2} (+{3})", base.GetDebugString(buildingID, ref data), (ExtendedTransferManager.TransferReason)material_byte, num, cargo);
             }
             else
             {
-                return GetDebugStringPlayerBuildingAI(this, buildingID, ref data);
+                return base.GetDebugString(buildingID, ref data);
             }
 
         }
@@ -1043,7 +1043,7 @@ namespace MoreTransferReasons.AI
 
         public override void CalculateGuestVehicles(ushort buildingID, ref Building data, TransferManager.TransferReason material, ref int count, ref int cargo, ref int capacity, ref int outside)
         {
-            CalculateGuestVehiclesCommonBuildingAI(this, buildingID, ref data, material, ref count, ref cargo, ref capacity, ref outside);
+            base.CalculateGuestVehicles(buildingID, ref data, material, ref count, ref cargo, ref capacity, ref outside);
             if (m_subStations <= 0)
             {
                 return;
@@ -1526,7 +1526,7 @@ namespace MoreTransferReasons.AI
             string text = LocaleFormatter.FormatGeneric("AIINFO_WATER_CONSUMPTION", GetWaterConsumption() * 16) + Environment.NewLine + LocaleFormatter.FormatGeneric("AIINFO_ELECTRICITY_CONSUMPTION", GetElectricityConsumption() * 16);
             string text2 = LocaleFormatter.FormatGeneric("AIINFO_CAPACITY", m_storageCapacity);
             text2 = text2 + Environment.NewLine + LocaleFormatter.FormatGeneric("AIINFO_INDUSTRY_VEHICLE_COUNT", m_truckCount);
-            string baseTooltip = TooltipHelper.Append(GetLocalizedTooltipPlayerBuildingAI(this), TooltipHelper.Format(LocaleFormatter.Info1, text, LocaleFormatter.Info2, text2));
+            string baseTooltip = TooltipHelper.Append(base.GetLocalizedTooltip(), TooltipHelper.Format(LocaleFormatter.Info1, text, LocaleFormatter.Info2, text2));
             string addTooltip = TooltipHelper.Format("arrowVisible", "false", "input1Visible", "true", "input2Visible", "false", "input3Visible", "false", "input4Visible", "false", "outputVisible", "false");
             string addTooltip2;
             if (m_extendedStorageType != ExtendedTransferManager.TransferReason.None)
