@@ -7,22 +7,25 @@ namespace MoreTransferReasons.AI
         void IExtendedBuildingAI.ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
             var is_parent_warehouse = GetParentWarehouse(ref data, out var extendedWarehouseAI);
-            var transferType = extendedWarehouseAI.GetActualTransferReason(data.m_parentBuilding, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_parentBuilding]);
-            var actual_reason_byte = (byte)(transferType - 200);
-            if (is_parent_warehouse && (byte)material == actual_reason_byte)
+            var transferType = extendedWarehouseAI.GetExtendedActualTransferReason(data.m_parentBuilding, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_parentBuilding]);
+            if(transferType >= 200 && transferType != 255)
             {
-                for (int i = 0; i < offer.Amount; i++)
+                var actual_reason_byte = (byte)(transferType - 200);
+                if (is_parent_warehouse && (byte)material == actual_reason_byte)
                 {
-                    VehicleInfo transferVehicleService = ExtendedWarehouseAI.GetExtendedTransferVehicleService(material, ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);
-                    if (transferVehicleService == null)
+                    for (int i = 0; i < offer.Amount; i++)
                     {
-                        continue;
-                    }
-                    Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
-                    if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position, (byte)transferType, transferToSource: false, transferToTarget: true) && transferVehicleService.m_vehicleAI is ExtendedCargoTruckAI cargoTruckAI)
-                    {
-                        transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
-                        ((IExtendedVehicleAI)cargoTruckAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offer);
+                        VehicleInfo transferVehicleService = ExtendedWarehouseAI.GetExtendedTransferVehicleService(material, ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);
+                        if (transferVehicleService == null)
+                        {
+                            continue;
+                        }
+                        Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
+                        if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position, (byte)transferType, transferToSource: false, transferToTarget: true) && transferVehicleService.m_vehicleAI is ExtendedCargoTruckAI cargoTruckAI)
+                        {
+                            transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
+                            ((IExtendedVehicleAI)cargoTruckAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offer);
+                        }
                     }
                 }
             }
