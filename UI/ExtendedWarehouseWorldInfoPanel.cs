@@ -551,17 +551,27 @@ namespace MoreTransferReasons.UI
             if (actualTransferReason != 255 && actualTransferReason >= 200)
             {
                 byte actual_material_byte = (byte)(actualTransferReason - 200);
-                byte material_byte = (byte)(transferReason - 200);
-                m_resourceProgressBar.progressColor = IndustryBuildingManager.GetExtendedResourceColor((ExtendedTransferManager.TransferReason)actualTransferReason);
+                m_resourceProgressBar.progressColor = IndustryBuildingManager.GetExtendedResourceColor((ExtendedTransferManager.TransferReason)actual_material_byte);
                 var extendedTransferReason = (ExtendedTransferManager.TransferReason)actual_material_byte;
                 if(extendedTransferReason == ExtendedTransferManager.TransferReason.BeverageProducts && m_NameField.text.Contains("Lemonade Factory"))
                 {
                     m_NameField.text = "Beverage Products Factory";
                 }
                 m_resourceLabel.text = extendedTransferReason.ToString();
-                m_emptyingOldResource.isVisible = material_byte != actual_material_byte;
-                m_resourceDescription.isVisible = material_byte != 255;
-                m_resourceDescription.text = GenerateExtendedResourceDescription((ExtendedTransferManager.TransferReason)material_byte, isForWarehousePanel: true);
+                byte material_byte = transferReason;
+                if (material_byte != 255 && material_byte >= 200)
+                {
+                    material_byte = (byte)(transferReason - 200);
+                    m_emptyingOldResource.isVisible = material_byte != actual_material_byte;
+                    m_resourceDescription.isVisible = material_byte != 255;
+                    m_resourceDescription.text = GenerateExtendedResourceDescription((ExtendedTransferManager.TransferReason)material_byte, isForWarehousePanel: true);
+                }
+                else
+                {
+                    m_emptyingOldResource.isVisible = true;
+                    m_resourceDescription.isVisible = material_byte != 255;
+                    m_resourceDescription.text = GenerateResourceDescription((TransferManager.TransferReason)material_byte, isForWarehousePanel: true);
+                }
                 m_resourceSprite.atlas = TextureUtils.GetAtlas("MoreTransferReasonsAtlas");
                 m_resourceSprite.spriteName = extendedTransferReason.ToString();
                 var FormatResource = IndustryWorldInfoPanel.FormatResource((uint)num);
@@ -574,15 +584,27 @@ namespace MoreTransferReasons.UI
             {
                 m_resourceProgressBar.progressColor = IndustryWorldInfoPanel.instance.GetResourceColor((TransferManager.TransferReason)actualTransferReason);
                 m_resourceLabel.text = Locale.Get("WAREHOUSEPANEL_RESOURCE", ((TransferManager.TransferReason)actualTransferReason).ToString());
-                m_emptyingOldResource.isVisible = transferReason != actualTransferReason;
-                m_resourceDescription.isVisible = transferReason != 255;
-                m_resourceDescription.text = GenerateResourceDescription((TransferManager.TransferReason)transferReason, isForWarehousePanel: true);
+                byte material_byte = transferReason;
+                if (material_byte != 255 && material_byte >= 200)
+                {
+                    material_byte = (byte)(transferReason - 200);
+                    m_emptyingOldResource.isVisible = true;
+                    m_resourceDescription.isVisible = material_byte != 255;
+                    m_resourceDescription.text = GenerateExtendedResourceDescription((ExtendedTransferManager.TransferReason)material_byte, isForWarehousePanel: true);
+                }
+                else
+                {
+                    m_emptyingOldResource.isVisible = transferReason != actualTransferReason;
+                    m_resourceDescription.isVisible = transferReason != 255;
+                    m_resourceDescription.text = GenerateResourceDescription((TransferManager.TransferReason)transferReason, isForWarehousePanel: true);
+                }
                 m_resourceSprite.atlas = TextureUtils.GetGameTextureAtlas("Ingame");
                 m_resourceSprite.spriteName = IndustryWorldInfoPanel.ResourceSpriteName((TransferManager.TransferReason)actualTransferReason);
                 string text = StringUtils.SafeFormat(Locale.Get("INDUSTRYPANEL_BUFFERTOOLTIP"), IndustryWorldInfoPanel.FormatResource((uint)num), IndustryWorldInfoPanel.FormatResourceWithUnit((uint)extendedWarehouseAI.m_storageCapacity, (TransferManager.TransferReason)actualTransferReason));
                 m_buffer.tooltip = text;
                 m_capacityLabel.text = text;
             }
+            
             m_Info.text = extendedWarehouseAI.GetLocalizedStats(building, ref instance.m_buildings.m_buffer[building]);
             if (extendedWarehouseAI != null)
             {
