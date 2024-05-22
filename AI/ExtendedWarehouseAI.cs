@@ -4,7 +4,6 @@ using ColossalFramework;
 using System;
 using UnityEngine;
 using ColossalFramework.Globalization;
-using ICities;
 
 namespace MoreTransferReasons.AI
 {
