@@ -23,29 +23,24 @@ namespace MoreTransferReasons.HarmonyPatches
                 var newAI = __instance.gameObject.AddComponent<ExtendedServicePointAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
             }
-            else if(oldAI != null && oldAI is WarehouseAI)
+            switch(__instance.name)
             {
-                Object.DestroyImmediate(oldAI);
-                var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseAI>();
-                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
-            }
-            else if(oldAI != null && oldAI is WarehouseStationAI)
-            {
-                Object.DestroyImmediate(oldAI);
-                var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseStationAI>();
-                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
-            }
-            else if ((__instance.name.Contains("Warehouse Yard 01") || __instance.name.Contains("Small Warehouse 01") || __instance.name.Contains("Medium Warehouse 01") || __instance.name.Contains("Large Warehouse 01")) && __instance.GetAI() is not ExtendedWarehouseAI && !__instance.name.Contains("Sub"))
-            {
-                Object.DestroyImmediate(oldAI);
-                var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseAI>();
-                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
-            }
-            else if ((__instance.name.Contains("Grain Silo 01") || __instance.name.Contains("Grain Silo 02") || __instance.name.Contains("Barn 01") || __instance.name.Contains("Barn 02")) && __instance.GetAI() is not ExtendedWarehouseAI && !__instance.name.Contains("Sub"))
-            {
-                Object.DestroyImmediate(oldAI);
-                var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseAI>();
-                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+                case "Warehouse Yard 01":
+                case "Small Warehouse 01":
+                case "Medium Warehouse 01":
+                case "Large Warehouse 01":
+                case "Warehouse with Railway Connection":
+                case "Grain Silo 01":
+                case "Grain Silo 02":
+                case "Barn 01":
+                case "Barn 02":
+                    if(__instance.GetAI() is not ExtendedWarehouseAI)
+                    {
+                        Object.DestroyImmediate(oldAI);
+                        var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseAI>();
+                        PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+                    }
+                    break;
             }
         }
 
@@ -58,19 +53,27 @@ namespace MoreTransferReasons.HarmonyPatches
 
                 if (buildingInfo != null && buildingInfo.GetAI() is ExtendedWarehouseAI extendedWarehouseAI)
                 {
-                    if (__instance.name.Contains("Warehouse Yard 01") || __instance.name.Contains("Small Warehouse 01") || __instance.name.Contains("Medium Warehouse 01") || __instance.name.Contains("Large Warehouse 01")) 
+                    switch (__instance.name)
                     {
-                        extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
-                        extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
-                        extendedWarehouseAI.m_isFarmIndustry = false;
-                        extendedWarehouseAI.m_isFishIndustry = false;
-                    }
-                    if (__instance.name.Contains("Grain Silo 01") || __instance.name.Contains("Grain Silo 02") || __instance.name.Contains("Barn 01") || __instance.name.Contains("Barn 02"))
-                    {
-                        extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
-                        extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
-                        extendedWarehouseAI.m_isFarmIndustry = true;
-                        extendedWarehouseAI.m_isFishIndustry = false;
+                        case "Warehouse Yard 01":
+                        case "Small Warehouse 01":
+                        case "Medium Warehouse 01":
+                        case "Large Warehouse 01":
+                        case "Warehouse with Railway Connection":
+                            extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
+                            extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
+                            extendedWarehouseAI.m_isFarmIndustry = false;
+                            extendedWarehouseAI.m_isFishIndustry = false;
+                            break;
+                        case "Grain Silo 01":
+                        case "Grain Silo 02":
+                        case "Barn 01":
+                        case "Barn 02":
+                            extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
+                            extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
+                            extendedWarehouseAI.m_isFarmIndustry = true;
+                            extendedWarehouseAI.m_isFishIndustry = false;
+                            break;
                     }
 
                 }
