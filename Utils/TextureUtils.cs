@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace MoreTransferReasons.Utils
 {
-    internal static class TextureUtils
+    public static class TextureUtils
     {
         internal static Dictionary<string, UITextureAtlas> m_atlasStore = [];
         static string PATH => "MoreTransferReasons.Utils.Atlas.";
