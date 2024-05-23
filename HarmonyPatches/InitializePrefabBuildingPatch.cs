@@ -11,13 +11,13 @@ namespace MoreTransferReasons.HarmonyPatches
         public static void Prefix(BuildingInfo __instance)
         {
             var oldAI = __instance.GetComponent<PrefabAI>();
-            if (oldAI != null && oldAI is OutsideConnectionAI)
+            if (oldAI != null && oldAI is OutsideConnectionAI && Utils.Settings.ExtendedOutsideConnectionAI.value == true)
             {
                 Object.DestroyImmediate(oldAI);
                 var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedOutsideConnectionAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
             }
-            else if (oldAI != null && oldAI is ServicePointAI)
+            else if (oldAI != null && oldAI is ServicePointAI && Utils.Settings.ExtendedServicePointAI.value == true)
             {
                 Object.DestroyImmediate(oldAI);
                 var newAI = __instance.gameObject.AddComponent<ExtendedServicePointAI>();
@@ -30,11 +30,7 @@ namespace MoreTransferReasons.HarmonyPatches
                 case "Medium Warehouse 01":
                 case "Large Warehouse 01":
                 case "Warehouse with Railway Connection":
-                case "Grain Silo 01":
-                case "Grain Silo 02":
-                case "Barn 01":
-                case "Barn 02":
-                    if(__instance.GetAI() is not ExtendedWarehouseAI)
+                    if(__instance.GetAI() is not ExtendedWarehouseAI && Utils.Settings.ExtendedWarehouseAI.value == true)
                     {
                         Object.DestroyImmediate(oldAI);
                         var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseAI>();
@@ -51,7 +47,7 @@ namespace MoreTransferReasons.HarmonyPatches
             {
                 BuildingInfo buildingInfo = PrefabCollection<BuildingInfo>.GetLoaded(index);
 
-                if (buildingInfo != null && buildingInfo.GetAI() is ExtendedWarehouseAI extendedWarehouseAI)
+                if (buildingInfo != null && buildingInfo.GetAI() is ExtendedWarehouseAI extendedWarehouseAI && extendedWarehouseAI != null && Utils.Settings.ExtendedWarehouseAI.value == true)
                 {
                     switch (__instance.name)
                     {
@@ -65,20 +61,9 @@ namespace MoreTransferReasons.HarmonyPatches
                             extendedWarehouseAI.m_isFarmIndustry = false;
                             extendedWarehouseAI.m_isFishIndustry = false;
                             break;
-                        case "Grain Silo 01":
-                        case "Grain Silo 02":
-                        case "Barn 01":
-                        case "Barn 02":
-                            extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
-                            extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
-                            extendedWarehouseAI.m_isFarmIndustry = true;
-                            extendedWarehouseAI.m_isFishIndustry = false;
-                            break;
                     }
-
                 }
             }
-            
         }
 
     }

@@ -14,13 +14,13 @@ namespace MoreTransferReasons.HarmonyPatches
             try
             {
                 var oldAI = __instance.GetComponent<PrefabAI>();
-                if ((__instance.m_class.m_service == ItemClass.Service.PlayerIndustry || __instance.m_class.m_service == ItemClass.Service.Industrial) && !__instance.name.Contains("Trailer"))
+                if ((__instance.m_class.m_service == ItemClass.Service.PlayerIndustry || __instance.m_class.m_service == ItemClass.Service.Industrial) && !__instance.name.Contains("Trailer") && Utils.Settings.ExtendedCargoTruckAI.value == true)
                 {
                     UnityEngine.Object.DestroyImmediate(oldAI);
                     var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCargoTruckAI>();
                     PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
                 }
-                if(oldAI is PassengerCarAI && !__instance.name.Contains("Trailer"))
+                if(oldAI is PassengerCarAI && !__instance.name.Contains("Trailer") && Utils.Settings.ExtendedPassengerCarAI.value == true)
                 {
                     UnityEngine.Object.DestroyImmediate(oldAI);
                     var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedPassengerCarAI>();
