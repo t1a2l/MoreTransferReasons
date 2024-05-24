@@ -788,14 +788,15 @@ namespace MoreTransferReasons
 
         private void StartTransfer(TransferReason material, Offer offerOut, Offer offerIn, int delta)
         {
+            DistrictManager instance = Singleton<DistrictManager>.instance;
             ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
             bool active = offerIn.Active;
             bool active2 = offerOut.Active;
-            if (offerOut.Park != 0 && instance2.m_industryParks.m_buffer[offerOut.Park].TryGetRandomServicePoint(material, out var buildingID))
+            if (offerOut.Park != 0 && instance2.m_industryParks.m_buffer[offerOut.Park].TryGetRandomServicePoint(instance.m_parks.m_buffer[offerOut.Park], material, out var buildingID))
             {
                 offerOut.Building = buildingID;
             }
-            if (offerIn.Park != 0 && instance2.m_industryParks.m_buffer[offerIn.Park].TryGetRandomServicePoint(material, out var buildingID2))
+            if (offerIn.Park != 0 && instance2.m_industryParks.m_buffer[offerIn.Park].TryGetRandomServicePoint(instance.m_parks.m_buffer[offerIn.Park], material, out var buildingID2))
             {
                 offerIn.Building = buildingID2;
             }
