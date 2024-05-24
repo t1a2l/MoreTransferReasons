@@ -2,7 +2,6 @@ using ColossalFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using static DistrictPark;
 
@@ -640,14 +639,11 @@ namespace MoreTransferReasons
             }
         }
 
-        public void AddProductionAmount(ExtendedTransferManager.TransferReason material, int amount)
+        public void AddProductionAmount(DistrictPark instance, ExtendedTransferManager.TransferReason material, int amount)
         {
-            var m_mainGate = (ushort)typeof(DistrictPark).GetField("m_mainGate", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
-            if (m_mainGate != 0 && (Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_mainGate].m_flags & Building.Flags.Active) != 0)
+            if (instance.m_mainGate != 0 && (Singleton<BuildingManager>.instance.m_buildings.m_buffer[instance.m_mainGate].m_flags & Building.Flags.Active) != 0)
             {
-                var m_totalProductionAmount = (ulong)typeof(DistrictPark).GetField("m_totalProductionAmount", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
-                m_totalProductionAmount += (uint)amount;
-                typeof(DistrictPark).GetField("m_totalProductionAmount", BindingFlags.Instance | BindingFlags.Public).SetValue(null, m_totalProductionAmount);
+                instance.m_totalProductionAmount += (uint)amount;
             }
             switch (material)
             {
@@ -1021,9 +1017,9 @@ namespace MoreTransferReasons
             m_cottonData = default;
         }
 
-        public bool TryGetRandomServicePoint(ExtendedTransferManager.TransferReason material, out ushort buildingID)
+        public bool TryGetRandomServicePoint(DistrictPark instance, ExtendedTransferManager.TransferReason material, out ushort buildingID)
         {
-            if (TryGetPedestrianReason(material, out var reason) && TryGetRandomServicePoint(reason.m_deliveryCategory, out buildingID))
+            if (TryGetPedestrianReason(material, out var reason) && TryGetRandomServicePoint(instance, reason.m_deliveryCategory, out buildingID))
             {
                 ServicePointAI servicePointAI = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].Info.m_buildingAI as ServicePointAI;
                 if (servicePointAI != null && !servicePointAI.IsReachedCriticalTrafficLimit(buildingID, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID], reason.m_deliveryCategory))
@@ -1035,12 +1031,11 @@ namespace MoreTransferReasons
             return false;
         }
 
-        public static bool TryGetRandomServicePoint(DeliveryCategories deliveryCategory, out ushort buildingID)
+        public static bool TryGetRandomServicePoint(DistrictPark instance, DeliveryCategories deliveryCategory, out ushort buildingID)
         {
             if (deliveryCategory != 0 && IsServicePointDelivery(deliveryCategory, out var index))
             {
-                var m_randomServicePoints = (ushort[])typeof(DistrictPark).GetField("m_randomServicePoints", BindingFlags.Instance | BindingFlags.Public).GetValue(null);
-                buildingID = m_randomServicePoints[index];
+                buildingID = instance.m_randomServicePoints[index];
                 return buildingID != 0;
             }
             buildingID = 0;
@@ -1220,7 +1215,7 @@ namespace MoreTransferReasons
             {
                 PedestrianZoneExtendedTransferReason pedestrianZoneExtendedTransferReason = kPedestrianZoneExtendedTransferReasons[i];
                 ExtendedTransferManager.TransferReason material = pedestrianZoneExtendedTransferReason.m_material;
-                if ((pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Cargo && !instance3.m_cargoServicePointExist) || (pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Garbage && !instance3.m_garbageServicePointExist) || !TryGetRandomServicePoint(pedestrianZoneExtendedTransferReason.m_deliveryCategory, out var _))
+                if ((pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Cargo && !instance3.m_cargoServicePointExist) || (pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Garbage && !instance3.m_garbageServicePointExist) || !TryGetRandomServicePoint(instance3, pedestrianZoneExtendedTransferReason.m_deliveryCategory, out var _))
                 {
                     continue;
                 }
@@ -1315,7 +1310,7 @@ namespace MoreTransferReasons
             {
                 PedestrianZoneExtendedTransferReason pedestrianZoneExtendedTransferReason = kPedestrianZoneExtendedTransferReasons[i];
                 ExtendedTransferManager.TransferReason material = pedestrianZoneExtendedTransferReason.m_material;
-                if ((pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Cargo && !instance3.m_cargoServicePointExist) || (pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Garbage && !instance3.m_garbageServicePointExist) || !TryGetRandomServicePoint(pedestrianZoneExtendedTransferReason.m_deliveryCategory, out var _))
+                if ((pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Cargo && !instance3.m_cargoServicePointExist) || (pedestrianZoneExtendedTransferReason.m_deliveryCategory == DeliveryCategories.Garbage && !instance3.m_garbageServicePointExist) || !TryGetRandomServicePoint(instance3, pedestrianZoneExtendedTransferReason.m_deliveryCategory, out var _))
                 {
                     continue;
                 }
