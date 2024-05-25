@@ -256,7 +256,13 @@ namespace MoreTransferReasons.UI
 
             List<ExtendedTransferManager.TransferReason> extendedFarmlist =
             [
-                ExtendedTransferManager.TransferReason.Milk,
+                ExtendedTransferManager.TransferReason.SheepMilk,
+                ExtendedTransferManager.TransferReason.CowMilk,
+                ExtendedTransferManager.TransferReason.HighlandCowMilk,
+                ExtendedTransferManager.TransferReason.LambMeat,
+                ExtendedTransferManager.TransferReason.BeefMeat,
+                ExtendedTransferManager.TransferReason.HighlandBeefMeat,
+                ExtendedTransferManager.TransferReason.PorkMeat,
                 ExtendedTransferManager.TransferReason.Fruits,
                 ExtendedTransferManager.TransferReason.Vegetables,
                 ExtendedTransferManager.TransferReason.Cotton,
@@ -1088,7 +1094,13 @@ namespace MoreTransferReasons.UI
                 case ExtendedTransferManager.TransferReason.Trout:
                 case ExtendedTransferManager.TransferReason.Algae:
                 case ExtendedTransferManager.TransferReason.Seaweed:
-                case ExtendedTransferManager.TransferReason.Milk:
+                case ExtendedTransferManager.TransferReason.SheepMilk:
+                case ExtendedTransferManager.TransferReason.CowMilk:
+                case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                case ExtendedTransferManager.TransferReason.LambMeat:
+                case ExtendedTransferManager.TransferReason.BeefMeat:
+                case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                case ExtendedTransferManager.TransferReason.PorkMeat:
                 case ExtendedTransferManager.TransferReason.Fruits:
                 case ExtendedTransferManager.TransferReason.Vegetables:
                 case ExtendedTransferManager.TransferReason.Cotton:

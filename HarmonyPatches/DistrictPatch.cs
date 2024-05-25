@@ -72,7 +72,13 @@ namespace MoreTransferReasons.HarmonyPatches
                     case ExtendedTransferManager.TransferReason.Algae:
                     case ExtendedTransferManager.TransferReason.Seaweed:
                     case ExtendedTransferManager.TransferReason.Trout:
-                    case ExtendedTransferManager.TransferReason.Milk:
+                    case ExtendedTransferManager.TransferReason.SheepMilk:
+                    case ExtendedTransferManager.TransferReason.CowMilk:
+                    case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                    case ExtendedTransferManager.TransferReason.LambMeat:
+                    case ExtendedTransferManager.TransferReason.BeefMeat:
+                    case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                    case ExtendedTransferManager.TransferReason.PorkMeat:
                     case ExtendedTransferManager.TransferReason.Fruits:
                     case ExtendedTransferManager.TransferReason.Vegetables:
                     case ExtendedTransferManager.TransferReason.Cows:

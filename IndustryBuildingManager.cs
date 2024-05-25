@@ -170,7 +170,13 @@ namespace MoreTransferReasons
                 ExtendedTransferManager.TransferReason.Footwear => 10000,
                 ExtendedTransferManager.TransferReason.HouseParts => 10000,
                 ExtendedTransferManager.TransferReason.Ship => 10000,
-                ExtendedTransferManager.TransferReason.Milk => 1500,
+                ExtendedTransferManager.TransferReason.SheepMilk => 1500,
+                ExtendedTransferManager.TransferReason.CowMilk => 1500,
+                ExtendedTransferManager.TransferReason.HighlandCowMilk => 1500,
+                ExtendedTransferManager.TransferReason.LambMeat => 1500,
+                ExtendedTransferManager.TransferReason.BeefMeat => 1500,
+                ExtendedTransferManager.TransferReason.HighlandBeefMeat => 1500,
+                ExtendedTransferManager.TransferReason.PorkMeat => 1500,
                 ExtendedTransferManager.TransferReason.Fruits => 1500,
                 ExtendedTransferManager.TransferReason.Vegetables => 1500,
                 ExtendedTransferManager.TransferReason.Cotton => 1500,
@@ -294,7 +300,13 @@ namespace MoreTransferReasons
                 case ExtendedTransferManager.TransferReason.Trout:
                     Singleton<DistrictManager>.instance.m_districts.m_buffer[district].m_exportData.m_tempFish += (uint)amount;
                     break;
-                case ExtendedTransferManager.TransferReason.Milk:
+                case ExtendedTransferManager.TransferReason.SheepMilk:
+                case ExtendedTransferManager.TransferReason.CowMilk:
+                case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                case ExtendedTransferManager.TransferReason.LambMeat:
+                case ExtendedTransferManager.TransferReason.BeefMeat:
+                case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                case ExtendedTransferManager.TransferReason.PorkMeat:
                 case ExtendedTransferManager.TransferReason.Fruits:
                 case ExtendedTransferManager.TransferReason.Vegetables:
                 case ExtendedTransferManager.TransferReason.Cows:

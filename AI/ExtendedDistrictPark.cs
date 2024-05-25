@@ -28,7 +28,19 @@ namespace MoreTransferReasons
 
         public static int pedestrianExtendedReasonsCount => kPedestrianZoneExtendedTransferReasons.Length;
 
-        public DistrictAreaResourceData m_milkData;
+        public DistrictAreaResourceData m_sheepMilkData;
+
+        public DistrictAreaResourceData m_cowMilkData;
+
+        public DistrictAreaResourceData m_highlandCowMilkData;
+
+        public DistrictAreaResourceData m_lambMeatData;
+
+        public DistrictAreaResourceData m_beefMeatData;
+
+        public DistrictAreaResourceData m_highlandBeefMeatData;
+
+        public DistrictAreaResourceData m_porkBeefData;
 
         public DistrictAreaResourceData m_fruitsData;
 
@@ -94,7 +106,124 @@ namespace MoreTransferReasons
             [
                 new PedestrianZoneExtendedTransferReason
                 {
-                    m_material = ExtendedTransferManager.TransferReason.Milk,
+                    m_material = ExtendedTransferManager.TransferReason.Anchovy,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Salmon,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Shellfish,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Tuna,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Algae,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Seaweed,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Trout,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.SheepMilk,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.CowMilk,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.HighlandCowMilk,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.LambMeat,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.BeefMeat,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.HighlandBeefMeat,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.PorkMeat,
                     m_deliveryCategory = DeliveryCategories.Cargo,
                     m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
                     m_activeIn = false,
@@ -113,6 +242,24 @@ namespace MoreTransferReasons
                 new PedestrianZoneExtendedTransferReason
                 {
                     m_material = ExtendedTransferManager.TransferReason.Vegetables,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Wool,
+                    m_deliveryCategory = DeliveryCategories.Cargo,
+                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
+                    m_activeIn = false,
+                    m_activeOut = true,
+                    m_averageTruckCapacity = 8000
+                },
+                new PedestrianZoneExtendedTransferReason
+                {
+                    m_material = ExtendedTransferManager.TransferReason.Cotton,
                     m_deliveryCategory = DeliveryCategories.Cargo,
                     m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
                     m_activeIn = false,
@@ -299,78 +446,8 @@ namespace MoreTransferReasons
                     m_activeOut = true,
                     m_averageTruckCapacity = 1
                 },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Wool,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Cotton,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Anchovy,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Salmon,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Shellfish,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Tuna,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Algae,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                },
-                new PedestrianZoneExtendedTransferReason
-                {
-                    m_material = ExtendedTransferManager.TransferReason.Seaweed,
-                    m_deliveryCategory = DeliveryCategories.Cargo,
-                    m_vehicleCategory = VehicleInfo.VehicleCategory.CargoTruck,
-                    m_activeIn = false,
-                    m_activeOut = true,
-                    m_averageTruckCapacity = 8000
-                }
+                
+                
             ];
 
             var hashSet = new HashSet<DeliveryCategories>(kDeliveryCategories);
@@ -388,8 +465,26 @@ namespace MoreTransferReasons
         {
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.Milk:
-                    m_milkData.m_tempExport += (uint)amount;
+                case ExtendedTransferManager.TransferReason.SheepMilk:
+                    m_sheepMilkData.m_tempExport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.CowMilk:
+                    m_cowMilkData.m_tempExport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                    m_highlandCowMilkData.m_tempExport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.LambMeat:
+                    m_lambMeatData.m_tempExport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.BeefMeat:
+                    m_beefMeatData.m_tempExport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                    m_highlandBeefMeatData.m_tempExport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.PorkMeat:
+                    m_porkBeefData.m_tempExport += (uint)amount;
                     break;
                 case ExtendedTransferManager.TransferReason.Fruits:
                     m_fruitsData.m_tempExport += (uint)amount;
@@ -473,8 +568,26 @@ namespace MoreTransferReasons
         {
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.Milk:
-                    m_milkData.m_tempImport += (uint)amount;
+                case ExtendedTransferManager.TransferReason.SheepMilk:
+                    m_sheepMilkData.m_tempImport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.CowMilk:
+                    m_cowMilkData.m_tempImport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                    m_highlandCowMilkData.m_tempImport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.LambMeat:
+                    m_lambMeatData.m_tempImport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.BeefMeat:
+                    m_beefMeatData.m_tempImport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                    m_highlandBeefMeatData.m_tempImport += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.PorkMeat:
+                    m_porkBeefData.m_tempImport += (uint)amount;
                     break;
                 case ExtendedTransferManager.TransferReason.Fruits:
                     m_fruitsData.m_tempImport += (uint)amount;
@@ -558,8 +671,26 @@ namespace MoreTransferReasons
         {
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.Milk:
-                    m_milkData.Add(amount, incoming, capacity);
+                case ExtendedTransferManager.TransferReason.SheepMilk:
+                    m_sheepMilkData.Add(amount, incoming, capacity);
+                    break;
+                case ExtendedTransferManager.TransferReason.CowMilk:
+                    m_cowMilkData.Add(amount, incoming, capacity);
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                    m_highlandCowMilkData.Add(amount, incoming, capacity);
+                    break;
+                case ExtendedTransferManager.TransferReason.LambMeat:
+                    m_lambMeatData.Add(amount, incoming, capacity);
+                    break;
+                case ExtendedTransferManager.TransferReason.BeefMeat:
+                    m_beefMeatData.Add(amount, incoming, capacity);
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                    m_highlandBeefMeatData.Add(amount, incoming, capacity);
+                    break;
+                case ExtendedTransferManager.TransferReason.PorkMeat:
+                    m_porkBeefData.Add(amount, incoming, capacity);
                     break;
                 case ExtendedTransferManager.TransferReason.Fruits:
                     m_fruitsData.Add(amount, incoming, capacity);
@@ -647,8 +778,26 @@ namespace MoreTransferReasons
             }
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.Milk:
-                    m_milkData.m_tempProduction += (uint)amount;
+                case ExtendedTransferManager.TransferReason.SheepMilk:
+                    m_sheepMilkData.m_tempProduction += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.CowMilk:
+                    m_cowMilkData.m_tempProduction += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                    m_highlandCowMilkData.m_tempProduction += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.LambMeat:
+                    m_lambMeatData.m_tempProduction += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.BeefMeat:
+                    m_beefMeatData.m_tempProduction += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                    m_highlandBeefMeatData.m_tempProduction += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.PorkMeat:
+                    m_porkBeefData.m_tempProduction += (uint)amount;
                     break;
                 case ExtendedTransferManager.TransferReason.Fruits:
                     m_fruitsData.m_tempProduction += (uint)amount;
@@ -732,8 +881,26 @@ namespace MoreTransferReasons
         {
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.Milk:
-                    m_milkData.m_tempConsumption += (uint)amount;
+                case ExtendedTransferManager.TransferReason.SheepMilk:
+                    m_sheepMilkData.m_tempConsumption += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.CowMilk:
+                    m_cowMilkData.m_tempConsumption += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandCowMilk:
+                    m_highlandCowMilkData.m_tempConsumption += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.LambMeat:
+                    m_lambMeatData.m_tempConsumption += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.BeefMeat:
+                    m_beefMeatData.m_tempConsumption += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.HighlandBeefMeat:
+                    m_highlandBeefMeatData.m_tempConsumption += (uint)amount;
+                    break;
+                case ExtendedTransferManager.TransferReason.PorkMeat:
+                    m_porkBeefData.m_tempConsumption += (uint)amount;
                     break;
                 case ExtendedTransferManager.TransferReason.Fruits:
                     m_fruitsData.m_tempConsumption += (uint)amount;
@@ -817,7 +984,13 @@ namespace MoreTransferReasons
         {
             if ((Singleton<SimulationManager>.instance.m_currentFrameIndex & 0xFFF) >= 3840)
             {
-                m_milkData.Add(ref m_milkData);
+                m_sheepMilkData.Add(ref m_sheepMilkData);
+                m_cowMilkData.Add(ref m_cowMilkData);
+                m_highlandCowMilkData.Add(ref m_highlandCowMilkData);
+                m_lambMeatData.Add(ref m_lambMeatData);
+                m_beefMeatData.Add(ref m_beefMeatData);
+                m_highlandBeefMeatData.Add(ref m_highlandBeefMeatData);
+                m_porkBeefData.Add(ref m_porkBeefData);
                 m_fruitsData.Add(ref m_fruitsData);
                 m_vegetablesData.Add(ref m_vegetablesData);
                 m_cowsData.Add(ref m_cowsData);
@@ -830,7 +1003,7 @@ namespace MoreTransferReasons
                 m_cannedFishData.Add(ref m_cannedFishData);
                 m_furnituresData.Add(ref m_furnituresData);
                 m_electronicProductsData.Add(ref m_electronicProductsData);
-                m_industrialSteelData.Add(ref m_milkData);
+                m_industrialSteelData.Add(ref m_industrialSteelData);
                 m_tupperwareData.Add(ref m_tupperwareData);
                 m_toysData.Add(ref m_toysData);
                 m_printedProductsData.Add(ref m_printedProductsData);
@@ -843,9 +1016,18 @@ namespace MoreTransferReasons
                 m_shipData.Add(ref m_shipData);
                 m_woolData.Add(ref m_woolData);
                 m_cottonData.Add(ref m_cottonData);
-                m_milkData.Update();
+
+                m_sheepMilkData.Update();
+                m_cowMilkData.Update();
+                m_highlandCowMilkData.Update();
+                m_lambMeatData.Update();
+                m_beefMeatData.Update();
+                m_highlandBeefMeatData.Update();
+                m_porkBeefData.Update();
                 m_fruitsData.Update();
                 m_vegetablesData.Update();
+                m_woolData.Update();
+                m_cottonData.Update();
                 m_cowsData.Update();
                 m_highlandCowsData.Update();
                 m_sheepData.Update();
@@ -867,11 +1049,17 @@ namespace MoreTransferReasons
                 m_footwearData.Update();
                 m_housePartsData.Update();
                 m_shipData.Update();
-                m_woolData.Update();
-                m_cottonData.Update();
-                m_milkData.Reset();
+                m_sheepMilkData.Reset();
+                m_cowMilkData.Reset();
+                m_highlandCowMilkData.Reset();
+                m_lambMeatData.Reset();
+                m_beefMeatData.Reset();
+                m_highlandBeefMeatData.Reset();
+                m_porkBeefData.Reset();
                 m_fruitsData.Reset();
                 m_vegetablesData.Reset();
+                m_woolData.Reset();
+                m_cottonData.Reset();
                 m_cowsData.Reset();
                 m_highlandCowsData.Reset();
                 m_sheepData.Reset();
@@ -892,15 +1080,21 @@ namespace MoreTransferReasons
                 m_carsData.Reset();
                 m_footwearData.Reset();
                 m_housePartsData.Reset();
-                m_shipData.Reset();
-                m_woolData.Reset();
-                m_cottonData.Reset();
+                m_shipData.Reset(); 
             }
             else
             {
-                m_milkData.ResetBuffers();
+                m_sheepMilkData.ResetBuffers();
+                m_cowMilkData.ResetBuffers();
+                m_highlandCowMilkData.ResetBuffers();
+                m_lambMeatData.ResetBuffers();
+                m_beefMeatData.ResetBuffers();
+                m_highlandBeefMeatData.ResetBuffers();
+                m_porkBeefData.ResetBuffers();
                 m_fruitsData.ResetBuffers();
                 m_vegetablesData.ResetBuffers();
+                m_woolData.ResetBuffers();
+                m_cottonData.ResetBuffers();
                 m_cowsData.ResetBuffers();
                 m_highlandCowsData.ResetBuffers();
                 m_sheepData.ResetBuffers();
@@ -921,9 +1115,7 @@ namespace MoreTransferReasons
                 m_carsData.ResetBuffers();
                 m_footwearData.ResetBuffers();
                 m_housePartsData.ResetBuffers();
-                m_shipData.ResetBuffers();
-                m_woolData.ResetBuffers();
-                m_cottonData.ResetBuffers();
+                m_shipData.ResetBuffers(); 
             }
         }
 
@@ -932,9 +1124,17 @@ namespace MoreTransferReasons
             SimulationManager instance = Singleton<SimulationManager>.instance;
             if ((instance.m_currentFrameIndex & 0xFFF) >= 3840)
             {
-                m_milkData.Update();
+                m_sheepMilkData.Update();
+                m_cowMilkData.Update();
+                m_highlandCowMilkData.Update();
+                m_lambMeatData.Update();
+                m_beefMeatData.Update();
+                m_highlandBeefMeatData.Update();
+                m_porkBeefData.Update();
                 m_fruitsData.Update();
                 m_vegetablesData.Update();
+                m_woolData.Update();
+                m_cottonData.Update();
                 m_cowsData.Update();
                 m_highlandCowsData.Update();
                 m_sheepData.Update();
@@ -956,11 +1156,18 @@ namespace MoreTransferReasons
                 m_footwearData.Update();
                 m_housePartsData.Update();
                 m_shipData.Update();
-                m_woolData.Update();
-                m_cottonData.Update();
-                m_milkData.Reset();
+
+                m_sheepMilkData.Reset();
+                m_cowMilkData.Reset();
+                m_highlandCowMilkData.Reset();
+                m_lambMeatData.Reset();
+                m_beefMeatData.Reset();
+                m_highlandBeefMeatData.Reset();
+                m_porkBeefData.Reset();
                 m_fruitsData.Reset();
                 m_vegetablesData.Reset();
+                m_woolData.Reset();
+                m_cottonData.Reset();
                 m_cowsData.Reset();
                 m_highlandCowsData.Reset();
                 m_sheepData.Reset();
@@ -982,16 +1189,22 @@ namespace MoreTransferReasons
                 m_footwearData.Reset();
                 m_housePartsData.Reset();
                 m_shipData.Reset();
-                m_woolData.Reset();
-                m_cottonData.Reset();
             }
         }
 
         public void CreatePark()
         {
-            m_milkData = default;
+            m_sheepMilkData = default;
+            m_cowMilkData = default;
+            m_highlandCowMilkData = default;
+            m_lambMeatData = default;
+            m_beefMeatData = default;
+            m_highlandBeefMeatData = default;
+            m_porkBeefData = default;
             m_fruitsData = default;
             m_vegetablesData = default;
+            m_woolData = default;
+            m_cottonData = default;
             m_cowsData = default;
             m_highlandCowsData = default;
             m_sheepData = default;
@@ -1013,8 +1226,6 @@ namespace MoreTransferReasons
             m_footwearData = default;
             m_housePartsData = default;
             m_shipData = default;
-            m_woolData = default;
-            m_cottonData = default;
         }
 
         public bool TryGetRandomServicePoint(DistrictPark instance, ExtendedTransferManager.TransferReason material, out ushort buildingID)
