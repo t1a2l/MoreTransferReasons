@@ -32,7 +32,13 @@ namespace MoreTransferReasons.AI
                     }
                     if (buffer2[num34].IsIndustry)
                     {
-                        buffer3[num34].m_milkData.Serialize(s);
+                        buffer3[num34].m_sheepMilkData.Serialize(s);
+                        buffer3[num34].m_cowMilkData.Serialize(s);
+                        buffer3[num34].m_highlandCowMilkData.Serialize(s);
+                        buffer3[num34].m_lambMeatData.Serialize(s);
+                        buffer3[num34].m_beefMeatData.Serialize(s);
+                        buffer3[num34].m_highlandBeefMeatData.Serialize(s);
+                        buffer3[num34].m_porkBeefData.Serialize(s);
                         buffer3[num34].m_fruitsData.Serialize(s);
                         buffer3[num34].m_vegetablesData.Serialize(s);
                         buffer3[num34].m_cowsData.Serialize(s);
@@ -113,7 +119,13 @@ namespace MoreTransferReasons.AI
                         {
                             if (buffer2[num38].IsIndustry)
                             {
-                                buffer3[num38].m_milkData.Deserialize(s);
+                                buffer3[num38].m_sheepMilkData.Deserialize(s);
+                                buffer3[num38].m_cowMilkData.Deserialize(s);
+                                buffer3[num38].m_highlandCowMilkData.Deserialize(s);
+                                buffer3[num38].m_lambMeatData.Deserialize(s);
+                                buffer3[num38].m_beefMeatData.Deserialize(s);
+                                buffer3[num38].m_highlandBeefMeatData.Deserialize(s);
+                                buffer3[num38].m_porkBeefData.Deserialize(s);
                                 buffer3[num38].m_fruitsData.Deserialize(s);
                                 buffer3[num38].m_vegetablesData.Deserialize(s);
                                 buffer3[num38].m_cowsData.Deserialize(s);
@@ -142,7 +154,13 @@ namespace MoreTransferReasons.AI
                             }
                             else
                             {
-                                buffer3[num38].m_milkData = default;
+                                buffer3[num38].m_sheepMilkData = default;
+                                buffer3[num38].m_cowMilkData = default;
+                                buffer3[num38].m_highlandCowMilkData = default;
+                                buffer3[num38].m_lambMeatData = default;
+                                buffer3[num38].m_beefMeatData = default;
+                                buffer3[num38].m_highlandBeefMeatData = default;
+                                buffer3[num38].m_porkBeefData = default;
                                 buffer3[num38].m_fruitsData = default;
                                 buffer3[num38].m_vegetablesData = default;
                                 buffer3[num38].m_cowsData = default;
@@ -232,7 +250,13 @@ namespace MoreTransferReasons.AI
                     }
                     else
                     {
-                        buffer3[num38].m_milkData = default;
+                        buffer3[num38].m_sheepMilkData = default;
+                        buffer3[num38].m_cowMilkData = default;
+                        buffer3[num38].m_highlandCowMilkData = default;
+                        buffer3[num38].m_lambMeatData = default;
+                        buffer3[num38].m_beefMeatData = default;
+                        buffer3[num38].m_highlandBeefMeatData = default;
+                        buffer3[num38].m_porkBeefData = default;
                         buffer3[num38].m_fruitsData = default;
                         buffer3[num38].m_vegetablesData = default;
                         buffer3[num38].m_cowsData = default;
@@ -281,7 +305,7 @@ namespace MoreTransferReasons.AI
         {
             base.Awake();
             m_industryParks = new Array8<ExtendedDistrictPark>(128u);
-            CreatePark(out var district, DistrictPark.ParkType.None, DistrictPark.ParkLevel.None);
+            _ = CreatePark(out _, DistrictPark.ParkType.None, DistrictPark.ParkLevel.None);
         }
 
         public bool CreatePark(out byte park, DistrictPark.ParkType type, DistrictPark.ParkLevel level)
@@ -289,7 +313,13 @@ namespace MoreTransferReasons.AI
             if (m_industryParks.CreateItem(out var item))
             {
                 park = item;
-                m_industryParks.m_buffer[park].m_milkData = default;
+                m_industryParks.m_buffer[park].m_sheepMilkData = default;
+                m_industryParks.m_buffer[park].m_cowMilkData = default;
+                m_industryParks.m_buffer[park].m_highlandCowMilkData = default;
+                m_industryParks.m_buffer[park].m_lambMeatData = default;
+                m_industryParks.m_buffer[park].m_beefMeatData = default;
+                m_industryParks.m_buffer[park].m_highlandBeefMeatData = default;
+                m_industryParks.m_buffer[park].m_porkBeefData = default;
                 m_industryParks.m_buffer[park].m_fruitsData = default;
                 m_industryParks.m_buffer[park].m_vegetablesData = default;
                 m_industryParks.m_buffer[park].m_cowsData = default;
