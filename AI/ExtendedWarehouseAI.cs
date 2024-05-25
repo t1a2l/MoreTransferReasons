@@ -573,7 +573,7 @@ namespace MoreTransferReasons.AI
             var actual_reason_byte = GetExtendedActualTransferReason(buildingID, ref data);
             if (actual_reason_byte < 200)
             {
-                if (actual_reason_byte != (byte)material)
+                if (actual_reason_byte == (byte)material)
                 {
                     int num = data.m_customBuffer1 * 100;
                     amountDelta = Mathf.Clamp(amountDelta, -num, m_storageCapacity - num);
