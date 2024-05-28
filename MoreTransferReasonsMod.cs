@@ -1,6 +1,7 @@
 ﻿using ICities;
 using CitiesHarmony.API;
 using MoreTransferReasons.Utils;
+using UnityEngine;
 
 namespace MoreTransferReasons
 {
@@ -68,6 +69,12 @@ namespace MoreTransferReasons
                 Utils.Settings.ExtenedResidentAI.value = b;
             });
 
+            UIHelper ClearTransferManager = helper.AddGroup("Clear Transfer Manager") as UIHelper;
+
+            ClearTransferManager.AddButton("Clear all transfers", () =>
+            {
+                ExtendedTransferManager.instance.ClearTransferManager();
+            });
         }
     }
 }

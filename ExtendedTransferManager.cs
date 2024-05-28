@@ -436,10 +436,25 @@ namespace MoreTransferReasons
 
         int Transfers_Length;
 
+        public void ClearTransferManager()
+        {
+            Transfers_Length = 64;
+
+            Array.Clear(OutgoingIndexes, 0, OutgoingIndexes.Length);
+            Array.Clear(IncomingIndexes, 0, IncomingIndexes.Length);
+            Array.Clear(OutgoingOffers, 0, OutgoingOffers.Length);
+            Array.Clear(IncomingOffers, 0, IncomingOffers.Length);
+
+            Array.Resize(ref OutgoingIndexes, Transfers_Length);
+            Array.Resize(ref IncomingIndexes, Transfers_Length);
+            Array.Resize(ref OutgoingOffers, Transfers_Length * 256);
+            Array.Resize(ref IncomingOffers, Transfers_Length * 256);
+        }
+
         protected override void Awake()
         {
             base.Awake();
-            Transfers_Length = Enum.GetNames(typeof(TransferReason)).Length - 1;
+            Transfers_Length = 64;
             OutgoingIndexes = new int[Transfers_Length];
             IncomingIndexes = new int[Transfers_Length];
             OutgoingOffers = new Offer[Transfers_Length * 256];
