@@ -437,7 +437,7 @@ namespace MoreTransferReasons.AI
             var actual_reason_byte = GetExtendedActualTransferReason(buildingID, ref data);
             if(actual_reason_byte >= 200 && actual_reason_byte != 255)
             {
-                ExtendedTransferManager.TransferReason actualTransferReason = (ExtendedTransferManager.TransferReason)actual_reason_byte;
+                ExtendedTransferManager.TransferReason actualTransferReason = (ExtendedTransferManager.TransferReason)(actual_reason_byte - 200);
                 if (material != actualTransferReason)
                 {
                     return;
@@ -508,7 +508,7 @@ namespace MoreTransferReasons.AI
                 default:
                     return null;
             }
-            return Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, service, subService, level);
+            return Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref randomizer, service, subService, level);
         }
 
         public static VehicleInfo GetExtendedTransferVehicleService(ExtendedTransferManager.TransferReason material, ItemClass.Level level, ref Randomizer randomizer)
@@ -550,17 +550,30 @@ namespace MoreTransferReasons.AI
                 case ExtendedTransferManager.TransferReason.CannedFish:
                 case ExtendedTransferManager.TransferReason.Furnitures:
                 case ExtendedTransferManager.TransferReason.ElectronicProducts:
-                case ExtendedTransferManager.TransferReason.IndustrialSteel:
                 case ExtendedTransferManager.TransferReason.Tupperware:
                 case ExtendedTransferManager.TransferReason.Toys:
                 case ExtendedTransferManager.TransferReason.PrintedProducts:
                 case ExtendedTransferManager.TransferReason.TissuePaper:
                 case ExtendedTransferManager.TransferReason.Cloths:
-                case ExtendedTransferManager.TransferReason.PetroleumProducts:
-                case ExtendedTransferManager.TransferReason.Cars:
                 case ExtendedTransferManager.TransferReason.Footwear:
+                    service = ItemClass.Service.PlayerIndustry;
+                    break;
+                case ExtendedTransferManager.TransferReason.IndustrialSteel:
+                    service = ItemClass.Service.PlayerIndustry;
+                    level = ItemClass.Level.Level3;
+                    break;
+                case ExtendedTransferManager.TransferReason.PetroleumProducts:
+                    service = ItemClass.Service.Industrial;
+                    subService = ItemClass.SubService.IndustrialOil;
+                    level = ItemClass.Level.Level1;
+                    break;
+                case ExtendedTransferManager.TransferReason.Cars:
+                    service = ItemClass.Service.PlayerIndustry;
+                    level = ItemClass.Level.Level4;
+                    break;
                 case ExtendedTransferManager.TransferReason.HouseParts:
                     service = ItemClass.Service.PlayerIndustry;
+                    level = ItemClass.Level.Level5;
                     break;
                 default:
                     return null;
