@@ -82,26 +82,7 @@ namespace MoreTransferReasons.AI
             {
                 ExtendedTransferManager.Offer offer = default;
                 offer.Building = buildingID;
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Anchovy, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Salmon, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Shellfish, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Tuna, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Algae, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Seaweed, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Trout, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.SheepMilk, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.CowMilk, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCowMilk, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.LambMeat, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BeefMeat, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandBeefMeat, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.PorkMeat, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Fruits, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Vegetables, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Cows, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCows, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Sheep, offer);
-                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Pigs, offer);
+                
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer);
@@ -123,6 +104,26 @@ namespace MoreTransferReasons.AI
             {
                 ExtendedTransferManager.Offer offer2 = default;
                 offer2.Building = buildingID;
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Anchovy, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Salmon, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Shellfish, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Tuna, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Algae, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Seaweed, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Trout, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.SheepMilk, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.CowMilk, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.HighlandCowMilk, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.LambMeat, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.BeefMeat, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.HighlandBeefMeat, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.PorkMeat, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Fruits, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Vegetables, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Cows, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.HighlandCows, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Sheep, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.Pigs, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer2);
