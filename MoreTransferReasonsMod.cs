@@ -1,7 +1,6 @@
 ﻿using ICities;
 using CitiesHarmony.API;
 using MoreTransferReasons.Utils;
-using UnityEngine;
 
 namespace MoreTransferReasons
 {
@@ -29,6 +28,11 @@ namespace MoreTransferReasons
         public void OnSettingsUI(UIHelperBase helper)
         {
             UIHelper ExtendedBuildingsAISettings = helper.AddGroup("Extended Buildings AI Settings") as UIHelper;
+
+            ExtendedBuildingsAISettings.AddCheckbox("Convert commercial buildings to accept new product types", Utils.Settings.ExtendedCommercialBuildingAI.value, (b) =>
+            {
+                Utils.Settings.ExtendedCommercialBuildingAI.value = b;
+            });
 
             ExtendedBuildingsAISettings.AddCheckbox("Convert outside connections to support more transfer reasons", Utils.Settings.ExtendedOutsideConnectionAI.value, (b) =>
             {

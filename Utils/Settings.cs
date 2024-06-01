@@ -9,6 +9,7 @@ namespace MoreTransferReasons.Utils
         public const string settingsFileName = "MoreTransferReasons_Settings";
 
         public static SavedBool ExtendedOutsideConnectionAI = new("ExtendedOutsideConnectionAI", settingsFileName, false, true);
+        public static SavedBool ExtendedCommercialBuildingAI = new("ExtendedCommercialBuildingAI", settingsFileName, false, true);
         public static SavedBool ExtendedServicePointAI = new("ExtendedServicePointAI", settingsFileName, false, true);
         public static SavedBool ExtendedWarehouseAI = new("ExtendedWarehouseAI", settingsFileName, false, true);
 
