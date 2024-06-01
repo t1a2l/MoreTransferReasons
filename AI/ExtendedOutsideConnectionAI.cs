@@ -38,38 +38,7 @@ namespace MoreTransferReasons.AI
             Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
             bool flag2 = false;
             bool flag3 = false;
-            VehicleInfo vehicleInfo;
-            switch (material)
-            {
-                case ExtendedTransferManager.TransferReason.FoodProducts:
-                case ExtendedTransferManager.TransferReason.BeverageProducts: 
-                case ExtendedTransferManager.TransferReason.BakedGoods:
-                case ExtendedTransferManager.TransferReason.CannedFish: 
-                case ExtendedTransferManager.TransferReason.Furnitures: 
-                case ExtendedTransferManager.TransferReason.ElectronicProducts: 
-                case ExtendedTransferManager.TransferReason.Tupperware: 
-                case ExtendedTransferManager.TransferReason.Toys: 
-                case ExtendedTransferManager.TransferReason.PrintedProducts: 
-                case ExtendedTransferManager.TransferReason.TissuePaper: 
-                case ExtendedTransferManager.TransferReason.Cloths:
-                case ExtendedTransferManager.TransferReason.Footwear:
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level1);
-                    break;
-                case ExtendedTransferManager.TransferReason.IndustrialSteel: // shipyard, car factory, construction
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level3);
-                    break;
-                case ExtendedTransferManager.TransferReason.PetroleumProducts: // gas stations, boiler stations, airport fuel, plastic factory
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.Industrial, ItemClass.SubService.IndustrialOil, ItemClass.Level.Level1);
-                    break;
-                case ExtendedTransferManager.TransferReason.Cars: // 1 -> 2 -> rental, buy, export
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level4);
-                    break;
-                case ExtendedTransferManager.TransferReason.HouseParts: // 9 -> to build houses
-                    vehicleInfo = Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref Singleton<SimulationManager>.instance.m_randomizer, ItemClass.Service.PlayerIndustry, ItemClass.SubService.None, ItemClass.Level.Level5);
-                    break;
-                default:
-                    return false;
-            }
+            VehicleInfo vehicleInfo = ExtendedWarehouseAI.GetExtendedTransferVehicleService(material, ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);
             if (vehicleInfo != null)
             {
                 if(material == ExtendedTransferManager.TransferReason.Cars && vehicleInfo.GetClassLevel() == ItemClass.Level.Level2)
@@ -113,6 +82,26 @@ namespace MoreTransferReasons.AI
             {
                 ExtendedTransferManager.Offer offer = default;
                 offer.Building = buildingID;
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Anchovy, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Salmon, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Shellfish, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Tuna, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Algae, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Seaweed, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Trout, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.SheepMilk, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.CowMilk, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCowMilk, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.LambMeat, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BeefMeat, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandBeefMeat, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.PorkMeat, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Fruits, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Vegetables, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Cows, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCows, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Sheep, offer);
+                instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.Pigs, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer);
                 instance.RemoveOutgoingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer);
@@ -186,6 +175,86 @@ namespace MoreTransferReasons.AI
                         offer.Amount = 1;
                         if (instance.m_randomizer.Int32(16u) == 0)
                         {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Anchovy, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Salmon, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Shellfish, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Tuna, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Algae, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Seaweed, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Trout, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.SheepMilk, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.CowMilk, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCowMilk, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.LambMeat, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BeefMeat, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandBeefMeat, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.PorkMeat, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Fruits, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Vegetables, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Cows, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCows, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Sheep, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
+                            instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Pigs, offer);
+                        }
+                        if (instance.m_randomizer.Int32(16u) == 0)
+                        {
                             instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
                         }
                         if (instance.m_randomizer.Int32(16u) == 0)
@@ -252,6 +321,26 @@ namespace MoreTransferReasons.AI
                     else
                     {
                         offer.Amount = num2;
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Anchovy, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Salmon, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Shellfish, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Tuna, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Algae, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Seaweed, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Trout, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.SheepMilk, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.CowMilk, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCowMilk, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.LambMeat, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BeefMeat, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandBeefMeat, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.PorkMeat, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Fruits, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Vegetables, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Cows, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.HighlandCows, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Sheep, offer);
+                        instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.Pigs, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.FoodProducts, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BeverageProducts, offer);
                         instance2.AddOutgoingOffer(ExtendedTransferManager.TransferReason.BakedGoods, offer);
