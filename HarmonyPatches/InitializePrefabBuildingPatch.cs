@@ -11,6 +11,12 @@ namespace MoreTransferReasons.HarmonyPatches
         public static void Prefix(BuildingInfo __instance)
         {
             var oldAI = __instance.GetComponent<PrefabAI>();
+            if (oldAI != null && oldAI is CommercialBuildingAI && Utils.Settings.ExtendedCommercialBuildingAI.value == true)
+            {
+                Object.DestroyImmediate(oldAI);
+                var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCommercialBuildingAI>();
+                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+            }
             if (oldAI != null && oldAI is OutsideConnectionAI && Utils.Settings.ExtendedOutsideConnectionAI.value == true)
             {
                 Object.DestroyImmediate(oldAI);
