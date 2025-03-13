@@ -49,8 +49,19 @@ namespace MoreTransferReasons.AI
                 byte transferType = (byte)(material + 200);
                 if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, transferType, flag3, !flag3))
                 {
+                    if (material == ExtendedTransferManager.TransferReason.Cars)
+                    {
+                        vehicles.m_buffer[vehicle].m_gateIndex = 1;
+                    }
+                    else if (material == ExtendedTransferManager.TransferReason.HouseParts)
+                    {
+                        vehicles.m_buffer[vehicle].m_gateIndex = 9;
+                    }
+                    else
+                    {
+                        vehicles.m_buffer[vehicle].m_gateIndex = 0;
+                    }
                     vehicleInfo.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
-
                     ((IExtendedVehicleAI)vehicleInfo.m_vehicleAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offer);
                     if (!flag2)
                     {

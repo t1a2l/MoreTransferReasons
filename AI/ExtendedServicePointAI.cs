@@ -122,6 +122,18 @@ namespace MoreTransferReasons.AI
                 Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
                 if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingID].m_position, (byte)material, flag, !flag))
                 {
+                    if (material == ExtendedTransferManager.TransferReason.Cars)
+                    {
+                        vehicles.m_buffer[vehicle].m_gateIndex = 1;
+                    }
+                    else if (material == ExtendedTransferManager.TransferReason.HouseParts)
+                    {
+                        vehicles.m_buffer[vehicle].m_gateIndex = 9;
+                    }
+                    else
+                    {
+                        vehicles.m_buffer[vehicle].m_gateIndex = 0;
+                    }
                     vehicleInfo.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
                     ((IExtendedVehicleAI)vehicleInfo.m_vehicleAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offer);
                     ushort building = offer.Building;

@@ -23,6 +23,18 @@ namespace MoreTransferReasons.AI
                         Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
                         if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, transferVehicleService, data.m_position, (byte)transferType, transferToSource: false, transferToTarget: true) && transferVehicleService.m_vehicleAI is ExtendedCargoTruckAI cargoTruckAI)
                         {
+                            if (material == ExtendedTransferManager.TransferReason.Cars)
+                            {
+                                vehicles.m_buffer[vehicle].m_gateIndex = 1;
+                            }
+                            else if (material == ExtendedTransferManager.TransferReason.HouseParts)
+                            {
+                                vehicles.m_buffer[vehicle].m_gateIndex = 9;
+                            }
+                            else
+                            {
+                                vehicles.m_buffer[vehicle].m_gateIndex = 0;
+                            }
                             transferVehicleService.m_vehicleAI.SetSource(vehicle, ref vehicles.m_buffer[vehicle], buildingID);
                             ((IExtendedVehicleAI)cargoTruckAI).ExtendedStartTransfer(vehicle, ref vehicles.m_buffer[vehicle], material, offer);
                         }
