@@ -687,7 +687,7 @@ namespace MoreTransferReasons
                                 continue;
                             }
                             double distance = Vector3.SqrMagnitude(incoming_offer.Position - outgoing_position);
-                            if (distance < min_distance)
+                            if (distance < min_distance && distance > 10)
                             {
                                 chosen_index = i;
                                 min_distance = distance;
