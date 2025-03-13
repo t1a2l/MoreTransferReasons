@@ -760,7 +760,7 @@ namespace MoreTransferReasons
                                 continue;
                             }
                             float distance = Vector3.SqrMagnitude(outgoing_offer.Position - incoming_position);
-                            if (distance > min_distance)
+                            if (distance > min_distance && distance > 10)
                             {
                                 chosen_index = i;
                                 min_distance = distance;
