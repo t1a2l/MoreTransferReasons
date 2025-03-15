@@ -19,10 +19,6 @@ namespace MoreTransferReasons.HarmonyPatches
                     UnityEngine.Object.DestroyImmediate(oldAI);
                     var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCargoTruckAI>();
                     PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
-                    if(__instance.name.Contains("Girder"))
-                    {
-                        __instance.m_class.m_level = ItemClass.Level.Level3;
-                    }
                 }
                 if(oldAI is PassengerCarAI && !__instance.name.Contains("Trailer") && Utils.Settings.ExtendedPassengerCarAI.value == true)
                 {
