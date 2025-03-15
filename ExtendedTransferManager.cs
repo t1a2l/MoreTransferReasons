@@ -14,6 +14,7 @@ namespace MoreTransferReasons
         {
             public byte m_isLocalPark;
             public Vector3 Position;
+            public Vector3 FixedPosition;
             public int Amount;
             public bool Active;
             public ushort Building;
@@ -70,7 +71,7 @@ namespace MoreTransferReasons
             Ship = 41,
             ConstructionResources = 42,
             OperationResources = 43,
-            // until 54 only transfer types that need s vehicle to transport them
+            // until 54 only transfer types that needs a vehicle to transport them
             MealsLow = 55, // serve low end food
             MealsMedium = 56, // serve normal food
             MealsHigh = 57,  // serve high end food
@@ -527,12 +528,19 @@ namespace MoreTransferReasons
 
         public void AddOutgoingOffer(TransferReason material, Offer offer)
         {
+            if(offer.FixedPosition == Vector3.zero)
+            {
+                offer.FixedPosition = offer.Position;
+            }
+
             if (offer.Building != 0)
             {
                 Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
                 ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
                 byte park = Singleton<DistrictManager>.instance.GetPark(buffer[offer.Building].m_position);
-                if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
+                if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone 
+                    && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) 
+                    && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
                 {
                     bool flag = false;
                     if ((Singleton<DistrictManager>.instance.m_parks.m_buffer[park].m_parkPolicies & DistrictPolicies.Park.ForceServicePoint) != 0)
@@ -570,12 +578,19 @@ namespace MoreTransferReasons
 
         public void AddIncomingOffer(TransferReason material, Offer offer)
         {
+            if (offer.FixedPosition == Vector3.zero)
+            {
+                offer.FixedPosition = offer.Position;
+            }
+
             if (offer.Building != 0)
             {
                 ExtendedDistrictManager instance2 = Singleton<ExtendedDistrictManager>.instance;
                 Building[] buffer = Singleton<BuildingManager>.instance.m_buildings.m_buffer;
                 byte park = Singleton<DistrictManager>.instance.GetPark(buffer[offer.Building].m_position);
-                if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
+                if (park != 0 && Singleton<DistrictManager>.instance.m_parks.m_buffer[park].IsPedestrianZone 
+                    && buffer[offer.Building].Info.m_buildingAI.GetUseServicePoint(offer.Building, ref buffer[offer.Building]) 
+                    && ExtendedDistrictPark.TryGetPedestrianReason(material, out var reason))
                 {
                     bool flag = false;
                     if ((Singleton<DistrictManager>.instance.m_parks.m_buffer[park].m_parkPolicies & DistrictPolicies.Park.ForceServicePoint) != 0)
@@ -670,6 +685,7 @@ namespace MoreTransferReasons
                 {
                     Offer outgoing_offer = OutgoingOffers[(int)material * 256 + outgoing_matched_count];
                     Vector3 outgoing_position = outgoing_offer.Position;
+                    Vector3 outgoing_position_fixed = outgoing_offer.FixedPosition;
                     int outgoing_amount = outgoing_offer.Amount;
                     while (outgoing_amount != 0)
                     {
@@ -686,8 +702,16 @@ namespace MoreTransferReasons
                             {
                                 continue;
                             }
+                            if (incoming_offer.Position != incoming_offer.FixedPosition && outgoing_position != outgoing_position_fixed)
+                            {
+                                var actual_distance = Vector3.SqrMagnitude(incoming_offer.FixedPosition - outgoing_position_fixed);
+                                if (actual_distance < 10000)
+                                {
+                                    continue;
+                                }
+                            }
                             double distance = Vector3.SqrMagnitude(incoming_offer.Position - outgoing_position);
-                            if (distance < min_distance && distance > 10)
+                            if (distance < min_distance)
                             {
                                 chosen_index = i;
                                 min_distance = distance;
@@ -743,6 +767,7 @@ namespace MoreTransferReasons
                 {
                     Offer incoming_offer = IncomingOffers[(int)material * 256 + incoming_matched_count];
                     Vector3 incoming_position = incoming_offer.Position;
+                    Vector3 incoming_position_fixed = incoming_offer.FixedPosition;
                     int incoming_amount = incoming_offer.Amount;
                     while (incoming_amount != 0)
                     {
@@ -759,8 +784,16 @@ namespace MoreTransferReasons
                             {
                                 continue;
                             }
+                            if (outgoing_offer.Position != outgoing_offer.FixedPosition && incoming_position != incoming_position_fixed)
+                            {
+                                var actual_distance = Vector3.SqrMagnitude(outgoing_offer.FixedPosition - incoming_position_fixed);
+                                if (actual_distance < 10000)
+                                {
+                                    continue;
+                                }
+                            }
                             float distance = Vector3.SqrMagnitude(outgoing_offer.Position - incoming_position);
-                            if (distance > min_distance && distance > 10)
+                            if (distance > min_distance)
                             {
                                 chosen_index = i;
                                 min_distance = distance;

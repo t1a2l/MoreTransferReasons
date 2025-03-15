@@ -41,10 +41,6 @@ namespace MoreTransferReasons.AI
             VehicleInfo vehicleInfo = ExtendedWarehouseAI.GetExtendedTransferVehicleService(material, ItemClass.Level.Level1, ref Singleton<SimulationManager>.instance.m_randomizer);
             if (vehicleInfo != null)
             {
-                if(material == ExtendedTransferManager.TransferReason.Cars && vehicleInfo.GetClassLevel() == ItemClass.Level.Level2)
-                {
-                    return false;
-                }
                 Array16<Vehicle> vehicles = Singleton<VehicleManager>.instance.m_vehicles;
                 byte transferType = (byte)(material + 200);
                 if (ExtendedVehicleManager.CreateVehicle(out var vehicle, ref Singleton<SimulationManager>.instance.m_randomizer, vehicleInfo, data.m_position, transferType, flag3, !flag3))
@@ -178,6 +174,7 @@ namespace MoreTransferReasons.AI
                 ExtendedTransferManager.Offer offer = default;
                 offer.Building = buildingID;
                 offer.Position = data.m_position * (instance.m_randomizer.Int32(100, 400) * 0.01f);
+                offer.FixedPosition = data.m_position;
                 offer.Active = true;
                 int num7 = num2;
                 if (num7 != 0)
@@ -282,6 +279,7 @@ namespace MoreTransferReasons.AI
             ExtendedTransferManager.Offer offer2 = default;
             offer2.Building = buildingID;
             offer2.Position = data.m_position * ((float)instance.m_randomizer.Int32(100, 400) * 0.01f);
+            offer2.FixedPosition = data.m_position;
             offer2.Active = false;
             int num19 = num2;
             if (num19 != 0)
