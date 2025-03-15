@@ -569,6 +569,12 @@ namespace MoreTransferReasons.AI
                 case ExtendedTransferManager.TransferReason.Cloths:
                 case ExtendedTransferManager.TransferReason.Footwear:
                     service = ItemClass.Service.PlayerIndustry;
+                    level = ItemClass.Level.Level1;
+                    break;
+                case ExtendedTransferManager.TransferReason.Cars:
+                case ExtendedTransferManager.TransferReason.HouseParts:
+                    service = ItemClass.Service.PlayerIndustry;
+                    level = ItemClass.Level.Level2;
                     break;
                 case ExtendedTransferManager.TransferReason.IndustrialSteel:
                     service = ItemClass.Service.PlayerIndustry;
@@ -578,14 +584,6 @@ namespace MoreTransferReasons.AI
                     service = ItemClass.Service.Industrial;
                     subService = ItemClass.SubService.IndustrialOil;
                     level = ItemClass.Level.Level1;
-                    break;
-                case ExtendedTransferManager.TransferReason.Cars:
-                    service = ItemClass.Service.PlayerIndustry;
-                    level = ItemClass.Level.Level4;
-                    break;
-                case ExtendedTransferManager.TransferReason.HouseParts:
-                    service = ItemClass.Service.PlayerIndustry;
-                    level = ItemClass.Level.Level5;
                     break;
                 default:
                     return null;
