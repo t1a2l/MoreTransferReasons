@@ -8,7 +8,7 @@ namespace MoreTransferReasons.AI
     public class ExtendedCommercialBuildingAI : CommercialBuildingAI, IExtendedBuildingAI
     {
          
-        public List<ExtendedTransferManager.TransferReason> extendedUniqueProductslist =
+        public List<ExtendedTransferManager.TransferReason> extendedFoodProductslist =
         [
             ExtendedTransferManager.TransferReason.Anchovy,
             ExtendedTransferManager.TransferReason.Salmon,
@@ -25,7 +25,11 @@ namespace MoreTransferReasons.AI
             ExtendedTransferManager.TransferReason.HighlandBeefMeat,
             ExtendedTransferManager.TransferReason.PorkMeat,
             ExtendedTransferManager.TransferReason.Fruits,
-            ExtendedTransferManager.TransferReason.Vegetables,
+            ExtendedTransferManager.TransferReason.Vegetables
+        ];
+
+        public List<ExtendedTransferManager.TransferReason> extendedGoodsProductslist =
+        [
             ExtendedTransferManager.TransferReason.FoodProducts,
             ExtendedTransferManager.TransferReason.BeverageProducts,
             ExtendedTransferManager.TransferReason.BakedGoods,
@@ -37,7 +41,7 @@ namespace MoreTransferReasons.AI
             ExtendedTransferManager.TransferReason.PrintedProducts,
             ExtendedTransferManager.TransferReason.TissuePaper,
             ExtendedTransferManager.TransferReason.Cloths,
-            ExtendedTransferManager.TransferReason.Footwear,
+            ExtendedTransferManager.TransferReason.Footwear
         ];
 
         public override string GetDebugString(ushort buildingID, ref Building data)
@@ -51,12 +55,20 @@ namespace MoreTransferReasons.AI
                 int cargo = 0;
                 int capacity = 0;
                 int outside = 0;
-                if (incomingTransferReason == TransferManager.TransferReason.Goods || incomingTransferReason == TransferManager.TransferReason.Food)
+                if (incomingTransferReason == TransferManager.TransferReason.Food)
                 {
                     CalculateGuestVehicles(buildingID, ref data, incomingTransferReason, TransferManager.TransferReason.LuxuryProducts, ref count, ref cargo, ref capacity, ref outside);
-                    for(int i = 0; i < extendedUniqueProductslist.Count; i++)
+                    for (int i = 0; i < extendedFoodProductslist.Count; i++)
                     {
-                        ExtendedVehicleManager.CalculateGuestVehicles(buildingID, ref data, extendedUniqueProductslist[i], ref count, ref cargo, ref capacity, ref outside);
+                        ExtendedVehicleManager.CalculateGuestVehicles(buildingID, ref data, extendedFoodProductslist[i], ref count, ref cargo, ref capacity, ref outside);
+                    }
+                }
+                else if (incomingTransferReason == TransferManager.TransferReason.Goods)
+                {
+                    CalculateGuestVehicles(buildingID, ref data, incomingTransferReason, TransferManager.TransferReason.LuxuryProducts, ref count, ref cargo, ref capacity, ref outside);
+                    for (int i = 0; i < extendedGoodsProductslist.Count; i++)
+                    {
+                        ExtendedVehicleManager.CalculateGuestVehicles(buildingID, ref data, extendedGoodsProductslist[i], ref count, ref cargo, ref capacity, ref outside);
                     }
                 }
                 else
@@ -100,14 +112,22 @@ namespace MoreTransferReasons.AI
             int outside = 0;
             if (incomingTransferReason != TransferManager.TransferReason.None)
             {
-                if (incomingTransferReason == TransferManager.TransferReason.Goods || incomingTransferReason == TransferManager.TransferReason.Food)
+                if (incomingTransferReason == TransferManager.TransferReason.Food)
                 {
-                    for (int i = 0; i < extendedUniqueProductslist.Count; i++)
+                    for (int i = 0; i < extendedFoodProductslist.Count; i++)
                     {
-                        ExtendedVehicleManager.CalculateGuestVehicles(buildingID, ref buildingData, extendedUniqueProductslist[i], ref count, ref cargo, ref capacity, ref outside);
+                        ExtendedVehicleManager.CalculateGuestVehicles(buildingID, ref buildingData, extendedFoodProductslist[i], ref count, ref cargo, ref capacity, ref outside);
                     }
                     buildingData.m_tempImport = (byte)Mathf.Clamp(outside, buildingData.m_tempImport, 255);
-                }                
+                }
+                else if (incomingTransferReason == TransferManager.TransferReason.Goods)
+                {
+                    for (int i = 0; i < extendedGoodsProductslist.Count; i++)
+                    {
+                        ExtendedVehicleManager.CalculateGuestVehicles(buildingID, ref buildingData, extendedGoodsProductslist[i], ref count, ref cargo, ref capacity, ref outside);
+                    }
+                    buildingData.m_tempImport = (byte)Mathf.Clamp(outside, buildingData.m_tempImport, 255);
+                }
             }
             SimulationManager instance2 = Singleton<SimulationManager>.instance;
             if (buildingData.m_fireIntensity == 0 && incomingTransferReason != TransferManager.TransferReason.None)
@@ -121,11 +141,18 @@ namespace MoreTransferReasons.AI
                     offer.Position = buildingData.m_position;
                     offer.Amount = 1;
                     offer.Active = false;
-                    if ((incomingTransferReason == TransferManager.TransferReason.Goods || incomingTransferReason == TransferManager.TransferReason.Food) && (instance2.m_currentFrameIndex & 0x300) >> 8 == (buildingID & 3))
+                    if (incomingTransferReason == TransferManager.TransferReason.Food && (instance2.m_currentFrameIndex & 0x300) >> 8 == (buildingID & 3))
                     {
-                        for (int i = 0; i < extendedUniqueProductslist.Count; i++)
+                        for (int i = 0; i < extendedFoodProductslist.Count; i++)
                         {
-                            Singleton<ExtendedTransferManager>.instance.AddIncomingOffer(extendedUniqueProductslist[i], offer);
+                            Singleton<ExtendedTransferManager>.instance.AddIncomingOffer(extendedFoodProductslist[i], offer);
+                        }
+                    }
+                    else if(incomingTransferReason == TransferManager.TransferReason.Goods && (instance2.m_currentFrameIndex & 0x300) >> 8 == (buildingID & 3))
+                    {
+                        for (int i = 0; i < extendedGoodsProductslist.Count; i++)
+                        {
+                            Singleton<ExtendedTransferManager>.instance.AddIncomingOffer(extendedGoodsProductslist[i], offer);
                         }    
                     }
                 }
@@ -140,11 +167,18 @@ namespace MoreTransferReasons.AI
             {
                 ExtendedTransferManager.Offer offer = default;
                 offer.Building = buildingID;
-                if (incomingTransferReason == TransferManager.TransferReason.Goods || incomingTransferReason == TransferManager.TransferReason.Food)
+                if (incomingTransferReason == TransferManager.TransferReason.Food)
                 {
-                    for (int i = 0; i < extendedUniqueProductslist.Count; i++)
+                    for (int i = 0; i < extendedFoodProductslist.Count; i++)
                     {
-                        Singleton<ExtendedTransferManager>.instance.RemoveIncomingOffer(extendedUniqueProductslist[i], offer);
+                        Singleton<ExtendedTransferManager>.instance.AddIncomingOffer(extendedFoodProductslist[i], offer);
+                    }
+                }
+                else if (incomingTransferReason == TransferManager.TransferReason.Goods)
+                {
+                    for (int i = 0; i < extendedGoodsProductslist.Count; i++)
+                    {
+                        Singleton<ExtendedTransferManager>.instance.AddIncomingOffer(extendedGoodsProductslist[i], offer);
                     }
                 }
             }
@@ -160,11 +194,26 @@ namespace MoreTransferReasons.AI
             amount = 0;
             max = 0;
             TransferManager.TransferReason incomingTransferReason = GetIncomingTransferReason();
-            if (incomingTransferReason == TransferManager.TransferReason.Goods || incomingTransferReason == TransferManager.TransferReason.Food)
+            if (incomingTransferReason == TransferManager.TransferReason.Food)
             {
-                for (int i = 0; i < extendedUniqueProductslist.Count; i++)
+                for (int i = 0; i < extendedFoodProductslist.Count; i++)
                 {
-                    if (material == extendedUniqueProductslist[i])
+                    if (material == extendedFoodProductslist[i])
+                    {
+                        int width = data.Width;
+                        int length = data.Length;
+                        int num = MaxIncomingLoadSize();
+                        int num2 = CalculateVisitplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), width, length);
+                        amount = GetGoodsAmount(ref data);
+                        max = Mathf.Min(Mathf.Max(num2 * 500, num * 4), 65535);
+                    }
+                }
+            }
+            else if (incomingTransferReason == TransferManager.TransferReason.Goods)
+            {
+                for (int i = 0; i < extendedGoodsProductslist.Count; i++)
+                {
+                    if (material == extendedGoodsProductslist[i])
                     {
                         int width = data.Width;
                         int length = data.Length;
@@ -180,11 +229,28 @@ namespace MoreTransferReasons.AI
         void IExtendedBuildingAI.ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
         {
             TransferManager.TransferReason incomingTransferReason = GetIncomingTransferReason();
-            if (incomingTransferReason == TransferManager.TransferReason.Goods || incomingTransferReason == TransferManager.TransferReason.Food)
+            if (incomingTransferReason == TransferManager.TransferReason.Food)
             {
-                for (int i = 0; i < extendedUniqueProductslist.Count; i++)
+                for (int i = 0; i < extendedFoodProductslist.Count; i++)
                 {
-                    if (material == extendedUniqueProductslist[i])
+                    if (material == extendedFoodProductslist[i])
+                    {
+                        int width = data.Width;
+                        int length = data.Length;
+                        int num = MaxIncomingLoadSize();
+                        int num2 = CalculateVisitplaceCount((ItemClass.Level)data.m_level, new Randomizer(buildingID), width, length);
+                        int num3 = Mathf.Min(Mathf.Max(num2 * 500, num * 4), 65535);
+                        int goodsAmount = GetGoodsAmount(ref data);
+                        amountDelta = Mathf.Clamp(amountDelta, 0, num3 - goodsAmount);
+                        SetGoodsAmount(ref data, (ushort)(goodsAmount + amountDelta));
+                    }
+                }
+            }
+            else if (incomingTransferReason == TransferManager.TransferReason.Goods)
+            {
+                for (int i = 0; i < extendedGoodsProductslist.Count; i++)
+                {
+                    if (material == extendedGoodsProductslist[i])
                     {
                         int width = data.Width;
                         int length = data.Length;
