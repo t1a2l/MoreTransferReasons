@@ -14,7 +14,6 @@ namespace MoreTransferReasons.Utils
         public static SavedBool ExtendedWarehouseAI = new("ExtendedWarehouseAI", settingsFileName, false, true);
 
         public static SavedBool ExtendedCargoTruckAI = new("ExtendedCargoTruckAI", settingsFileName, false, true);
-        public static SavedBool ExtendedPassengerCarAI = new("ExtendedPassengerCarAI", settingsFileName, false, true);
 
         public static SavedBool ExtenedTouristAI = new("ExtenedTouristAI", settingsFileName, false, true);
         public static SavedBool ExtenedResidentAI = new("ExtenedResidentAI", settingsFileName, false, true);

@@ -56,11 +56,6 @@ namespace MoreTransferReasons
                 Utils.Settings.ExtendedCargoTruckAI.value = b;
             });
 
-            ExtendedVehiclesAISettings.AddCheckbox("Convert passenger cars to support more transfer reasons", Utils.Settings.ExtendedPassengerCarAI.value, (b) =>
-            {
-                Utils.Settings.ExtendedPassengerCarAI.value = b;
-            });
-
             UIHelper ExtendedCitizensAISettings = helper.AddGroup("Extended Citizens AI Settings") as UIHelper;
 
             ExtendedCitizensAISettings.AddCheckbox("Convert tourist type citizens to support more transfer reasons", Utils.Settings.ExtenedTouristAI.value, (b) =>

@@ -20,12 +20,6 @@ namespace MoreTransferReasons.HarmonyPatches
                     var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCargoTruckAI>();
                     PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
                 }
-                if(oldAI is PassengerCarAI && !__instance.name.Contains("Trailer") && Utils.Settings.ExtendedPassengerCarAI.value == true)
-                {
-                    UnityEngine.Object.DestroyImmediate(oldAI);
-                    var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedPassengerCarAI>();
-                    PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
-                }
             }
             catch (Exception e)
             {
