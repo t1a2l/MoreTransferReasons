@@ -11,6 +11,7 @@
             switch (material)
             {
                 case ExtendedTransferManager.TransferReason.CarBuy:
+                case ExtendedTransferManager.TransferReason.FuelVehicle:
                 case ExtendedTransferManager.TransferReason.MealsLow:
                 case ExtendedTransferManager.TransferReason.MealsMedium:
                 case ExtendedTransferManager.TransferReason.MealsHigh:
