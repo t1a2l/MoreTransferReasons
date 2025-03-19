@@ -11,7 +11,6 @@
             switch (material)
             {
                 case ExtendedTransferManager.TransferReason.CarRent:
-                case ExtendedTransferManager.TransferReason.FuelVehicle:
                 case ExtendedTransferManager.TransferReason.MealsLow:
                 case ExtendedTransferManager.TransferReason.MealsMedium:
                 case ExtendedTransferManager.TransferReason.MealsHigh:
@@ -20,6 +19,10 @@
                     {
                         data.SetVisitplace(citizenID, offer.Building, 0u);
                     }
+                    break;
+                case ExtendedTransferManager.TransferReason.FuelVehicle:
+                    data.m_flags &= ~Citizen.Flags.Evacuating;
+                    StartMoving(citizenID, ref data, data.m_visitBuilding, offer.Building);
                     break;
             }
         }
