@@ -458,7 +458,7 @@ namespace MoreTransferReasons.AI
                     SetTarget(vehicleID, ref data, offer.Building);
                 }
             }
-            if (material == ExtendedTransferManager.TransferReason.FuelVehicle)
+            if (material == ExtendedTransferManager.TransferReason.FuelVehicle || material == ExtendedTransferManager.TransferReason.FuelElectricVehicle)
             {
                 data.m_custom = (ushort)material;
                 SetTarget(vehicleID, ref data, offer.Building);

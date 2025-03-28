@@ -81,6 +81,7 @@ namespace MoreTransferReasons
             CarRent = 61,
             CarBuy = 62,
             FuelVehicle = 63,
+            FuelElectricVehicle = 64,
             None = 255
         }
 

@@ -21,6 +21,7 @@
                     }
                     break;
                 case ExtendedTransferManager.TransferReason.FuelVehicle:
+                case ExtendedTransferManager.TransferReason.FuelElectricVehicle:
                     data.m_flags &= ~Citizen.Flags.Evacuating;
                     StartMoving(citizenID, ref data, data.m_visitBuilding, offer.Building);
                     break;
