@@ -440,7 +440,7 @@ namespace MoreTransferReasons
 
         public void ClearTransferManager()
         {
-            Transfers_Length = 64;
+            Transfers_Length = 65;
 
             Array.Clear(OutgoingIndexes, 0, OutgoingIndexes.Length);
             Array.Clear(IncomingIndexes, 0, IncomingIndexes.Length);
@@ -456,7 +456,7 @@ namespace MoreTransferReasons
         protected override void Awake()
         {
             base.Awake();
-            Transfers_Length = 64;
+            Transfers_Length = 65;
             OutgoingIndexes = new int[Transfers_Length];
             IncomingIndexes = new int[Transfers_Length];
             OutgoingOffers = new Offer[Transfers_Length * 256];
@@ -523,6 +523,7 @@ namespace MoreTransferReasons
                 123 => TransferReason.CarRent,
                 125 => TransferReason.CarBuy,
                 127 => TransferReason.FuelVehicle,
+                129 => TransferReason.FuelElectricVehicle,
                 _ => TransferReason.None,
             };
         }
