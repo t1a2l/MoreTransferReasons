@@ -10,7 +10,6 @@
             }
             switch (material)
             {
-                case ExtendedTransferManager.TransferReason.CarBuy:
                 case ExtendedTransferManager.TransferReason.MealsLow:
                 case ExtendedTransferManager.TransferReason.MealsMedium:
                 case ExtendedTransferManager.TransferReason.MealsHigh:
@@ -20,6 +19,7 @@
                         data.SetVisitplace(citizenID, offer.Building, 0u);
                     }
                     break;
+                case ExtendedTransferManager.TransferReason.CarBuy:
                 case ExtendedTransferManager.TransferReason.FuelVehicle:
                 case ExtendedTransferManager.TransferReason.FuelElectricVehicle:
                     data.m_flags &= ~Citizen.Flags.Evacuating;
