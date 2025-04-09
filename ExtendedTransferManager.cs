@@ -82,6 +82,9 @@ namespace MoreTransferReasons
             CarBuy = 62,
             FuelVehicle = 63,
             FuelElectricVehicle = 64,
+            CarSell = 65,
+            VehicleWash = 66,
+            VehicleRepair = 67,
             None = 255
         }
 
@@ -440,7 +443,7 @@ namespace MoreTransferReasons
 
         public void ClearTransferManager()
         {
-            Transfers_Length = 65;
+            Transfers_Length = 68;
 
             Array.Clear(OutgoingIndexes, 0, OutgoingIndexes.Length);
             Array.Clear(IncomingIndexes, 0, IncomingIndexes.Length);
@@ -456,7 +459,7 @@ namespace MoreTransferReasons
         protected override void Awake()
         {
             base.Awake();
-            Transfers_Length = 65;
+            Transfers_Length = 68;
             OutgoingIndexes = new int[Transfers_Length];
             IncomingIndexes = new int[Transfers_Length];
             OutgoingOffers = new Offer[Transfers_Length * 256];
@@ -524,6 +527,9 @@ namespace MoreTransferReasons
                 125 => TransferReason.CarBuy,
                 127 => TransferReason.FuelVehicle,
                 129 => TransferReason.FuelElectricVehicle,
+                131 => TransferReason.CarSell,
+                133 => TransferReason.VehicleWash,
+                135 => TransferReason.VehicleRepair,
                 _ => TransferReason.None,
             };
         }
