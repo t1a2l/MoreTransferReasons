@@ -18,6 +18,9 @@ namespace MoreTransferReasons.AI
         private delegate void SimulationStepCarAIDelegate(CarAI instance, ushort vehicleID, ref Vehicle data, Vector3 physicsLodRefPos);
         private static readonly SimulationStepCarAIDelegate SimulationStepCarAI = AccessTools.MethodDelegate<SimulationStepCarAIDelegate>(typeof(CarAI).GetMethod("SimulationStep", BindingFlags.Instance | BindingFlags.Public, null, [typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(Vector3)], null), null, false);
 
+        [CustomizableProperty("Is Electric")]
+        public bool m_isElectric = false;
+
         public override Color GetColor(ushort vehicleID, ref Vehicle data, InfoManager.InfoMode infoMode, InfoManager.SubInfoMode subInfoMode)
         {
             switch (infoMode)
