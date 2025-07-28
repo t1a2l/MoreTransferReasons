@@ -185,11 +185,11 @@ namespace MoreTransferReasons.AI
             base.BuildingDeactivated(buildingID, ref data);
         }
 
-        void IExtendedBuildingAI.ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
+        public void ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
         }
 
-        void IExtendedBuildingAI.ExtendedGetMaterialAmount(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, out int amount, out int max)
+        public void ExtendedGetMaterialAmount(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, out int amount, out int max)
         {
             amount = 0;
             max = 0;
@@ -226,7 +226,7 @@ namespace MoreTransferReasons.AI
             }
         }
 
-        void IExtendedBuildingAI.ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
+        public void ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
         {
             TransferManager.TransferReason incomingTransferReason = GetIncomingTransferReason();
             if (incomingTransferReason == TransferManager.TransferReason.Food)

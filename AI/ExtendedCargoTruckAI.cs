@@ -447,7 +447,7 @@ namespace MoreTransferReasons.AI
             }
         }
 
-        void IExtendedVehicleAI.ExtendedStartTransfer(ushort vehicleID, ref Vehicle data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
+        public void ExtendedStartTransfer(ushort vehicleID, ref Vehicle data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
             var transferType = data.m_transferType;
             if (data.m_transferType >= 200 && data.m_transferType != 255)

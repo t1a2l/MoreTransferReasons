@@ -4,7 +4,7 @@ namespace MoreTransferReasons.AI
 {
     public class ExtendedWarehouseStationAI : WarehouseStationAI, IExtendedBuildingAI
     {
-        void IExtendedBuildingAI.ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
+        public void ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
             var is_parent_warehouse = GetParentWarehouse(ref data, out var extendedWarehouseAI);
             var transferType = extendedWarehouseAI.GetExtendedActualTransferReason(data.m_parentBuilding, ref Singleton<BuildingManager>.instance.m_buildings.m_buffer[data.m_parentBuilding]);
@@ -43,13 +43,13 @@ namespace MoreTransferReasons.AI
             }
         }
 
-        void IExtendedBuildingAI.ExtendedGetMaterialAmount(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, out int amount, out int max)
+        public void ExtendedGetMaterialAmount(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, out int amount, out int max)
         {
             amount = 0;
             max = 0;
         }
 
-        void IExtendedBuildingAI.ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
+        public void ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
         {
             if (GetParentWarehouse(ref data, out var extendedWarehouseAI))
             {

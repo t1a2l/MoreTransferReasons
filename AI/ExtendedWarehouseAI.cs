@@ -432,7 +432,7 @@ namespace MoreTransferReasons.AI
             
         }
 
-        void IExtendedBuildingAI.ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
+        public void ExtendedStartTransfer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ExtendedTransferManager.Offer offer)
         {
             var actual_reason_byte = GetExtendedActualTransferReason(buildingID, ref data);
             if(actual_reason_byte >= 200 && actual_reason_byte != 255)
@@ -591,7 +591,7 @@ namespace MoreTransferReasons.AI
             return Singleton<VehicleManager>.instance.GetRandomVehicleInfo(ref randomizer, service, subService, level);
         }
 
-        void IExtendedBuildingAI.ExtendedGetMaterialAmount(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, out int amount, out int max)
+        public void ExtendedGetMaterialAmount(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, out int amount, out int max)
         {
             amount = 0;
             max = 0;
@@ -615,7 +615,7 @@ namespace MoreTransferReasons.AI
             }
         }
 
-        void IExtendedBuildingAI.ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
+        public void ExtendedModifyMaterialBuffer(ushort buildingID, ref Building data, ExtendedTransferManager.TransferReason material, ref int amountDelta)
         {
             var actual_reason_byte = GetExtendedActualTransferReason(buildingID, ref data);
             if(actual_reason_byte >= 200 && actual_reason_byte != 255)
