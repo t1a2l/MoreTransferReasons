@@ -461,11 +461,6 @@ namespace MoreTransferReasons.AI
                     SetTarget(vehicleID, ref data, offer.Building);
                 }
             }
-            if (material == ExtendedTransferManager.TransferReason.FuelVehicle || material == ExtendedTransferManager.TransferReason.FuelElectricVehicle)
-            {
-                data.m_custom = (ushort)material;
-                SetTarget(vehicleID, ref data, offer.Building);
-            }
         }
 
         private void RemoveOffers(ushort vehicleID, ref Vehicle data)
@@ -520,17 +515,14 @@ namespace MoreTransferReasons.AI
             }
             BuildingManager instance = Singleton<BuildingManager>.instance;
             BuildingInfo info = instance.m_buildings.m_buffer[data.m_targetBuilding].Info;
-            if (data.m_custom != (ushort)ExtendedTransferManager.TransferReason.FuelVehicle)
+            if (data.m_transferType >= 200 && data.m_transferType != 255)
             {
-                if (data.m_transferType >= 200 && data.m_transferType != 255)
-                {
-                    byte transferType = (byte)(data.m_transferType - 200);
-                    ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
-                }
-                else
-                {
-                    info.m_buildingAI.ModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (TransferManager.TransferReason)data.m_transferType, ref amountDelta);
-                }
+                byte transferType = (byte)(data.m_transferType - 200);
+                ((IExtendedBuildingAI)info.m_buildingAI).ExtendedModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (ExtendedTransferManager.TransferReason)transferType, ref amountDelta);
+            }
+            else
+            {
+                info.m_buildingAI.ModifyMaterialBuffer(data.m_targetBuilding, ref instance.m_buildings.m_buffer[data.m_targetBuilding], (TransferManager.TransferReason)data.m_transferType, ref amountDelta);
             }
             if ((data.m_flags & Vehicle.Flags.TransferToTarget) != 0)
             {
@@ -676,10 +668,6 @@ namespace MoreTransferReasons.AI
         public static bool ChangeVehicleType(VehicleInfo vehicleInfo, ushort vehicleID, ref Vehicle vehicleData, PathUnit.Position pathPos, uint laneID, bool canReturnToSource = false)
         {
             if (!canReturnToSource && (vehicleData.m_flags & (Vehicle.Flags.TransferToSource | Vehicle.Flags.GoingBack)) != 0)
-            {
-                return false;
-            }
-            if (vehicleData.m_custom == (ushort)ExtendedTransferManager.TransferReason.FuelVehicle)
             {
                 return false;
             }
