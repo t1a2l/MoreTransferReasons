@@ -80,11 +80,12 @@ namespace MoreTransferReasons
             PrisonHelicopterCriminalMove = 60, // transfer to prison
             CarRent = 61,
             CarBuy = 62,
-            FuelVehicle = 63,
-            FuelElectricVehicle = 64,
-            CarSell = 65,
+            CarSell = 63,
+            VehicleFuel = 64,
+            VehicleFuelElectric = 65,
             VehicleWash = 66,
-            VehicleRepair = 67,
+            VehicleMinorRepair = 67,
+            VehicleMajorRepair = 68,
             None = 255
         }
 
@@ -516,7 +517,7 @@ namespace MoreTransferReasons
                 87 => TransferReason.OperationResources, // 43
                 // 44 45 46 47 48 49 50  51  52  53  54
                 // 89 91 93 95 97 99 101 103 105 107 109
-                // until 54 only transfer types that need s vehicle to transport them
+                // until 54 only transfer types that needs vehicle to transport them
                 111 => TransferReason.MealsLow,
                 113 => TransferReason.MealsMedium,
                 115 => TransferReason.MealsHigh,
@@ -525,11 +526,12 @@ namespace MoreTransferReasons
                 121 => TransferReason.PrisonHelicopterCriminalMove,
                 123 => TransferReason.CarRent,
                 125 => TransferReason.CarBuy,
-                127 => TransferReason.FuelVehicle,
-                129 => TransferReason.FuelElectricVehicle,
-                131 => TransferReason.CarSell,
+                127 => TransferReason.CarSell,
+                129 => TransferReason.VehicleFuel,
+                131 => TransferReason.VehicleFuelElectric,
                 133 => TransferReason.VehicleWash,
-                135 => TransferReason.VehicleRepair,
+                135 => TransferReason.VehicleMinorRepair,
+                137 => TransferReason.VehicleMajorRepair,
                 _ => TransferReason.None,
             };
         }
