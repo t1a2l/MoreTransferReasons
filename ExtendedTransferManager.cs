@@ -83,9 +83,10 @@ namespace MoreTransferReasons
             CarSell = 63,
             VehicleFuel = 64,
             VehicleFuelElectric = 65,
-            VehicleWash = 66,
-            VehicleMinorRepair = 67,
-            VehicleMajorRepair = 68,
+            VehicleWashSmall = 66,
+            VehicleWashLarge = 67,
+            VehicleMinorRepair = 68,
+            VehicleMajorRepair = 69,
             None = 255
         }
 
@@ -529,9 +530,10 @@ namespace MoreTransferReasons
                 127 => TransferReason.CarSell,
                 129 => TransferReason.VehicleFuel,
                 131 => TransferReason.VehicleFuelElectric,
-                133 => TransferReason.VehicleWash,
-                135 => TransferReason.VehicleMinorRepair,
-                137 => TransferReason.VehicleMajorRepair,
+                133 => TransferReason.VehicleWashSmall,
+                135 => TransferReason.VehicleWashLarge,
+                137 => TransferReason.VehicleMinorRepair,
+                139 => TransferReason.VehicleMajorRepair,
                 _ => TransferReason.None,
             };
         }
