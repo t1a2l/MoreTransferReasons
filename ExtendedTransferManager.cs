@@ -447,7 +447,7 @@ namespace MoreTransferReasons
 
         public void ClearTransferManager()
         {
-            Transfers_Length = 68;
+            Transfers_Length = 72;
 
             Array.Clear(OutgoingIndexes, 0, OutgoingIndexes.Length);
             Array.Clear(IncomingIndexes, 0, IncomingIndexes.Length);
