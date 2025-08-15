@@ -10,6 +10,8 @@ namespace MoreTransferReasons
 {
     public class ExtendedTransferManager : SimulationManagerBase<ExtendedTransferManager, TransferProperties>, ISimulationManager
     {
+        public const ushort DataVersion = 1;
+
         public struct Offer
         {
             public byte m_isLocalPark;
@@ -98,6 +100,7 @@ namespace MoreTransferReasons
             {
                 LogHelper.Information("Begin Serializing ExtendedTransferManager");
                 Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginSerialize(s, "ExtendedTransferManager");
+                s.version = DataVersion;
                 ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
                 int num = 128;
                 EncodedArray.Int integer = EncodedArray.Int.BeginWrite(s);
@@ -268,6 +271,12 @@ namespace MoreTransferReasons
                 LogHelper.Information("Begin Deserializing ExtendedTransferManager");
                 Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginDeserialize(s, "ExtendedTransferManager");
                 ExtendedTransferManager instance = Singleton<ExtendedTransferManager>.instance;
+                if(s.version != DataVersion)
+                {
+                    LogHelper.Error("ExtendedTransferManager data version mismatch. Expected: " + DataVersion + ", Actual: " + s.version);
+                    return;
+                }
+
                 int num = 128;
                 EncodedArray.Bool @bool = EncodedArray.Bool.BeginRead(s);
                 for (int material = 0; material < num; material++)
@@ -463,7 +472,7 @@ namespace MoreTransferReasons
         protected override void Awake()
         {
             base.Awake();
-            Transfers_Length = 68;
+            Transfers_Length = 72;
             OutgoingIndexes = new int[Transfers_Length];
             IncomingIndexes = new int[Transfers_Length];
             OutgoingOffers = new Offer[Transfers_Length * 256];
