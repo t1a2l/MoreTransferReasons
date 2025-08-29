@@ -27,6 +27,16 @@ namespace MoreTransferReasons
         /// </summary>
         public void OnSettingsUI(UIHelperBase helper)
         {
+            if (IsInGame())
+            {
+                var group = helper.AddGroup("Mod Settings");
+                // Show message when in-game
+                group.AddGroup("⚠️ Settings Unavailable");
+                group.AddGroup("Mod settings can only be changed from the main menu.");
+                group.AddGroup("Please exit to the main menu to enable/disable mod features.");
+                return;
+            }
+
             UIHelper ExtendedBuildingsAISettings = helper.AddGroup("Extended Buildings AI Settings") as UIHelper;
 
             ExtendedBuildingsAISettings.AddCheckbox("Convert commercial buildings to accept new product types", Utils.Settings.ExtendedCommercialBuildingAI.value, (b) =>
@@ -74,6 +84,11 @@ namespace MoreTransferReasons
             {
                 ExtendedTransferManager.instance.ClearTransferManager();
             });
+        }
+
+        private bool IsInGame()
+        {
+            return LoadingManager.exists && LoadingManager.instance.m_loadingComplete;
         }
     }
 }
