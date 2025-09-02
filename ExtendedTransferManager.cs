@@ -73,6 +73,7 @@ namespace MoreTransferReasons
             Ship = 41,
             ConstructionResources = 42,
             OperationResources = 43,
+            ProcessedVegetableOil = 44,
             // until 54 only transfer types that needs a vehicle to transport them
             MealsLow = 55, // serve low end food
             MealsMedium = 56, // serve normal food
@@ -525,7 +526,8 @@ namespace MoreTransferReasons
                 81 => TransferReason.HouseParts,
                 83 => TransferReason.Ship,
                 85 => TransferReason.ConstructionResources,
-                87 => TransferReason.OperationResources, // 43
+                87 => TransferReason.OperationResources,
+                89 => TransferReason.ProcessedVegetableOil,
                 // 44 45 46 47 48 49 50  51  52  53  54
                 // 89 91 93 95 97 99 101 103 105 107 109
                 // until 54 only transfer types that needs vehicle to transport them
