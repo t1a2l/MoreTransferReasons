@@ -11,66 +11,67 @@ namespace MoreTransferReasons.HarmonyPatches
         public static void Prefix(BuildingInfo __instance)
         {
             var oldAI = __instance.GetComponent<PrefabAI>();
-            if (oldAI != null && oldAI is CommercialBuildingAI && Utils.Settings.ExtendedCommercialBuildingAI.value == true)
+            if (oldAI != null && oldAI is CommercialBuildingAI && Utils.Settings.ExtendedCommercialBuildingAI.value)
             {
+                var oldBuildingAI = oldAI as CommercialBuildingAI;
+                var oldInfo = oldBuildingAI?.m_info;
+
                 Object.DestroyImmediate(oldAI);
                 var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCommercialBuildingAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+
+                var newBuildingAI = newAI as ExtendedCommercialBuildingAI;
+                newBuildingAI?.m_info = oldInfo;
             }
-            if (oldAI != null && oldAI is OutsideConnectionAI && Utils.Settings.ExtendedOutsideConnectionAI.value == true)
+            else if(oldAI != null && oldAI is OutsideConnectionAI && Utils.Settings.ExtendedOutsideConnectionAI.value)
             {
+                var oldBuildingAI = oldAI as OutsideConnectionAI;
+                var oldInfo = oldBuildingAI?.m_info;
+
                 Object.DestroyImmediate(oldAI);
                 var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedOutsideConnectionAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+
+                var newBuildingAI = newAI as ExtendedOutsideConnectionAI;
+                newBuildingAI?.m_info = oldInfo;
             }
-            else if (oldAI != null && oldAI is ServicePointAI && Utils.Settings.ExtendedServicePointAI.value == true)
+            else if (oldAI != null && oldAI is ServicePointAI && Utils.Settings.ExtendedServicePointAI.value)
             {
+                var oldBuildingAI = oldAI as ServicePointAI;
+                var oldInfo = oldBuildingAI?.m_info;
+
                 Object.DestroyImmediate(oldAI);
-                var newAI = __instance.gameObject.AddComponent<ExtendedServicePointAI>();
+                var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedServicePointAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+
+                var newBuildingAI = newAI as ExtendedServicePointAI;
+                newBuildingAI?.m_info = oldInfo;
             }
-            switch(__instance.name)
+            else if (oldAI != null && oldAI is WarehouseStationAI && Utils.Settings.ExtendedWarehouseAI.value)
             {
-                case "Warehouse Yard 01":
-                case "Small Warehouse 01":
-                case "Medium Warehouse 01":
-                case "Large Warehouse 01":
-                case "Warehouse with Railway Connection":
-                    if(__instance.GetAI() is not ExtendedWarehouseAI && Utils.Settings.ExtendedWarehouseAI.value == true)
-                    {
-                        Object.DestroyImmediate(oldAI);
-                        var newAI = __instance.gameObject.AddComponent<ExtendedWarehouseAI>();
-                        PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
-                    }
-                    break;
-            }
-        }
+                var oldBuildingAI = oldAI as WarehouseStationAI;
+                var oldInfo = oldBuildingAI?.m_info;
 
-        public static void Postfix(BuildingInfo __instance)
-        {
-            uint index = 0U;
-            for (; PrefabCollection<BuildingInfo>.LoadedCount() > index; ++index)
+                Object.DestroyImmediate(oldAI);
+                var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedWarehouseStationAI>();
+                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+
+                var newBuildingAI = newAI as ExtendedWarehouseStationAI;
+                newBuildingAI?.m_info = oldInfo;
+            }
+            else if (oldAI != null && oldAI is WarehouseAI && Utils.Settings.ExtendedWarehouseAI.value)
             {
-                BuildingInfo buildingInfo = PrefabCollection<BuildingInfo>.GetLoaded(index);
+                var oldBuildingAI = oldAI as WarehouseAI;
+                var oldInfo = oldBuildingAI?.m_info;
 
-                if (buildingInfo != null && buildingInfo.GetAI() is ExtendedWarehouseAI extendedWarehouseAI && extendedWarehouseAI != null && Utils.Settings.ExtendedWarehouseAI.value == true)
-                {
-                    switch (__instance.name)
-                    {
-                        case "Warehouse Yard 01":
-                        case "Small Warehouse 01":
-                        case "Medium Warehouse 01":
-                        case "Large Warehouse 01":
-                        case "Warehouse with Railway Connection":
-                            extendedWarehouseAI.m_extendedStorageType = ExtendedTransferManager.TransferReason.None;
-                            extendedWarehouseAI.m_storageType = TransferManager.TransferReason.None;
-                            extendedWarehouseAI.m_isFarmIndustry = false;
-                            extendedWarehouseAI.m_isFishIndustry = false;
-                            break;
-                    }
-                }
+                Object.DestroyImmediate(oldAI);
+                var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedWarehouseAI>();
+                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+
+                var newBuildingAI = newAI as ExtendedWarehouseAI;
+                newBuildingAI?.m_info = oldInfo;
             }
+            
         }
-
     }
 }

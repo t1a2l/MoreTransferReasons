@@ -11,21 +11,19 @@ namespace MoreTransferReasons.HarmonyPatches
     {
         public static void Prefix(VehicleInfo __instance)
         {
-            try
+            var oldAI = __instance.GetComponent<PrefabAI>();
+            if (oldAI != null && oldAI is CargoTruckAI && !__instance.name.Contains("Trailer") && Utils.Settings.ExtendedCargoTruckAI.value)
             {
-                var oldAI = __instance.GetComponent<PrefabAI>();
-                if ((__instance.m_class.m_service == ItemClass.Service.PlayerIndustry || __instance.m_class.m_service == ItemClass.Service.Industrial || __instance.m_class.m_service == ItemClass.Service.Fishing) && !__instance.name.Contains("Trailer") && __instance.m_vehicleType == VehicleInfo.VehicleType.Car && Utils.Settings.ExtendedCargoTruckAI.value == true)
-                {
-                    UnityEngine.Object.DestroyImmediate(oldAI);
-                    var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCargoTruckAI>();
-                    PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
+                var oldVehicleAI = oldAI as CargoTruckAI;
+                var oldInfo = oldVehicleAI?.m_info;
+
+                UnityEngine.Object.DestroyImmediate(oldAI);
+                var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCargoTruckAI>();
+                PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
+
+                var newVehicleAI = newAI as ExtendedCargoTruckAI;
+                newVehicleAI?.m_info = oldInfo;
             }
         }
-
     }
 }
