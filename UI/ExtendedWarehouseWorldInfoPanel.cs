@@ -116,7 +116,7 @@ namespace MoreTransferReasons.UI
 
         private ExtendedTransferManager.TransferReason[] m_extendedFarmTransferReasons;
 
-        private WarehouseMode[] m_warehouseModes =
+        private readonly WarehouseMode[] m_warehouseModes =
         [
             WarehouseMode.Balanced,
             WarehouseMode.Import,
@@ -217,7 +217,7 @@ namespace MoreTransferReasons.UI
                 list2.Add(TransferManager.TransferReason.Fish);
             }
 
-            m_transferReasons = list2.ToArray();
+            m_transferReasons = [.. list2];
             List<ExtendedTransferManager.TransferReason> extendedUniqueProductslist =
             [
                 ExtendedTransferManager.TransferReason.FoodProducts,
@@ -238,7 +238,7 @@ namespace MoreTransferReasons.UI
                 ExtendedTransferManager.TransferReason.HouseParts
             ];
             List<ExtendedTransferManager.TransferReason> extendedUniqueProductslist2 = extendedUniqueProductslist;
-            m_extendedUniqueTransferReasons = extendedUniqueProductslist2.ToArray();
+            m_extendedUniqueTransferReasons = [.. extendedUniqueProductslist2];
 
             List<ExtendedTransferManager.TransferReason> extendedFishTypeslist =
             [
@@ -252,7 +252,7 @@ namespace MoreTransferReasons.UI
                 ExtendedTransferManager.TransferReason.Seaweed
             ];
             List<ExtendedTransferManager.TransferReason> extendedFishTypeslist2 = extendedFishTypeslist;
-            m_extendedFishTypesTransferReasons = extendedFishTypeslist2.ToArray();
+            m_extendedFishTypesTransferReasons = [.. extendedFishTypeslist2];
 
             List<ExtendedTransferManager.TransferReason> extendedFarmlist =
             [
@@ -267,9 +267,10 @@ namespace MoreTransferReasons.UI
                 ExtendedTransferManager.TransferReason.Vegetables,
                 ExtendedTransferManager.TransferReason.Cotton,
                 ExtendedTransferManager.TransferReason.Wool,
+                ExtendedTransferManager.TransferReason.ProcessedVegetableOil
             ];
             List<ExtendedTransferManager.TransferReason> extendedFarmlist2 = extendedFarmlist;
-            m_extendedFarmTransferReasons = extendedFarmlist2.ToArray();
+            m_extendedFarmTransferReasons = [.. extendedFarmlist2];
 
             m_Type = Find<UILabel>("Type");
             m_Upkeep = Find<UILabel>("Upkeep");
@@ -748,12 +749,12 @@ namespace MoreTransferReasons.UI
 
         public void OnRelocateBuilding()
         {
-            if (ToolsModifierControl.GetTool<BuildingTool>() != null)
+            if (GetTool<BuildingTool>() != null)
             {
-                ToolsModifierControl.GetTool<BuildingTool>().m_relocateCompleted += RelocateCompleted;
+                GetTool<BuildingTool>().m_relocateCompleted += RelocateCompleted;
             }
-            ToolsModifierControl.keepThisWorldInfoPanel = true;
-            BuildingTool buildingTool = ToolsModifierControl.SetTool<BuildingTool>();
+            keepThisWorldInfoPanel = true;
+            BuildingTool buildingTool = SetTool<BuildingTool>();
             buildingTool.m_prefab = null;
             buildingTool.m_relocate = m_InstanceID.Building;
             m_IsRelocating = true;
@@ -762,7 +763,7 @@ namespace MoreTransferReasons.UI
 
         private void TempHide()
         {
-            ToolsModifierControl.cameraController.ClearTarget();
+            cameraController.ClearTarget();
             ValueAnimator.Animate("Relocating", delegate (float val)
             {
                 base.component.opacity = val;
@@ -777,7 +778,7 @@ namespace MoreTransferReasons.UI
         public void TempShow(Vector3 worldPosition, InstanceID instanceID)
         {
             movingPanel.Hide();
-            WorldInfoPanel.Show<ExtendedWarehouseWorldInfoPanel>(worldPosition, instanceID);
+            Show<ExtendedWarehouseWorldInfoPanel>(worldPosition, instanceID);
             ValueAnimator.Animate("Relocating", delegate (float val)
             {
                 base.component.opacity = val;
@@ -816,14 +817,14 @@ namespace MoreTransferReasons.UI
         private void OnMovingPanelCloseClicked(UIComponent comp, UIMouseEventParameter p)
         {
             m_IsRelocating = false;
-            ToolsModifierControl.GetTool<BuildingTool>().CancelRelocate();
+            GetTool<BuildingTool>().CancelRelocate();
         }
 
         private void RelocateCompleted(InstanceID newID)
         {
-            if (ToolsModifierControl.GetTool<BuildingTool>() != null)
+            if (GetTool<BuildingTool>() != null)
             {
-                ToolsModifierControl.GetTool<BuildingTool>().m_relocateCompleted -= RelocateCompleted;
+                GetTool<BuildingTool>().m_relocateCompleted -= RelocateCompleted;
             }
             m_IsRelocating = false;
             if (!newID.IsEmpty)
@@ -832,10 +833,10 @@ namespace MoreTransferReasons.UI
             }
             if (IsValidTarget())
             {
-                BuildingTool tool = ToolsModifierControl.GetTool<BuildingTool>();
-                if (tool == ToolsModifierControl.GetCurrentTool<BuildingTool>())
+                BuildingTool tool = GetTool<BuildingTool>();
+                if (tool == GetCurrentTool<BuildingTool>())
                 {
-                    ToolsModifierControl.SetTool<DefaultTool>();
+                    SetTool<DefaultTool>();
                     if (InstanceManager.GetPosition(m_InstanceID, out var position, out var _, out var size))
                     {
                         position.y += size.y * 0.8f;
@@ -846,10 +847,10 @@ namespace MoreTransferReasons.UI
             else
             {
                 movingPanel.Hide();
-                BuildingTool tool2 = ToolsModifierControl.GetTool<BuildingTool>();
-                if (tool2 == ToolsModifierControl.GetCurrentTool<BuildingTool>())
+                BuildingTool tool2 = GetTool<BuildingTool>();
+                if (tool2 == GetCurrentTool<BuildingTool>())
                 {
-                    ToolsModifierControl.SetTool<DefaultTool>();
+                    SetTool<DefaultTool>();
                 }
                 Hide();
             }
@@ -857,9 +858,9 @@ namespace MoreTransferReasons.UI
 
         protected override void OnHide()
         {
-            if (m_IsRelocating && ToolsModifierControl.GetTool<BuildingTool>() != null)
+            if (m_IsRelocating && GetTool<BuildingTool>() != null)
             {
-                ToolsModifierControl.GetTool<BuildingTool>().m_relocateCompleted -= RelocateCompleted;
+                GetTool<BuildingTool>().m_relocateCompleted -= RelocateCompleted;
             }
             movingPanel.Hide();
         }
@@ -902,20 +903,15 @@ namespace MoreTransferReasons.UI
             uint num = building.m_citizenUnits;
             int num2 = 0;
             int num3 = 0;
-            int num4 = 0;
-            int num5 = 0;
-            int num6 = 0;
-            int num7 = 0;
-            int num8 = 0;
             int num9 = 0;
             int num10 = 0;
             int num11 = 0;
             int num12 = 0;
-            num5 = extendedWarehouseAI.m_workPlaceCount0;
-            num6 = extendedWarehouseAI.m_workPlaceCount1;
-            num7 = extendedWarehouseAI.m_workPlaceCount2;
-            num8 = extendedWarehouseAI.m_workPlaceCount3;
-            num4 = num5 + num6 + num7 + num8;
+            int num5 = extendedWarehouseAI.m_workPlaceCount0;
+            int num6 = extendedWarehouseAI.m_workPlaceCount1;
+            int num7 = extendedWarehouseAI.m_workPlaceCount2;
+            int num8 = extendedWarehouseAI.m_workPlaceCount3;
+            int num4 = num5 + num6 + num7 + num8;
             while (num != 0)
             {
                 uint nextUnit = instance.m_units.m_buffer[num].m_nextUnit;
@@ -968,7 +964,7 @@ namespace MoreTransferReasons.UI
             {
                 num13 += Mathf.Max(0, Mathf.Min(num14, num12 - num8));
             }
-            string format = ColossalFramework.Globalization.Locale.Get((num13 != 1) ? "ZONEDBUILDING_OVEREDUCATEDWORKERS" : "ZONEDBUILDING_OVEREDUCATEDWORKER");
+            string format = Locale.Get((num13 != 1) ? "ZONEDBUILDING_OVEREDUCATEDWORKERS" : "ZONEDBUILDING_OVEREDUCATEDWORKER");
             m_OverWorkSituation.text = StringUtils.SafeFormat(format, num13);
             m_OverWorkSituation.isVisible = num13 > 0;
             m_UneducatedPlaces.text = num5.ToString();
@@ -998,7 +994,7 @@ namespace MoreTransferReasons.UI
             int num18 = value4 + value5 + value6 + value7;
             num17 = 100 - num18;
             m_WorkersEducationChart.SetValues(value4, value5, value6, value7, num17);
-            m_workersInfoLabel.text = StringUtils.SafeFormat(ColossalFramework.Globalization.Locale.Get("ZONEDBUILDING_WORKERS"), num3, num4);
+            m_workersInfoLabel.text = StringUtils.SafeFormat(Locale.Get("ZONEDBUILDING_WORKERS"), num3, num4);
         }
 
         public static string GenerateResourceDescription(TransferManager.TransferReason resource, bool isForWarehousePanel = false)
