@@ -1,6 +1,4 @@
-using System;
 using HarmonyLib;
-using UnityEngine;
 using MoreTransferReasons.AI;
 using MoreTransferReasons.Utils;
 
@@ -14,15 +12,12 @@ namespace MoreTransferReasons.HarmonyPatches
             var oldAI = __instance.GetComponent<PrefabAI>();
             if (oldAI != null && oldAI is CargoTruckAI && !__instance.name.Contains("Trailer") && Utils.Settings.ExtendedCargoTruckAI.value)
             {
-                var oldVehicleAI = oldAI as CargoTruckAI;
-                var oldInfo = oldVehicleAI?.m_info;
-
                 UnityEngine.Object.DestroyImmediate(oldAI);
                 var newAI = (PrefabAI)__instance.gameObject.AddComponent<ExtendedCargoTruckAI>();
                 PrefabUtil.TryCopyAttributes(oldAI, newAI, false);
 
                 var newVehicleAI = newAI as ExtendedCargoTruckAI;
-                newVehicleAI?.m_info = oldInfo;
+                newVehicleAI?.m_info = __instance;
             }
         }
     }

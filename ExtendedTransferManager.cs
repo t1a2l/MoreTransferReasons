@@ -1001,7 +1001,7 @@ namespace MoreTransferReasons
             }
         }
 
-        private List<TransferReason> GetExtendedTransferReason(ushort buildingId)
+        public List<TransferReason> GetExtendedTransferReason(ushort buildingId)
         {
             List<TransferReason> transferReasons = [];
             var building = Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingId];
