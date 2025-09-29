@@ -53,7 +53,7 @@ namespace MoreTransferReasons.Utils
             {
                 if (metaData.m_modOverride == null)
                 {
-                    metaData.m_modOverride = new Dictionary<string, bool>();
+                    metaData.m_modOverride = [];
                 }
 
                 // Got it - see if it contains our key.
