@@ -1,4 +1,6 @@
-﻿namespace MoreTransferReasons
+﻿using System.Collections.Generic;
+
+namespace MoreTransferReasons
 {
     public class ExtendedTransferManager : TransferManager
     {
@@ -202,6 +204,113 @@
                 170 => VehicleBrokenDown,
                 _ => TransferReason.None,
             };
+        }
+
+        public static List<string> GetExtendedTransferReasons()
+        {
+            return
+            [
+                "MealsDeliveryLow",
+                "MealsDeliveryMedium",
+                "MealsDeliveryHigh",
+                "Anchovy",
+                "Salmon",
+                "Shellfish",
+                "Tuna",
+                "Algae",
+                "Seaweed",
+                "Trout",
+                "SheepMilk",
+                "CowMilk",
+                "HighlandCowMilk",
+                "LambMeat",
+                "BeefMeat",
+                "HighlandBeefMeat",
+                "PorkMeat",
+                "Fruits",
+                "Vegetables",
+                "Wool",
+                "Cotton",
+                "Cows",
+                "HighlandCows",
+                "Sheep",
+                "Pigs",
+                "ProcessedVegetableOil",
+                "Leather",
+                "FoodProducts",
+                "BeverageProducts",
+                "BakedGoods",
+                "CannedFish",
+                "Furnitures",
+                "ElectronicProducts",
+                "IndustrialSteel",
+                "Tupperware",
+                "Toys",
+                "PrintedProducts",
+                "TissuePaper",
+                "Cloths",
+                "PetroleumProducts",
+                "Cars",
+                "Footwear",
+                "HouseParts",
+                "Ship",
+                "ConstructionResources",
+                "OperationResources",
+                "MealsLow",
+                "MealsMedium",
+                "MealsHigh",
+                "PoliceVanCriminalMove",
+                "PrisonHelicopterCriminalPickup",
+                "PrisonHelicopterCriminalMove",
+                "CarRent",
+                "CarBuy",
+                "CarSell",
+                "VehicleFuel",
+                "VehicleFuelElectric",
+                "VehicleWash",
+                "VehicleMinorRepair",
+                "VehicleMajorRepair",
+                "VehicleOutOfFuel",
+                "VehicleBrokenDown"
+            ];
+        }
+
+
+
+        public static string GetTransferReasonName(string transferName)
+        {
+            return transferName switch
+            {
+                "MealsDeliveryLow" => "Meals Delivery Low",
+                "MealsDeliveryMedium" => "Meals Delivery Medium",
+                "MealsDeliveryHigh" => "Meals Delivery High",
+                "SheepMilk" => "Sheep Milk",
+                "CowMilk" => "Cow Milk",
+                "HighlandCowMilk" => "Highland Cow Milk",
+                "LambMeat" => "Lamb Meat",
+                "BeefMeat" => "Beef Meat",
+                "HighlandBeefMeat" => "Highland Beef Meat",
+                "PorkMeat" => "Pork Meat",
+                "HighlandCows" => "Highland Cows",
+                "ProcessedVegetableOil" => "Processed Vegetable Oil",
+                "FoodProducts" => "Food Products",
+                "BeverageProducts" => "Beverage Products",
+                "BakedGoods" => "Baked Goods",
+                "CannedFish" => "Canned Fish",
+                "ElectronicProducts" => "Electronic Products",
+                "IndustrialSteel" => "Industrial Steel",
+                "PrintedProducts" => "Printed Products",
+                "TissuePaper" => "Tissue Paper",
+                "PetroleumProducts" => "Petroleum Products",
+                "HouseParts" => "House Parts",
+                "ConstructionResources" => "Construction Resources",
+                "OperationResources" => "Operation Resources",
+                "MealsLow" => "Meals Low",
+                "MealsMedium" => "Meals Medium",
+                "MealsHigh" => "Meals High",
+                _ => transferName,
+            };
+            ;
         }
 
     }
