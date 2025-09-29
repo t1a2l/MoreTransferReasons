@@ -4,6 +4,9 @@ namespace MoreTransferReasons
 {
     public class ExtendedTransferManager : TransferManager
     {
+        public const int TransferReasonCount = 236;
+
+
         public const TransferReason MealsDeliveryLow = (TransferReason)150;
 
         public const TransferReason MealsDeliveryMedium = (TransferReason)151;
