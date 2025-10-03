@@ -12,30 +12,30 @@ namespace MoreTransferReasons
         {
             base.OnCreated(loading);
             ItemClasses.Register();
+            _gameObject1 = new("ExtendedTransferManagerMod");
+            _gameObject1.AddComponent<ExtendedTransferManagerComponent>();
         }
 
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
-            _gameObject1 = new("ExtendedTransferManagerMod");
-            _gameObject1.AddComponent<ExtendedTransferManagerComponent>();
         }
 
         public override void OnLevelUnloading()
         {
             base.OnLevelUnloading();
-            if (_gameObject1 == null)
-            {
-                return;
-            }
-            Object.Destroy(_gameObject1);
-            _gameObject1 = null;
         } 
 
         public override void OnReleased()
         {
             base.OnReleased();
             ItemClasses.Unregister();
+            if (_gameObject1 == null)
+            {
+                return;
+            }
+            Object.Destroy(_gameObject1);
+            _gameObject1 = null;
         }
     }
 }
