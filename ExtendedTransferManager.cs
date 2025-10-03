@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
+using ColossalFramework;
 
 namespace MoreTransferReasons
 {
     public class ExtendedTransferManager : TransferManager
     {
         public const int TransferReasonCount = 236;
-
 
         public const TransferReason MealsDeliveryLow = (TransferReason)150;
 
@@ -278,8 +279,6 @@ namespace MoreTransferReasons
             ];
         }
 
-
-
         public static string GetTransferReasonName(string transferName)
         {
             return transferName switch
@@ -314,6 +313,89 @@ namespace MoreTransferReasons
                 _ => transferName,
             };
             ;
+        }
+
+        public override void UpdateData(SimulationManager.UpdateMode mode)
+        {
+            Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginLoading("ExtendedTransferManager.UpdateData");
+            base.UpdateData(mode);
+            VehicleManager vehicleManager = Singleton<VehicleManager>.instance;
+            CitizenManager citizenManager = Singleton<CitizenManager>.instance;
+            BuildingManager buildingManager = Singleton<BuildingManager>.instance;
+
+            TransferManager instance = Singleton<TransferManager>.instance;
+
+            var m_outgoingOffers = (TransferOffer[])typeof(TransferManager).GetField("m_outgoingOffers", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+            var m_incomingOffers = (TransferOffer[])typeof(TransferManager).GetField("m_incomingOffers", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+            var m_outgoingCount = (ushort[])typeof(TransferManager).GetField("m_outgoingCount", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+            var m_incomingCount = (ushort[])typeof(TransferManager).GetField("m_incomingCount", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+            var m_outgoingAmount = (int[])typeof(TransferManager).GetField("m_outgoingAmount", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+            var m_incomingAmount = (int[])typeof(TransferManager).GetField("m_incomingAmount", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+
+            for (int i = 150; i < TransferReasonCount; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    int num = i * 8 + j;
+                    int num2 = m_incomingCount[num];
+                    for (int num3 = num2 - 1; num3 >= 0; num3--)
+                    {
+                        int num4 = num * 256 + num3;
+                        bool flag = false;
+                        switch (m_incomingOffers[num4].m_object.Type)
+                        {
+                            case InstanceType.Vehicle:
+                                flag = vehicleManager.m_vehicles.m_buffer[m_incomingOffers[num4].m_object.Vehicle].Info is null;
+                                break;
+                            case InstanceType.Citizen:
+                                {
+                                    uint citizen = m_incomingOffers[num4].m_object.Citizen;
+                                    flag = citizenManager.m_citizens.m_buffer[citizen].GetCitizenInfo(citizen) is null;
+                                    break;
+                                }
+                            case InstanceType.Building:
+                                flag = buildingManager.m_buildings.m_buffer[m_incomingOffers[num4].m_object.Building].Info is null;
+                                break;
+                        }
+                        if (flag)
+                        {
+                            m_incomingAmount[i] -= m_incomingOffers[num4].Amount;
+                            ref TransferOffer reference = ref m_incomingOffers[num4];
+                            reference = m_incomingOffers[num * 256 + --num2];
+                        }
+                    }
+                    m_incomingCount[num] = (ushort)num2;
+                    int num5 = m_outgoingCount[num];
+                    for (int num6 = num5 - 1; num6 >= 0; num6--)
+                    {
+                        int num7 = num * 256 + num6;
+                        bool flag2 = false;
+                        switch (m_outgoingOffers[num7].m_object.Type)
+                        {
+                            case InstanceType.Vehicle:
+                                flag2 = vehicleManager.m_vehicles.m_buffer[m_outgoingOffers[num7].m_object.Vehicle].Info is null;
+                                break;
+                            case InstanceType.Citizen:
+                                {
+                                    uint citizen2 = m_outgoingOffers[num7].m_object.Citizen;
+                                    flag2 = citizenManager.m_citizens.m_buffer[citizen2].GetCitizenInfo(citizen2) is null;
+                                    break;
+                                }
+                            case InstanceType.Building:
+                                flag2 = buildingManager.m_buildings.m_buffer[m_outgoingOffers[num7].m_object.Building].Info is null;
+                                break;
+                        }
+                        if (flag2)
+                        {
+                            m_outgoingAmount[i] -= m_outgoingOffers[num7].Amount;
+                            ref TransferOffer reference2 = ref m_outgoingOffers[num7];
+                            reference2 = m_outgoingOffers[num * 256 + --num5];
+                        }
+                    }
+                    m_outgoingCount[num] = (ushort)num5;
+                }
+            }
+            Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.EndLoading();
         }
 
     }
