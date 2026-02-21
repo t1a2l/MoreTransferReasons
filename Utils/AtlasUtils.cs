@@ -62,11 +62,11 @@ namespace MoreTransferReasons.Utils
             }
         }
 
-        public static string GetSpriteName(TransferManager.TransferReason transferReason)
+        public static string GetSpriteName(TransferManager.TransferReason transferReason, bool isStorageBuilding = false)
         {
             if (transferReason < ExtendedTransferManager.MealsDeliveryLow)
             {
-                return IndustryWorldInfoPanel.ResourceSpriteName(transferReason);
+                return IndustryWorldInfoPanel.ResourceSpriteName(transferReason, isStorageBuilding);
             }
 
             switch (transferReason)
