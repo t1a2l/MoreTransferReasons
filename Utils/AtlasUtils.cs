@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MoreTransferReasons.Utils
 {
-    class AtlasUtils
+    public static class AtlasUtils
     {
         public static string[] SpriteNames =
         [
