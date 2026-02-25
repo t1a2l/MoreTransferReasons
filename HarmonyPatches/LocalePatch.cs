@@ -11,18 +11,51 @@ namespace MoreTransferReasons.HarmonyPatches
         [HarmonyPrefix]
         public static bool Get(Locale __instance, string id, string key, ref string __result)
         {
-            if(SingletonLite<LocaleManager>.exists && !string.IsNullOrEmpty(id) && id == "WAREHOUSEPANEL_RESOURCE")
+            if(SingletonLite<LocaleManager>.exists && !string.IsNullOrEmpty(id))
             {
-                var list = ExtendedTransferManager.GetExtendedTransferReasons();
-                if (list.Contains(key))
+                if(id == "WAREHOUSEPANEL_RESOURCE")
                 {
-                    __result = ExtendedTransferManager.GetTransferReasonName(key);
-                    return false;
+                    if (int.TryParse(key, out int num))
+                    {
+                        var name = ExtendedTransferManager.GetTransferReasonName(num);
+                        if (name != null)
+                        {
+                            __result = name;
+                            return false;
+                        }
+                    }
+                    if (key == "AnimalProducts")
+                    {
+                        __result = "RedMeat";
+                        return false;
+                    }
+                    if (key == "LuxuryProducts")
+                    {
+                        __result = "Jewelry";
+                        return false;
+                    }
                 }
-                if (key == "AnimalProducts")
+                else if (id == "RESOURCEDESCRIPTION")
                 {
-                    __result = "RedMeat";
-                    return false;
+                    if (int.TryParse(key, out int num))
+                    {
+                        var name = ExtendedTransferManager.GetTransferReasonDescription(num);
+                        if (name != null)
+                        {
+                            __result = name;
+                            return false;
+                        }
+                    }
+                    if (key == "AnimalProducts")
+                    {
+                        __result = "RedMeat is produced by Slaughterhouses";
+                        return false;
+                    }
+                    if (key == "LuxuryProducts")
+                    {
+                        __result = "Jewelry is producted in a Jewelry Factory and require Metals, Glass, Leather and Chemical Products";
+                        return false;
+                    }
                 }
 
             }
