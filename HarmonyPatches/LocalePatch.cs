@@ -19,6 +19,12 @@ namespace MoreTransferReasons.HarmonyPatches
                     __result = ExtendedTransferManager.GetTransferReasonName(key);
                     return false;
                 }
+                if (key == "AnimalProducts")
+                {
+                    __result = "RedMeat";
+                    return false;
+                }
+
             }
             return true;
         }
