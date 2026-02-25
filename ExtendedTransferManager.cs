@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using ColossalFramework;
+using static TransferManager;
 
 namespace MoreTransferReasons
 {
@@ -286,8 +287,7 @@ namespace MoreTransferReasons
                 "MealsMedium" => "Meals Medium",
                 "MealsHigh" => "Meals High",
                 _ => transferName,
-            };
-            ;
+            }; 
         }
 
         public override void UpdateData(SimulationManager.UpdateMode mode)
