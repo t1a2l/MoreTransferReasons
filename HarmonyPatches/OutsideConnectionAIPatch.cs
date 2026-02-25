@@ -659,31 +659,11 @@ namespace MoreTransferReasons.HarmonyPatches
                     }
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.SheepMilk, offer2);
+                        instance2.AddIncomingOffer(ExtendedTransferManager.Milk, offer2);
                     }
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.CowMilk, offer2);
-                    }
-                    if (instance.m_randomizer.Int32(16u) == 0)
-                    {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.HighlandCowMilk, offer2);
-                    }
-                    if (instance.m_randomizer.Int32(16u) == 0)
-                    {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.LambMeat, offer2);
-                    }
-                    if (instance.m_randomizer.Int32(16u) == 0)
-                    {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.BeefMeat, offer2);
-                    }
-                    if (instance.m_randomizer.Int32(16u) == 0)
-                    {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.HighlandBeefMeat, offer2);
-                    }
-                    if (instance.m_randomizer.Int32(16u) == 0)
-                    {
-                        instance2.AddIncomingOffer(ExtendedTransferManager.PorkMeat, offer2);
+                        instance2.AddIncomingOffer(ExtendedTransferManager.Pork, offer2);
                     }
                     if (instance.m_randomizer.Int32(16u) == 0)
                     {
@@ -806,13 +786,8 @@ namespace MoreTransferReasons.HarmonyPatches
                     instance2.AddIncomingOffer(ExtendedTransferManager.Algae, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.Seaweed, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.Trout, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.SheepMilk, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.CowMilk, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.HighlandCowMilk, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.LambMeat, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.BeefMeat, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.HighlandBeefMeat, offer2);
-                    instance2.AddIncomingOffer(ExtendedTransferManager.PorkMeat, offer2);
+                    instance2.AddIncomingOffer(ExtendedTransferManager.Milk, offer2);
+                    instance2.AddIncomingOffer(ExtendedTransferManager.Pork, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.Fruits, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.Vegetables, offer2);
                     instance2.AddIncomingOffer(ExtendedTransferManager.Cows, offer2);
@@ -1053,13 +1028,8 @@ namespace MoreTransferReasons.HarmonyPatches
                 instance.RemoveIncomingOffer(ExtendedTransferManager.Algae, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.Seaweed, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.Trout, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.SheepMilk, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.CowMilk, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.HighlandCowMilk, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.LambMeat, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.BeefMeat, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.HighlandBeefMeat, offer2);
-                instance.RemoveIncomingOffer(ExtendedTransferManager.PorkMeat, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.Milk, offer2);
+                instance.RemoveIncomingOffer(ExtendedTransferManager.Pork, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.Fruits, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.Vegetables, offer2);
                 instance.RemoveIncomingOffer(ExtendedTransferManager.Cows, offer2);
