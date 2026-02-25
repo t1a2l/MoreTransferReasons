@@ -16,28 +16,24 @@ namespace MoreTransferReasons.Utils
             "Cloths",
             "Cotton",
             "Cows",
-            "CowMilk",
             "ElectronicProducts",
             "FoodProducts",
             "Footwear",
             "Fruits",
             "Furnitures",
-            "HighlandBeefMeat",
-            "HighlandCowMilk",
             "HighlandCows",
             "HouseParts",
             "IndustrialSteel",
-            "LambMeat",
             "Leather",
+            "Milk",
             "PetroleumProducts",
             "Pigs",
-            "PorkMeat",
+            "Pork",
             "PrintedProducts",
             "ProcessedVegetableOil",
             "Salmon",
             "Seaweed",
             "Sheep",
-            "SheepMilk",
             "Shellfish",
             "Ship",
             "TissuePaper",
@@ -77,8 +73,6 @@ namespace MoreTransferReasons.Utils
                     return "Anchovy";
                 case ExtendedTransferManager.BakedGoods:
                     return "BakedGoods";
-                case ExtendedTransferManager.BeefMeat:
-                    return "BeefMeat";
                 case ExtendedTransferManager.BeverageProducts:
                     return "BeverageProducts";
                 case ExtendedTransferManager.CannedFish:
@@ -91,8 +85,6 @@ namespace MoreTransferReasons.Utils
                     return "Cotton";
                 case ExtendedTransferManager.Cows:
                     return "Cows";
-                case ExtendedTransferManager.CowMilk:
-                    return "CowMilk";
                 case ExtendedTransferManager.ElectronicProducts:
                     return "ElectronicProducts";
                 case ExtendedTransferManager.FoodProducts:
@@ -103,26 +95,22 @@ namespace MoreTransferReasons.Utils
                     return "Fruits";
                 case ExtendedTransferManager.Furnitures:
                     return "Furnitures";
-                case ExtendedTransferManager.HighlandBeefMeat:
-                    return "HighlandBeefMeat";
-                case ExtendedTransferManager.HighlandCowMilk:
-                    return "HighlandCowMilk";
                 case ExtendedTransferManager.HighlandCows:
                     return "HighlandCows";
                 case ExtendedTransferManager.HouseParts:
                     return "HouseParts";
                 case ExtendedTransferManager.IndustrialSteel:
                     return "IndustrialSteel";
-                case ExtendedTransferManager.LambMeat:
-                    return "LambMeat";
                 case ExtendedTransferManager.Leather:
                     return "Leather";
+                case ExtendedTransferManager.Milk:
+                    return "Milk";
                 case ExtendedTransferManager.PetroleumProducts:
                     return "PetroleumProducts";
                 case ExtendedTransferManager.Pigs:
                     return "Pigs";
-                case ExtendedTransferManager.PorkMeat:
-                    return "PorkMeat";
+                case ExtendedTransferManager.Pork:
+                    return "Pork";
                 case ExtendedTransferManager.PrintedProducts:
                     return "PrintedProducts";
                 case ExtendedTransferManager.ProcessedVegetableOil:
@@ -133,8 +121,6 @@ namespace MoreTransferReasons.Utils
                     return "Seaweed";
                 case ExtendedTransferManager.Sheep:
                     return "Sheep";
-                case ExtendedTransferManager.SheepMilk:
-                    return "SheepMilk";
                 case ExtendedTransferManager.Shellfish:
                     return "Shellfish";
                 case ExtendedTransferManager.Ship:

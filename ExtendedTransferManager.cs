@@ -28,79 +28,70 @@ namespace MoreTransferReasons
 
         public const TransferReason Trout = (TransferReason)159;
 
-        public const TransferReason SheepMilk = (TransferReason)160;
+        public const TransferReason Milk = (TransferReason)160;
 
-        public const TransferReason CowMilk = (TransferReason)161;
+        public const TransferReason Pork = (TransferReason)161;
 
-        public const TransferReason HighlandCowMilk = (TransferReason)162;
+        public const TransferReason Fruits = (TransferReason)162;
 
-        public const TransferReason LambMeat = (TransferReason)163;
+        public const TransferReason Vegetables = (TransferReason)163;
 
-        public const TransferReason BeefMeat = (TransferReason)164;
+        public const TransferReason Wool = (TransferReason)164;
 
-        public const TransferReason HighlandBeefMeat = (TransferReason)165;
+        public const TransferReason Cotton = (TransferReason)165;
 
-        public const TransferReason PorkMeat = (TransferReason)166;
+        public const TransferReason Cows = (TransferReason)166;
 
-        public const TransferReason Fruits = (TransferReason)167;
+        public const TransferReason HighlandCows = (TransferReason)167;
 
-        public const TransferReason Vegetables = (TransferReason)168;
+        public const TransferReason Sheep = (TransferReason)168;
 
-        public const TransferReason Wool = (TransferReason)169;
+        public const TransferReason Pigs = (TransferReason)169;
 
-        public const TransferReason Cotton = (TransferReason)170;
+        public const TransferReason ProcessedVegetableOil = (TransferReason)170;
 
-        public const TransferReason Cows = (TransferReason)171;
+        public const TransferReason Leather = (TransferReason)171;
 
-        public const TransferReason HighlandCows = (TransferReason)172;
+        public const TransferReason FoodProducts = (TransferReason)172;
 
-        public const TransferReason Sheep = (TransferReason)173;
+        public const TransferReason BeverageProducts = (TransferReason)173;
 
-        public const TransferReason Pigs = (TransferReason)174;
+        public const TransferReason BakedGoods = (TransferReason)174;
 
-        public const TransferReason ProcessedVegetableOil = (TransferReason)175;
+        public const TransferReason CannedFish = (TransferReason)175;
 
-        public const TransferReason Leather = (TransferReason)176;
+        public const TransferReason Furnitures = (TransferReason)176;
 
-        public const TransferReason FoodProducts = (TransferReason)177;
+        public const TransferReason ElectronicProducts = (TransferReason)177;
 
-        public const TransferReason BeverageProducts = (TransferReason)178;
+        public const TransferReason IndustrialSteel = (TransferReason)178;
 
-        public const TransferReason BakedGoods = (TransferReason)179;
+        public const TransferReason Tupperware = (TransferReason)179;
 
-        public const TransferReason CannedFish = (TransferReason)180;
+        public const TransferReason Toys = (TransferReason)180;
 
-        public const TransferReason Furnitures = (TransferReason)181;
+        public const TransferReason PrintedProducts = (TransferReason)181;
 
-        public const TransferReason ElectronicProducts = (TransferReason)182;
+        public const TransferReason TissuePaper = (TransferReason)182;
 
-        public const TransferReason IndustrialSteel = (TransferReason)183;
+        public const TransferReason Cloths = (TransferReason)183;
 
-        public const TransferReason Tupperware = (TransferReason)184;
+        public const TransferReason PetroleumProducts = (TransferReason)184;
 
-        public const TransferReason Toys = (TransferReason)185;
+        public const TransferReason Cars = (TransferReason)185;
 
-        public const TransferReason PrintedProducts = (TransferReason)186;
+        public const TransferReason Footwear = (TransferReason)186;
 
-        public const TransferReason TissuePaper = (TransferReason)187;
+        public const TransferReason HouseParts = (TransferReason)187;
 
-        public const TransferReason Cloths = (TransferReason)188;
+        public const TransferReason Ship = (TransferReason)188;
 
-        public const TransferReason PetroleumProducts = (TransferReason)189;
+        public const TransferReason ConstructionResources = (TransferReason)189;
 
-        public const TransferReason Cars = (TransferReason)190;
+        public const TransferReason OperationResources = (TransferReason)190;
 
-        public const TransferReason Footwear = (TransferReason)191;
-
-        public const TransferReason HouseParts = (TransferReason)192;
-
-        public const TransferReason Ship = (TransferReason)193;
-
-        public const TransferReason ConstructionResources = (TransferReason)194;
-
-        public const TransferReason OperationResources = (TransferReason)195;
-
-        //196 - 92, 197 - 94, 198 - 96, 199 - 98, 200 - 100, 201 - 102, 202 - 104, 203 - 106, 204 - 108, 205 - 110,
+        // 191 - 82, 192 - 84, 193 - 86, 194 - 88, 195 - 90,
+        // 196 - 92, 197 - 94, 198 - 96, 199 - 98, 200 - 100, 201 - 102, 202 - 104, 203 - 106, 204 - 108, 205 - 110,
         // 206 - 112, 207 - 114, 208 - 116, 209 - 118, 210 - 120, 211 - 122, 212 - 124, 213 - 126, 214 - 128, 215 - 130,
         // 216 - 132, 217 - 134, 218 - 136, 219 - 138
 
@@ -150,42 +141,38 @@ namespace MoreTransferReasons
                 14 => Algae,
                 16 => Seaweed,
                 18 => Trout,
-                20 => SheepMilk,
-                22 => CowMilk,
-                24 => HighlandCowMilk,
-                26 => LambMeat,
-                28 => BeefMeat,
-                30 => HighlandBeefMeat,
-                32 => PorkMeat,
-                34 => Fruits,
-                36 => Vegetables,
-                38 => Wool,
-                40 => Cotton,
-                42 => Cows,
-                44 => HighlandCows,
-                46 => Sheep,
-                48 => Pigs,
-                50 => ProcessedVegetableOil,
-                52 => Leather,
-                54 => FoodProducts,
-                56 => BeverageProducts,
-                58 => BakedGoods,
-                60 => CannedFish,
-                62 => Furnitures,
-                64 => ElectronicProducts,
-                66 => IndustrialSteel,
-                68 => Tupperware,
-                70 => Toys,
-                72 => PrintedProducts,
-                74 => TissuePaper,
-                76 => Cloths,
-                78 => PetroleumProducts,
-                80 => Cars,
-                82 => Footwear,
-                84 => HouseParts,
-                86 => Ship,
-                88 => ConstructionResources,
-                90 => OperationResources,
+                20 => Milk,
+                22 => Pork,
+                24 => Fruits,
+                26 => Vegetables,
+                28 => Wool,
+                30 => Cotton,
+                32 => Cows,
+                34 => HighlandCows,
+                36 => Sheep,
+                38 => Pigs,
+                40 => ProcessedVegetableOil,
+                42 => Leather,
+                44 => FoodProducts,
+                46 => BeverageProducts,
+                48 => BakedGoods,
+                50 => CannedFish,
+                52 => Furnitures,
+                54 => ElectronicProducts,
+                56 => IndustrialSteel,
+                58 => Tupperware,
+                60 => Toys,
+                62 => PrintedProducts,
+                64 => TissuePaper,
+                66 => Cloths,
+                68 => PetroleumProducts,
+                70 => Cars,
+                72 => Footwear,
+                74 => HouseParts,
+                76 => Ship,
+                78 => ConstructionResources,
+                80 => OperationResources,
+                // 82 84 86 88 90
                 // 92 94 96 98 100 102 104 106 108
                 // 110 112 114 116 118 120 122 124 126 128 130
                 // 132 134 136 138
@@ -224,13 +211,8 @@ namespace MoreTransferReasons
                 "Algae",
                 "Seaweed",
                 "Trout",
-                "SheepMilk",
-                "CowMilk",
-                "HighlandCowMilk",
-                "LambMeat",
-                "BeefMeat",
-                "HighlandBeefMeat",
-                "PorkMeat",
+                "Milk",
+                "Pork",
                 "Fruits",
                 "Vegetables",
                 "Wool",
@@ -286,13 +268,6 @@ namespace MoreTransferReasons
                 "MealsDeliveryLow" => "Meals Delivery Low",
                 "MealsDeliveryMedium" => "Meals Delivery Medium",
                 "MealsDeliveryHigh" => "Meals Delivery High",
-                "SheepMilk" => "Sheep Milk",
-                "CowMilk" => "Cow Milk",
-                "HighlandCowMilk" => "Highland Cow Milk",
-                "LambMeat" => "Lamb Meat",
-                "BeefMeat" => "Beef Meat",
-                "HighlandBeefMeat" => "Highland Beef Meat",
-                "PorkMeat" => "Pork Meat",
                 "HighlandCows" => "Highland Cows",
                 "ProcessedVegetableOil" => "Processed Vegetable Oil",
                 "FoodProducts" => "Food Products",
