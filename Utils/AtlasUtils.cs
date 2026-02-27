@@ -26,6 +26,7 @@ namespace MoreTransferReasons.Utils
             "IndustrialSteel",
             "Leather",
             "Milk",
+            "MixedResources",
             "PetroleumProducts",
             "Pigs",
             "Pork",
