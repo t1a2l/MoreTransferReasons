@@ -52,47 +52,49 @@ namespace MoreTransferReasons
 
         public const TransferReason ProcessedVegetableOil = (TransferReason)171;
 
-        public const TransferReason ChemicalProducts = (TransferReason)172;
+        public const TransferReason LiquidConcentrates = (TransferReason)172;
 
-        public const TransferReason Leather = (TransferReason)173;
+        public const TransferReason ChemicalProducts = (TransferReason)173;
 
-        public const TransferReason FoodProducts = (TransferReason)174;
+        public const TransferReason Leather = (TransferReason)174;
 
-        public const TransferReason BeverageProducts = (TransferReason)175;
+        public const TransferReason FoodProducts = (TransferReason)175;
 
-        public const TransferReason BakedGoods = (TransferReason)176;
+        public const TransferReason BeverageProducts = (TransferReason)176;
 
-        public const TransferReason CannedFish = (TransferReason)177;
+        public const TransferReason BakedGoods = (TransferReason)177;
 
-        public const TransferReason Furnitures = (TransferReason)178;
+        public const TransferReason CannedFish = (TransferReason)178;
 
-        public const TransferReason ElectronicProducts = (TransferReason)179;
+        public const TransferReason Furnitures = (TransferReason)179;
 
-        public const TransferReason IndustrialSteel = (TransferReason)180;
+        public const TransferReason ElectronicProducts = (TransferReason)180;
 
-        public const TransferReason Tupperware = (TransferReason)181;
+        public const TransferReason IndustrialSteel = (TransferReason)181;
 
-        public const TransferReason Toys = (TransferReason)182;
+        public const TransferReason Tupperware = (TransferReason)182;
 
-        public const TransferReason PrintedProducts = (TransferReason)183;
+        public const TransferReason Toys = (TransferReason)183;
 
-        public const TransferReason TissuePaper = (TransferReason)184;
+        public const TransferReason PrintedProducts = (TransferReason)184;
 
-        public const TransferReason Cloths = (TransferReason)185;
+        public const TransferReason TissuePaper = (TransferReason)185;
 
-        public const TransferReason PetroleumProducts = (TransferReason)186;
+        public const TransferReason Cloths = (TransferReason)186;
 
-        public const TransferReason Cars = (TransferReason)187;
+        public const TransferReason PetroleumProducts = (TransferReason)187;
 
-        public const TransferReason Footwear = (TransferReason)188;
+        public const TransferReason Cars = (TransferReason)188;
 
-        public const TransferReason HouseParts = (TransferReason)189;
+        public const TransferReason Footwear = (TransferReason)189;
 
-        public const TransferReason Ship = (TransferReason)190;
+        public const TransferReason HouseParts = (TransferReason)190;
 
-        public const TransferReason ConstructionResources = (TransferReason)191;
+        public const TransferReason Ship = (TransferReason)191;
 
-        public const TransferReason OperationResources = (TransferReason)192;
+        public const TransferReason ConstructionResources = (TransferReason)192;
+
+        public const TransferReason OperationResources = (TransferReason)193;
 
         // 193 - 86, 194 - 88, 195 - 90,
         // 196 - 92, 197 - 94, 198 - 96, 199 - 98, 200 - 100, 201 - 102, 202 - 104, 203 - 106, 204 - 108, 205 - 110,
@@ -157,28 +159,29 @@ namespace MoreTransferReasons
                 38 => Sheep,
                 40 => Pigs,
                 42 => ProcessedVegetableOil,
-                44 => ChemicalProducts,
-                46 => Leather,
-                48 => FoodProducts,
-                50 => BeverageProducts,
-                52 => BakedGoods,
-                54 => CannedFish,
-                56 => Furnitures,
-                58 => ElectronicProducts,
-                60 => IndustrialSteel,
-                62 => Tupperware,
-                64 => Toys,
-                66 => PrintedProducts,
-                68 => TissuePaper,
-                70 => Cloths,
-                72 => PetroleumProducts,
-                74 => Cars,
-                76 => Footwear,
-                78 => HouseParts,
-                80 => Ship,
-                82 => ConstructionResources,
-                84 => OperationResources,
-                // 86 88 90
+                44 => LiquidConcentrates,
+                46 => ChemicalProducts,
+                48 => Leather,
+                50 => FoodProducts,
+                52 => BeverageProducts,
+                54 => BakedGoods,
+                56 => CannedFish,
+                58 => Furnitures,
+                60 => ElectronicProducts,
+                62 => IndustrialSteel,
+                64 => Tupperware,
+                66 => Toys,
+                68 => PrintedProducts,
+                70 => TissuePaper,
+                72 => Cloths,
+                74 => PetroleumProducts,
+                76 => Cars,
+                78 => Footwear,
+                80 => HouseParts,
+                82 => Ship,
+                84 => ConstructionResources,
+                86 => OperationResources,
+                // 88 90
                 // 92 94 96 98 100 102 104 106 108
                 // 110 112 114 116 118 120 122 124 126 128 130
                 // 132 134 136 138
@@ -228,8 +231,9 @@ namespace MoreTransferReasons
                 "HighlandCows",
                 "Sheep",
                 "Pigs",
-                "ChemicalProducts",
                 "ProcessedVegetableOil",
+                "LiquidConcentrates",
+                "ChemicalProducts",
                 "Leather",
                 "FoodProducts",
                 "BeverageProducts",
@@ -295,27 +299,28 @@ namespace MoreTransferReasons
                 169 => "Sheep",
                 170 => "Pigs",
                 171 => "ProcessedVegetableOil",
-                172 => "ChemicalProducts",
-                173 => "Leather",
-                174 => "FoodProducts",
-                175 => "BeverageProducts",
-                176 => "BakedGoods",
-                177 => "CannedFish",
-                178 => "Furnitures",
-                179 => "ElectronicProducts",
-                180 => "IndustrialSteel",
-                181 => "Tupperware",
-                182 => "Toys",
-                183 => "PrintedProducts",
-                184 => "TissuePaper",
-                185 => "Cloths",
-                186 => "PetroleumProducts",
-                187 => "Cars",
-                188 => "Footwear",
-                189 => "HouseParts",
-                190 => "Ship",
-                191 => "ConstructionResources",
-                192 => "OperationResources",
+                172 => "LiquidConcentrates",
+                173 => "ChemicalProducts",
+                174 => "Leather",
+                175 => "FoodProducts",
+                176 => "BeverageProducts",
+                177 => "BakedGoods",
+                178 => "CannedFish",
+                179 => "Furnitures",
+                180 => "ElectronicProducts",
+                181 => "IndustrialSteel",
+                182 => "Tupperware",
+                183 => "Toys",
+                184 => "PrintedProducts",
+                185 => "TissuePaper",
+                186 => "Cloths",
+                187 => "PetroleumProducts",
+                188 => "Cars",
+                189 => "Footwear",
+                190 => "HouseParts",
+                191 => "Ship",
+                192 => "ConstructionResources",
+                193 => "OperationResources",
                 220 => "MealsLow",
                 221 => "MealsMedium",
                 222 => "MealsHigh",
@@ -355,25 +360,26 @@ namespace MoreTransferReasons
                 165 => "Wool is produced from Sheep in Animal Pastures.",
                 166 => "Cotton is produced by Cotton Fields.",
                 171 => "Processed Vegetable Oil is producted in a Vegetable Oil Mill and require Crops and Vegetables.",
-                172 => "Chemical Products are producted in a Chemical Plant and require Processed Vegetable Oil, Petroleum and Metals.",
-                173 => "Leather is producted in a Tannery and require Raw Hides and Chemical Products.",
-                174 => "FoodProducts are producted in a Food Factory and require Red Meat/Pork, Flour, Milk, Processed Vegetable Oil, Vegetables/Fruits, Paper and Plastics.",
-                175 => "BeverageProducts are producted in a Beverage Factory and require Liquid Concentrates/Milk, Crops Glass and Plastics.",
-                176 => "BakedGoods are producted in a Bakery and require Flour, Milk and Fruits.",
-                177 => "CannedFish is producted in a Seafood Factory and require Salmon/Tuna/Trout, Processed Vegetable Oil, Algae/Seaweed, Plastics and Metals.",
-                178 => "Furnitures are producted in a Furniture Factory and require Planed Timber, Leather/Cotton, Chemical Products and Paper.",
-                179 => "ElectronicProducts are producted in a Electronics Factory and require Metals, Glass and Plastics.",
-                180 => "IndustrialSteel is producted in a Industrial Steel Plant and require Metals.",
-                181 => "Tupperware is producted in a Household Plastic Factory and require Chemical Products, Processed Vegetable Oil and Plastics.",
-                182 => "Toys are producted in a Toy Factory and require Planed Timber, Cotton/Wool, Chemical Products and Plastics.",
-                183 => "PrintedProducts are producted in a Printing Press and require Paper, Chemical Products, Processed Vegetable Oil and Plastics.",
-                184 => "TissuePaper is producted in a Soft Paper Factory and require Cotton, Paper, Chemical Products and Plastics.",
-                185 => "Cloths are producted in a Clothing Factory and require Cotton/Wool, Leather and Plastics/Paper.",
-                186 => "PetroleumProducts are producted in a Clothing Factory and require Metals, Patroleum and Plastics.",
-                187 => "Cars are producted in a Car Factory and require Metals, Leather, Plastics, Chemical Products and Glass.",
-                188 => "Footwear is producted in a Sneaker Factory and require Planed Timber, Cotton/Leather, Plastics and Chemical Products.",
-                189 => "HouseParts are producted in a Modular House Factory and require Chemical Products, Metals/Planed Timber, Paper/Plastics and Glass.",
-                190 => "Ship is producted in a Shipyard and require Planed Timber/Metals, Plastics/Glass, Chemical Products and Leather / Cotton.",
+                172 => "Liquid Concentrates is producted in a Pressing Plant and require Fruits and Vegetables.",
+                173 => "Chemical Products are producted in a Chemical Plant and require Processed Vegetable Oil, Petroleum and Metals.",
+                174 => "Leather is producted in a Tannery and require Raw Hides and Chemical Products.",
+                175 => "FoodProducts are producted in a Food Factory and require Red Meat/Pork, Flour, Milk, Processed Vegetable Oil, Vegetables/Fruits, Paper and Plastics.",
+                176 => "BeverageProducts are producted in a Beverage Factory and require Liquid Concentrates/Milk, Crops, Glass and Plastics.",
+                177 => "BakedGoods are producted in a Bakery and require Flour, Milk and Fruits.",
+                178 => "CannedFish is producted in a Seafood Factory and require Salmon/Tuna/Trout, Processed Vegetable Oil, Algae/Seaweed, Plastics and Metals.",
+                179 => "Furnitures are producted in a Furniture Factory and require Planed Timber, Leather/Cotton, Chemical Products and Paper.",
+                180 => "ElectronicProducts are producted in a Electronics Factory and require Metals, Glass and Plastics.",
+                181 => "IndustrialSteel is producted in a Industrial Steel Plant and require Metals.",
+                182 => "Tupperware is producted in a Household Plastic Factory and require Chemical Products, Processed Vegetable Oil and Plastics.",
+                183 => "Toys are producted in a Toy Factory and require Planed Timber, Cotton/Wool, Chemical Products and Plastics.",
+                184 => "PrintedProducts are producted in a Printing Press and require Paper, Chemical Products, Processed Vegetable Oil and Plastics.",
+                185 => "TissuePaper is producted in a Soft Paper Factory and require Cotton, Paper, Chemical Products and Plastics.",
+                186 => "Cloths are producted in a Clothing Factory and require Cotton/Wool, Leather and Plastics/Paper.",
+                187 => "PetroleumProducts are producted in a Petroleum Refinery and require Metals, Patroleum and Plastics.",
+                188 => "Cars are producted in a Car Factory and require Metals, Leather, Plastics, Chemical Products and Glass.",
+                189 => "Footwear is producted in a Sneaker Factory and require Planed Timber, Cotton/Leather, Plastics and Chemical Products.",
+                190 => "HouseParts are producted in a Modular House Factory and require Chemical Products, Metals/Planed Timber, Paper/Plastics and Glass.",
+                191 => "Ship is producted in a Shipyard and require Planed Timber/Metals, Plastics/Glass, Chemical Products and Leather / Cotton.",
                 _ => null
             };
         }
