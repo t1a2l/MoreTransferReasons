@@ -384,6 +384,69 @@ namespace MoreTransferReasons
             };
         }
 
+        public static int GetResourcePrice(TransferReason material)
+        {
+            return UniqueFacultyAI.IncreaseByBonus(UniqueFacultyAI.FacultyBonus.Science, material switch
+            {
+                // ── Raw agricultural (= Grain tier 200) ──────────────────
+                Fruits => 200,
+                Vegetables => 200,
+                Cotton => 200,
+
+                // ── Live animals (= Ore tier 300) ────────────────────────
+                Cows => 300,
+                HighlandCows => 300,
+                Sheep => 300,
+                Pigs => 300,
+
+                // ── Raw animal products (= Oil tier 400) ─────────────────
+                Milk => 400,
+                RawHides => 400,
+                Wool => 400,
+
+                // ── Fish variants (= Fish tier 600) ──────────────────────
+                Anchovy => 600,
+                Salmon => 600,
+                Shellfish => 600,
+                Tuna => 600,
+                Algae => 600,
+                Seaweed => 600,
+                Trout => 600,
+
+                // ── Tier 1 processed (= AnimalProducts/Paper tier 1500) ──
+                Pork => 1500,
+                ProcessedVegetableOil => 1500,
+                FoodProducts => 1500,
+                BeverageProducts => 1500,
+                BakedGoods => 1500,
+                TissuePaper => 1500,
+                PrintedProducts => 1500,
+                Tupperware => 1500,
+
+                // ── Tier 2 processed (= Glass/Metals tier 2250) ──────────
+                IndustrialSteel => 2250,
+                HouseParts => 2250,
+                CannedFish => 2000,
+                Leather => 2000,
+                LiquidConcentrates => 2000,
+                Cloths => 2500,
+                Footwear => 2500,
+
+                // ── Tier 3 processed (= Petroleum/Plastics tier 3000) ────
+                ChemicalProducts => 3000,
+                PetroleumProducts => 3000,
+                Furnitures => 3000,
+                Toys => 3000,
+
+                // ── High value (= LuxuryProducts tier 10000) ─────────────
+                ElectronicProducts => 5000,
+                Cars => 8000,
+                Ship => 10000,
+
+                _ => 0
+            });
+        }
+
         public override void UpdateData(SimulationManager.UpdateMode mode)
         {
             Singleton<LoadingManager>.instance.m_loadingProfilerSimulation.BeginLoading("ExtendedTransferManager.UpdateData");
