@@ -384,8 +384,13 @@ namespace MoreTransferReasons
             };
         }
 
-        public static int GetResourcePrice(TransferReason material)
+        public static int GetResourcePrice(TransferReason material, ItemClass.Service sourceService = ItemClass.Service.None)
         {
+            if (material < MealsDeliveryLow)
+            {
+                return IndustryBuildingAI.GetResourcePrice(material, sourceService);
+            }
+                
             return UniqueFacultyAI.IncreaseByBonus(UniqueFacultyAI.FacultyBonus.Science, material switch
             {
                 // ── Raw agricultural (= Grain tier 200) ──────────────────
