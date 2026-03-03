@@ -9,7 +9,6 @@ namespace MoreTransferReasons.Utils
             "Algae",
             "Anchovy",
             "BakedGoods",
-            "BeefMeat",
             "BeverageProducts",
             "CannedFish",
             "Cars",
@@ -57,7 +56,7 @@ namespace MoreTransferReasons.Utils
                 TextureUtils.InitialiseAtlas("MoreTransferReasonsAtlas");
                 for (int i = 0; i < SpriteNames.Length; i++)
                 {
-                    TextureUtils.AddSpriteToAtlas(new Rect(34 * i, 1, 32, 32), SpriteNames[i], "MoreTransferReasonsAtlas");
+                    TextureUtils.AddSpriteToAtlas(new Rect(32 * i, 1, 32, 32), SpriteNames[i], "MoreTransferReasonsAtlas");
                 }
             }
         }
@@ -83,6 +82,8 @@ namespace MoreTransferReasons.Utils
                     return "CannedFish";
                 case ExtendedTransferManager.Cars:
                     return "Cars";
+                case ExtendedTransferManager.ChemicalProducts:
+                    return "ChemicalProducts";
                 case ExtendedTransferManager.Cloths:
                     return "Cloths";
                 case ExtendedTransferManager.Cotton:
@@ -107,6 +108,8 @@ namespace MoreTransferReasons.Utils
                     return "IndustrialSteel";
                 case ExtendedTransferManager.Leather:
                     return "Leather";
+                case ExtendedTransferManager.LiquidConcentrates:
+                    return "LiquidConcentrates";
                 case ExtendedTransferManager.Milk:
                     return "Milk";
                 case ExtendedTransferManager.PetroleumProducts:
@@ -119,6 +122,8 @@ namespace MoreTransferReasons.Utils
                     return "PrintedProducts";
                 case ExtendedTransferManager.ProcessedVegetableOil:
                     return "ProcessedVegetableOil";
+                case ExtendedTransferManager.RawHides:
+                    return "RawHides";
                 case ExtendedTransferManager.Salmon:
                     return "Salmon";
                 case ExtendedTransferManager.Seaweed:
