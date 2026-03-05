@@ -57,6 +57,25 @@ namespace MoreTransferReasons.HarmonyPatches
                         return false;
                     }
                 }
+                else if (id == "RESOURCEUNIT_TONS")
+                {
+                    if (int.TryParse(key, out int num))
+                    {
+                        var name = ExtendedTransferManager.GetTransferReasonName(num);
+                        if (name != null)
+                        {
+                            switch(name)
+                            {
+                                case "Cows":
+                                case "HighlandCows":
+                                case "Sheep":
+                                case "Pigs":
+                                    __result = "heads";
+                                    return false;
+                            }
+                        }
+                    }
+                }
 
             }
             return true;
