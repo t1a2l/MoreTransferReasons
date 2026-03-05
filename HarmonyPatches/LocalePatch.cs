@@ -48,12 +48,12 @@ namespace MoreTransferReasons.HarmonyPatches
                     }
                     if (key == "AnimalProducts")
                     {
-                        __result = "RedMeat is produced by Slaughterhouses";
+                        __result = "RedMeat is produced by Slaughterhouses.";
                         return false;
                     }
                     if (key == "LuxuryProducts")
                     {
-                        __result = "Jewelry is producted in a Jewelry Factory and require Metals, Glass, Leather and Chemical Products";
+                        __result = "Jewelry is produced in a Jewelry Workshop and requires Metals, Glass, Chemical Products and Leather/Cotton.";
                         return false;
                     }
                 }
