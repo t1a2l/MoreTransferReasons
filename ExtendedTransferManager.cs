@@ -26,78 +26,83 @@ namespace MoreTransferReasons
 
         public const TransferReason Seaweed = (TransferReason)158;
 
-        public const TransferReason Trout = (TransferReason)159;
+        public const TransferReason Mussels = (TransferReason)159;
 
-        public const TransferReason Milk = (TransferReason)160;
+        public const TransferReason Trout = (TransferReason)160;
 
-        public const TransferReason RawHides = (TransferReason)161;
+        public const TransferReason Milk = (TransferReason)161;
 
-        public const TransferReason Pork = (TransferReason)162;
+        public const TransferReason RawHides = (TransferReason)162;
 
-        public const TransferReason Fruits = (TransferReason)163;
+        public const TransferReason Pork = (TransferReason)163;
 
-        public const TransferReason Vegetables = (TransferReason)164;
+        public const TransferReason Fruits = (TransferReason)164;
 
-        public const TransferReason Wool = (TransferReason)165;
+        public const TransferReason Vegetables = (TransferReason)165;
 
-        public const TransferReason Cotton = (TransferReason)166;
+        public const TransferReason Wool = (TransferReason)166;
 
-        public const TransferReason Cows = (TransferReason)167;
+        public const TransferReason Cotton = (TransferReason)167;
 
-        public const TransferReason HighlandCows = (TransferReason)168;
+        public const TransferReason Cows = (TransferReason)168;
 
-        public const TransferReason Sheep = (TransferReason)169;
+        public const TransferReason HighlandCows = (TransferReason)169;
 
-        public const TransferReason Pigs = (TransferReason)170;
+        public const TransferReason Sheep = (TransferReason)170;
 
-        public const TransferReason ProcessedVegetableOil = (TransferReason)171;
+        public const TransferReason Pigs = (TransferReason)171;
 
-        public const TransferReason LiquidConcentrates = (TransferReason)172;
+        public const TransferReason ProcessedVegetableOil = (TransferReason)172;
 
-        public const TransferReason ChemicalProducts = (TransferReason)173;
+        public const TransferReason LiquidConcentrates = (TransferReason)173;
 
-        public const TransferReason Leather = (TransferReason)174;
+        public const TransferReason FishMeal = (TransferReason)174;
 
-        public const TransferReason FoodProducts = (TransferReason)175;
+        public const TransferReason FishOil = (TransferReason)175;
 
-        public const TransferReason BeverageProducts = (TransferReason)176;
+        public const TransferReason ChemicalProducts = (TransferReason)176;
 
-        public const TransferReason BakedGoods = (TransferReason)177;
+        public const TransferReason Leather = (TransferReason)177;
 
-        public const TransferReason CannedFish = (TransferReason)178;
+        public const TransferReason FoodProducts = (TransferReason)178;
 
-        public const TransferReason Furnitures = (TransferReason)179;
+        public const TransferReason BeverageProducts = (TransferReason)179;
 
-        public const TransferReason ElectronicProducts = (TransferReason)180;
+        public const TransferReason BakedGoods = (TransferReason)180;
 
-        public const TransferReason IndustrialSteel = (TransferReason)181;
+        public const TransferReason CannedFish = (TransferReason)181;
 
-        public const TransferReason Tupperware = (TransferReason)182;
+        public const TransferReason Furnitures = (TransferReason)182;
 
-        public const TransferReason Toys = (TransferReason)183;
+        public const TransferReason ElectronicProducts = (TransferReason)183;
 
-        public const TransferReason PrintedProducts = (TransferReason)184;
+        public const TransferReason IndustrialSteel = (TransferReason)184;
 
-        public const TransferReason TissuePaper = (TransferReason)185;
+        public const TransferReason Tupperware = (TransferReason)185;
 
-        public const TransferReason Cloths = (TransferReason)186;
+        public const TransferReason Toys = (TransferReason)186;
 
-        public const TransferReason PetroleumProducts = (TransferReason)187;
+        public const TransferReason PrintedProducts = (TransferReason)187;
 
-        public const TransferReason Cars = (TransferReason)188;
+        public const TransferReason TissuePaper = (TransferReason)188;
 
-        public const TransferReason Footwear = (TransferReason)189;
+        public const TransferReason Cloths = (TransferReason)189;
 
-        public const TransferReason HouseParts = (TransferReason)190;
+        public const TransferReason PetroleumProducts = (TransferReason)190;
 
-        public const TransferReason Ship = (TransferReason)191;
+        public const TransferReason Cars = (TransferReason)191;
 
-        public const TransferReason ConstructionResources = (TransferReason)192;
+        public const TransferReason Footwear = (TransferReason)192;
 
-        public const TransferReason OperationResources = (TransferReason)193;
+        public const TransferReason HouseParts = (TransferReason)193;
 
-        // 193 - 86, 194 - 88, 195 - 90,
-        // 196 - 92, 197 - 94, 198 - 96, 199 - 98, 200 - 100, 201 - 102, 202 - 104, 203 - 106, 204 - 108, 205 - 110,
+        public const TransferReason Ship = (TransferReason)194;
+
+        public const TransferReason ConstructionResources = (TransferReason)195;
+
+        public const TransferReason OperationResources = (TransferReason)196;
+
+        // 197 - 94, 198 - 96, 199 - 98, 200 - 100, 201 - 102, 202 - 104, 203 - 106, 204 - 108, 205 - 110,
         // 206 - 112, 207 - 114, 208 - 116, 209 - 118, 210 - 120, 211 - 122, 212 - 124, 213 - 126, 214 - 128, 215 - 130,
         // 216 - 132, 217 - 134, 218 - 136, 219 - 138
 
@@ -146,43 +151,45 @@ namespace MoreTransferReasons
                 12 => Tuna,
                 14 => Algae,
                 16 => Seaweed,
-                18 => Trout,
-                20 => Milk,
-                22 => RawHides,
-                24 => Pork,
-                26 => Fruits,
-                28 => Vegetables,
-                30 => Wool,
-                32 => Cotton,
-                34 => Cows,
-                36 => HighlandCows,
-                38 => Sheep,
-                40 => Pigs,
-                42 => ProcessedVegetableOil,
-                44 => LiquidConcentrates,
-                46 => ChemicalProducts,
-                48 => Leather,
-                50 => FoodProducts,
-                52 => BeverageProducts,
-                54 => BakedGoods,
-                56 => CannedFish,
-                58 => Furnitures,
-                60 => ElectronicProducts,
-                62 => IndustrialSteel,
-                64 => Tupperware,
-                66 => Toys,
-                68 => PrintedProducts,
-                70 => TissuePaper,
-                72 => Cloths,
-                74 => PetroleumProducts,
-                76 => Cars,
-                78 => Footwear,
-                80 => HouseParts,
-                82 => Ship,
-                84 => ConstructionResources,
-                86 => OperationResources,
-                // 88 90
-                // 92 94 96 98 100 102 104 106 108
+                18 => Mussels,
+                20 => Trout,
+                22 => Milk,
+                24 => RawHides,
+                26 => Pork,
+                28 => Fruits,
+                30 => Vegetables,
+                32 => Wool,
+                34 => Cotton,
+                36 => Cows,
+                38 => HighlandCows,
+                40 => Sheep,
+                42 => Pigs,
+                44 => ProcessedVegetableOil,
+                46 => LiquidConcentrates,
+                48 => FishMeal,
+                50 => FishOil,
+                52 => ChemicalProducts,
+                54 => Leather,
+                56 => FoodProducts,
+                58 => BeverageProducts,
+                60 => BakedGoods,
+                62 => CannedFish,
+                64 => Furnitures,
+                66 => ElectronicProducts,
+                68 => IndustrialSteel,
+                70 => Tupperware,
+                72 => Toys,
+                74 => PrintedProducts,
+                76 => TissuePaper,
+                78 => Cloths,
+                80 => PetroleumProducts,
+                82 => Cars,
+                84 => Footwear,
+                86 => HouseParts,
+                88 => Ship,
+                90 => ConstructionResources,
+                92 => OperationResources,
+                // 94 96 98 100 102 104 106 108
                 // 110 112 114 116 118 120 122 124 126 128 130
                 // 132 134 136 138
                 // until 138 only transfer types that needs vehicle to transport them
@@ -219,6 +226,7 @@ namespace MoreTransferReasons
                 "Tuna",
                 "Algae",
                 "Seaweed",
+                "Mussels",
                 "Trout",
                 "Milk",
                 "RawHides",
@@ -233,6 +241,8 @@ namespace MoreTransferReasons
                 "Pigs",
                 "ProcessedVegetableOil",
                 "LiquidConcentrates",
+                "FishMeal",
+                "FishOil",
                 "ChemicalProducts",
                 "Leather",
                 "FoodProducts",
@@ -286,41 +296,44 @@ namespace MoreTransferReasons
                 156 => "Tuna",
                 157 => "Algae",
                 158 => "Seaweed",
-                159 => "Trout",
-                160 => "Milk",
-                161 => "RawHides",
-                162 => "Pork",
-                163 => "Fruits",
-                164 => "Vegetables",
-                165 => "Wool",
-                166 => "Cotton",
-                167 => "Cows",
-                168 => "HighlandCows",
-                169 => "Sheep",
-                170 => "Pigs",
-                171 => "ProcessedVegetableOil",
-                172 => "LiquidConcentrates",
-                173 => "ChemicalProducts",
-                174 => "Leather",
-                175 => "FoodProducts",
-                176 => "BeverageProducts",
-                177 => "BakedGoods",
-                178 => "CannedFish",
-                179 => "Furnitures",
-                180 => "ElectronicProducts",
-                181 => "IndustrialSteel",
-                182 => "Tupperware",
-                183 => "Toys",
-                184 => "PrintedProducts",
-                185 => "TissuePaper",
-                186 => "Cloths",
-                187 => "PetroleumProducts",
-                188 => "Cars",
-                189 => "Footwear",
-                190 => "HouseParts",
-                191 => "Ship",
-                192 => "ConstructionResources",
-                193 => "OperationResources",
+                159 => "Mussels",
+                160 => "Trout",
+                161 => "Milk",
+                162 => "RawHides",
+                163 => "Pork",
+                164 => "Fruits",
+                165 => "Vegetables",
+                166 => "Wool",
+                167 => "Cotton",
+                168 => "Cows",
+                169 => "HighlandCows",
+                170 => "Sheep",
+                171 => "Pigs",
+                172 => "ProcessedVegetableOil",
+                173 => "LiquidConcentrates",
+                174 => "FishMeal",
+                175 => "FishOil",
+                176 => "ChemicalProducts",
+                177 => "Leather",
+                178 => "FoodProducts",
+                179 => "BeverageProducts",
+                180 => "BakedGoods",
+                181 => "CannedFish",
+                182 => "Furnitures",
+                183 => "ElectronicProducts",
+                184 => "IndustrialSteel",
+                185 => "Tupperware",
+                186 => "Toys",
+                187 => "PrintedProducts",
+                188 => "TissuePaper",
+                189 => "Cloths",
+                190 => "PetroleumProducts",
+                191 => "Cars",
+                192 => "Footwear",
+                193 => "HouseParts",
+                194 => "Ship",
+                195 => "ConstructionResources",
+                196 => "OperationResources",
                 220 => "MealsLow",
                 221 => "MealsMedium",
                 222 => "MealsHigh",
@@ -351,35 +364,38 @@ namespace MoreTransferReasons
                 156 => "Tuna is gathered by Tuna fish harbor.",
                 157 => "Algae is gathered by Algae fish farm.",
                 158 => "Seaweed is gathered by Seaweed fish farm.",
-                159 => "Trout is gathered by Trout fish farm.",
-                160 => "Milk is produced by Milking Parlours.",
-                161 => "RawHides are produced by Slaughterhouses to create Leather.",
-                162 => "Pork is produced by Slaughterhouses.",
-                163 => "Fruits are produced by Fruit Fields.",
-                164 => "Vegetables are produced by Potatoes Fields, Corn Fields and Greeenhouses.",
-                165 => "Wool is produced from Sheep in Animal Pastures.",
-                166 => "Cotton is produced by Cotton Fields.",
-                171 => "Processed Vegetable Oil is producted in a Vegetable Oil Mill and require Crops and Vegetables.",
-                172 => "Liquid Concentrates is producted in a Pressing Plant and require Fruits and Vegetables.",
-                173 => "Chemical Products are producted in a Chemical Plant and require Processed Vegetable Oil, Petroleum and Metals.",
-                174 => "Leather is producted in a Tannery and require Raw Hides and Chemical Products.",
-                175 => "FoodProducts are producted in a Food Factory and require Red Meat/Pork, Flour, Milk, Processed Vegetable Oil, Vegetables/Fruits, Paper and Plastics.",
-                176 => "BeverageProducts are producted in a Beverage Factory and require Liquid Concentrates/Milk, Crops, Glass and Plastics.",
-                177 => "BakedGoods are producted in a Bakery and require Flour, Milk and Fruits.",
-                178 => "CannedFish is producted in a Seafood Factory and require Salmon/Tuna/Trout, Processed Vegetable Oil, Algae/Seaweed, Plastics and Metals.",
-                179 => "Furnitures are producted in a Furniture Factory and require Planed Timber, Leather/Cotton, Chemical Products and Paper.",
-                180 => "ElectronicProducts are producted in a Electronics Factory and require Metals, Glass and Plastics.",
-                181 => "IndustrialSteel is producted in a Industrial Steel Plant and require Metals.",
-                182 => "Tupperware is producted in a Household Plastic Factory and require Chemical Products, Processed Vegetable Oil and Plastics.",
-                183 => "Toys are producted in a Toy Factory and require Planed Timber, Cotton/Wool, Chemical Products and Plastics.",
-                184 => "PrintedProducts are producted in a Printing Press and require Paper, Chemical Products, Processed Vegetable Oil and Plastics.",
-                185 => "TissuePaper is producted in a Soft Paper Factory and require Cotton, Paper, Chemical Products and Plastics.",
-                186 => "Cloths are producted in a Clothing Factory and require Cotton/Wool, Leather and Plastics/Paper.",
-                187 => "PetroleumProducts are producted in a Petroleum Refinery and require Metals, Patroleum and Plastics.",
-                188 => "Cars are producted in a Car Factory and require Metals, Leather, Plastics, Chemical Products and Glass.",
-                189 => "Footwear is producted in a Sneaker Factory and require Planed Timber, Cotton/Leather, Plastics and Chemical Products.",
-                190 => "HouseParts are producted in a Modular House Factory and require Chemical Products, Metals/Planed Timber, Paper/Plastics and Glass.",
-                191 => "Ship is producted in a Shipyard and require Planed Timber/Metals, Plastics/Glass, Chemical Products and Leather / Cotton.",
+                159 => "Mussels is gathered by Mussel fish farm.",
+                160 => "Trout is gathered by Trout fish farm.",
+                161 => "Milk is produced by Milking Parlours.",
+                162 => "RawHides are produced by Slaughterhouses to create Leather.",
+                163 => "Pork is produced by Slaughterhouses.",
+                164 => "Fruits are produced by Fruit Fields.",
+                165 => "Vegetables are produced by Potatoes Fields, Corn Fields and Greeenhouses.",
+                166 => "Wool is produced from Sheep in Animal Pastures.",
+                167 => "Cotton is produced by Cotton Fields.",
+                172 => "Processed Vegetable Oil is produced in a Vegetable Oil Mill and require Crops and Vegetables.",
+                173 => "Liquid Concentrates is produced in a Pressing Plant and require Fruits and Vegetables.",
+                174 => "Fish Meal is produced in a Fish Meal Factory from raw fish. Used as input for Fish Hatcheries.",
+                175 => "Fish Oil is produced in a Fish Meal Factory as a byproduct of fish processing.",
+                176 => "Chemical Products are produced in a Chemical Plant and require Processed Vegetable Oil, Petroleum and Metals.",
+                177 => "Leather is produced in a Tannery and require Raw Hides and Chemical Products.",
+                178 => "FoodProducts are produced in a Food Factory and require Red Meat/Pork, Flour, Milk, Processed Vegetable Oil, Vegetables/Fruits, Paper and Plastics.",
+                179 => "BeverageProducts are produced in a Beverage Factory and require Liquid Concentrates/Milk, Crops, Glass and Plastics.",
+                180 => "BakedGoods are produced in a Bakery and require Flour, Milk and Fruits.",
+                181 => "CannedFish is produced in a Seafood Factory and require Salmon/Tuna/Trout, Processed Vegetable Oil, Algae/Seaweed, Plastics and Metals.",
+                182 => "Furnitures are produced in a Furniture Factory and require Planed Timber, Leather/Cotton, Chemical Products and Paper.",
+                183 => "ElectronicProducts are produced in a Electronics Factory and require Metals, Glass and Plastics.",
+                184 => "IndustrialSteel is produced in a Industrial Steel Plant and require Metals.",
+                185 => "Tupperware is produced in a Household Plastic Factory and require Chemical Products, Processed Vegetable Oil and Plastics.",
+                186 => "Toys are produced in a Toy Factory and require Planed Timber, Cotton/Wool, Chemical Products and Plastics.",
+                187 => "PrintedProducts are produced in a Printing Press and require Paper, Chemical Products, Processed Vegetable Oil and Plastics.",
+                188 => "TissuePaper is produced in a Soft Paper Factory and require Cotton, Paper, Chemical Products and Plastics.",
+                189 => "Cloths are produced in a Clothing Factory and require Cotton/Wool, Leather and Plastics/Paper.",
+                190 => "PetroleumProducts are produced in a Petroleum Refinery and require Metals, Patroleum and Plastics.",
+                191 => "Cars are produced in a Car Factory and require Metals, Leather, Plastics, Chemical Products and Glass.",
+                192 => "Footwear is produced in a Sneaker Factory and require Planed Timber, Cotton/Leather, Plastics and Chemical Products.",
+                193 => "HouseParts are produced in a Modular House Factory and require Chemical Products, Metals/Planed Timber, Paper/Plastics and Glass.",
+                194 => "Ship is produced in a Shipyard and require Planed Timber/Metals, Plastics/Glass, Chemical Products and Leather / Cotton.",
                 _ => null
             };
         }
@@ -416,6 +432,7 @@ namespace MoreTransferReasons
                 Tuna => 600,
                 Algae => 600,
                 Seaweed => 600,
+                Mussels => 600,
                 Trout => 600,
 
                 // ── Tier 1 processed (= AnimalProducts/Paper tier 1500) ──
@@ -434,6 +451,8 @@ namespace MoreTransferReasons
                 CannedFish => 2000,
                 Leather => 2000,
                 LiquidConcentrates => 2000,
+                FishMeal => 2000,
+                FishOil => 2000,
                 Cloths => 2500,
                 Footwear => 2500,
 

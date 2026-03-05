@@ -17,6 +17,8 @@ namespace MoreTransferReasons.Utils
             "Cotton",
             "Cows",
             "ElectronicProducts",
+            "FishMeal",
+            "FishOil",
             "FoodProducts",
             "Footwear",
             "Fruits",
@@ -28,6 +30,7 @@ namespace MoreTransferReasons.Utils
             "LiquidConcentrates",
             "Milk",
             "MixedResources",
+            "Mussels",
             "PetroleumProducts",
             "Pigs",
             "Pork",
@@ -92,6 +95,10 @@ namespace MoreTransferReasons.Utils
                     return "Cows";
                 case ExtendedTransferManager.ElectronicProducts:
                     return "ElectronicProducts";
+                case ExtendedTransferManager.FishMeal:
+                    return "FishMeal";
+                case ExtendedTransferManager.FishOil:
+                    return "FishOil";
                 case ExtendedTransferManager.FoodProducts:
                     return "FoodProducts";
                 case ExtendedTransferManager.Footwear:
@@ -112,6 +119,8 @@ namespace MoreTransferReasons.Utils
                     return "LiquidConcentrates";
                 case ExtendedTransferManager.Milk:
                     return "Milk";
+                case ExtendedTransferManager.Mussels:
+                    return "Mussels";
                 case ExtendedTransferManager.PetroleumProducts:
                     return "PetroleumProducts";
                 case ExtendedTransferManager.Pigs:
