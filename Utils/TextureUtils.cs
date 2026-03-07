@@ -17,6 +17,11 @@ namespace MoreTransferReasons.Utils
         public static string FILE_PATH = ModPath;
         public static bool EmbededResources = true;
 
+        /// <summary>
+        /// Gets the "ingame" atlas.
+        /// </summary>
+        public static UITextureAtlas InGameAtlas => GetAtlas("Ingame");
+
         public static UITextureAtlas GetAtlas(string atlasName)
         {
             UITextureAtlas returnAtlas = null;
@@ -29,7 +34,7 @@ namespace MoreTransferReasons.Utils
             return returnAtlas;
         }
 
-        static PluginManager man => PluginManager.instance;
+        static PluginManager Man => PluginManager.instance;
 
         public static void FixTransparency(Texture2D texture)
         {
@@ -173,7 +178,7 @@ namespace MoreTransferReasons.Utils
         {
             if (assembly == null)
                 assembly = Assembly.GetExecutingAssembly();
-            foreach (PluginInfo current in man.GetPluginsInfo())
+            foreach (PluginInfo current in Man.GetPluginsInfo())
             {
                 if (current.ContainsAssembly(assembly))
                     return current;

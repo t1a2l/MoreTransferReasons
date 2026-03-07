@@ -1,3 +1,4 @@
+using ColossalFramework.UI;
 using UnityEngine;
 
 namespace MoreTransferReasons.Utils
@@ -62,6 +63,18 @@ namespace MoreTransferReasons.Utils
                     TextureUtils.AddSpriteToAtlas(new Rect(32 * i, 1, 32, 32), SpriteNames[i], "MoreTransferReasonsAtlas");
                 }
             }
+        }
+
+        public static UITextureAtlas GetResourceAtlas(TransferManager.TransferReason reason)
+        {
+            if (reason != TransferManager.TransferReason.None)
+            {
+                if (reason >= ExtendedTransferManager.MealsDeliveryLow)
+                {
+                    return TextureUtils.GetAtlas("MoreTransferReasonsAtlas");
+                }
+            }
+            return TextureUtils.InGameAtlas;
         }
 
         public static string GetSpriteName(TransferManager.TransferReason transferReason, bool isStorageBuilding = false)
