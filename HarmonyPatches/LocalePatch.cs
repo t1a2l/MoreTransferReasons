@@ -46,6 +46,16 @@ namespace MoreTransferReasons.HarmonyPatches
                             return false;
                         }
                     }
+                    if (key == "Grain")
+                    {
+                        __result = "Grain is produced by Wheat Fields.";
+                        return false;
+                    }
+                    if (key == "Crops")
+                    {
+                        __result = "Crops are produced by Wheat Fields.";
+                        return false;
+                    }
                     if (key == "AnimalProducts")
                     {
                         __result = "RedMeat is produced by Slaughterhouses.";
@@ -57,7 +67,7 @@ namespace MoreTransferReasons.HarmonyPatches
                         return false;
                     }
                 }
-                else if (id == "RESOURCEUNIT_TONS")
+                else if (id == "RESOURCEUNIT_TONS" || id == "RESOURCEUNIT_BARRELS")
                 {
                     if (int.TryParse(key, out int num))
                     {
