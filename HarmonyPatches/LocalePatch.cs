@@ -11,7 +11,7 @@ namespace MoreTransferReasons.HarmonyPatches
         [HarmonyPrefix]
         public static bool Get(Locale __instance, string id, string key, ref string __result)
         {
-            if(SingletonLite<LocaleManager>.exists && !string.IsNullOrEmpty(id))
+            if(SingletonLite<LocaleManager>.exists && !string.IsNullOrEmpty(id) && LoadingExtension.IsIndustriesMeetsSunsetHarborEnabled)
             {
                 if(id == "WAREHOUSEPANEL_RESOURCE")
                 {
@@ -86,7 +86,6 @@ namespace MoreTransferReasons.HarmonyPatches
                         }
                     }
                 }
-
             }
             return true;
         }

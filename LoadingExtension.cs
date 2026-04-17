@@ -6,6 +6,8 @@ namespace MoreTransferReasons
 {
     public class LoadingExtension : LoadingExtensionBase
     {
+        public static bool IsIndustriesMeetsSunsetHarborEnabled;
+
         private static GameObject _gameObject1;
 
         public override void OnCreated(ILoading loading)
@@ -19,6 +21,7 @@ namespace MoreTransferReasons
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
+            IsIndustriesMeetsSunsetHarborEnabled = AssemblyUtils.IsAssemblyEnabled("IndustriesMeetsSunsetHarbor");
         }
 
         public override void OnLevelUnloading()
