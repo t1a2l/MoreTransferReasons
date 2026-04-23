@@ -12,6 +12,10 @@ namespace MoreTransferReasons.HarmonyPatches
         {
             if (frameIndex % 2 == 0)
             {
+                if(frameIndex ==  172 || frameIndex == 174 || frameIndex == 176 || frameIndex == 178)
+                {
+                    return true;
+                }
                 __result = ExtendedTransferManager.GetExtendedFrameReason(frameIndex);
                 return false;
             }
