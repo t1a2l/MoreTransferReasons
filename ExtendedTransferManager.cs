@@ -6,7 +6,7 @@ namespace MoreTransferReasons
 {
     public class ExtendedTransferManager : TransferManager
     {
-        public const int TransferReasonCount = 236;
+        public const int TransferReasonCount = 240;
 
         public const TransferReason MealsDeliveryLow = (TransferReason)150;
 
@@ -138,6 +138,14 @@ namespace MoreTransferReasons
 
         public const TransferReason VehicleBrokenDown = (TransferReason)235;
 
+        public const TransferReason Crime2 = (TransferReason)236;
+
+        public const TransferReason TaxiMove = (TransferReason)237;
+
+        public const TransferReason Mail2 = (TransferReason)238;
+
+        public const TransferReason IntercityBus = (TransferReason)239;
+
         public static TransferReason GetExtendedFrameReason(int frameIndex)
         {
             return frameIndex switch
@@ -209,6 +217,10 @@ namespace MoreTransferReasons
                 166 => VehicleMajorRepair,
                 168 => VehicleOutOfFuel,
                 170 => VehicleBrokenDown,
+                172 => Crime2,
+                174 => TaxiMove,
+                176 => Mail2,
+                178 => IntercityBus,
                 _ => TransferReason.None,
             };
         }
@@ -279,7 +291,11 @@ namespace MoreTransferReasons
                 "VehicleMinorRepair",
                 "VehicleMajorRepair",
                 "VehicleOutOfFuel",
-                "VehicleBrokenDown"
+                "VehicleBrokenDown",
+                "Crime2",
+                "TaxiMove",
+                "Mail2",
+                "IntercityBus"
             ];
         }
 
@@ -350,6 +366,10 @@ namespace MoreTransferReasons
                 233 => "VehicleMajorRepair",
                 234 => "VehicleOutOfFuel",
                 235 => "VehicleBrokenDown",
+                236 => "Crime2",
+                237 => "TaxiMove",
+                238 => "Mail2",
+                239 => "IntercityBus",
                 _ => null
             }; 
         }
