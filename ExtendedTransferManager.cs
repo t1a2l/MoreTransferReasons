@@ -349,7 +349,7 @@ namespace MoreTransferReasons
                 232 => "VehicleMinorRepair",
                 233 => "VehicleMajorRepair",
                 234 => "VehicleOutOfFuel",
-                235 => "VehicleBrokenDown"
+                235 => "VehicleBrokenDown",
                 _ => null
             }; 
         }
