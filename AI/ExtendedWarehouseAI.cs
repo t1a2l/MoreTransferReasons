@@ -1570,8 +1570,9 @@ namespace MoreTransferReasons.AI
             return num >= m_storageCapacity;
         }
 
-        public override bool CanBeRelocated(ushort buildingID, ref Building data)
+        public override bool CanBeRelocated(ushort buildingID, ref Building data, out string tooltip)
         {
+            tooltip = string.Empty;
             int num = data.m_customBuffer1 * 100;
             return num == 0;
         }
