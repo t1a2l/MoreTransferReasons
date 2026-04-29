@@ -19,5 +19,15 @@ namespace MoreTransferReasons
         {
             if (HarmonyHelper.IsHarmonyInstalled) Patcher.UnpatchAll();
         }
+
+        public void OnSettingsUI(UIHelperBase helper) 
+        {
+            UIHelper ClearTransferManager = helper.AddGroup("Clear Transfer Manager") as UIHelper;
+
+            ClearTransferManager.AddButton("Clear all transfers", () =>
+            {
+                ExtendedTransferManager.instance.ClearTransferManager();
+            });
+        }
     }
 }
