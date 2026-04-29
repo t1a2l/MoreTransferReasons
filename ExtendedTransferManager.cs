@@ -13,15 +13,14 @@ namespace MoreTransferReasons
 
         public struct Offer
         {
-            public byte m_isLocalPark;
-            public Vector3 Position;
-            public int Amount;
             public bool Active;
+            public int Amount;   
             public ushort Building;
-            public ushort Vehicle;
             public uint Citizen;
+            public byte m_isLocalPark;
             public InstanceID m_object;
-            public bool IsWarehouse;
+            public Vector3 Position;
+            public ushort Vehicle;
         }
 
         public enum TransferReason
@@ -537,7 +536,7 @@ namespace MoreTransferReasons
                         for (int i = 0; i < incoming_ocuppied_count; i++)
                         {
                             Offer incoming_offer = IncomingOffers[(int)material * 256 + i];
-                            if (outgoing_offer.Building == incoming_offer.Building || (outgoing_offer.IsWarehouse && incoming_offer.IsWarehouse))
+                            if (outgoing_offer.Building == incoming_offer.Building)
                             {
                                 continue;
                             }
@@ -608,7 +607,7 @@ namespace MoreTransferReasons
                     for (int j = 0; j < outgoing_ocuppied_count; j++)
                     {
                         Offer outgoing_offer2 = OutgoingOffers[(int)material * 256 + j];
-                        if (incoming_offer2.Building == outgoing_offer2.Building || (incoming_offer2.IsWarehouse && outgoing_offer2.IsWarehouse))
+                        if (incoming_offer2.Building == outgoing_offer2.Building)
                         {
                             continue;
                         }
