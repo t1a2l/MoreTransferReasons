@@ -4,7 +4,7 @@ using MoreTransferReasons.Utils;
 
 namespace MoreTransferReasons
 {
-    public class MoreTransferReasonsMod : IUserMod
+    public class Mod : IUserMod
     {
         string IUserMod.Name => "More Transfer Reasons Mod";
 
