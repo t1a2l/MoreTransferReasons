@@ -8,12 +8,6 @@ namespace MoreTransferReasons
     {
         private static GameObject _gameObject1;
 
-        public override void OnCreated(ILoading loading)
-        {
-            base.OnCreated(loading);
-            ItemClasses.Register();
-        }
-
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
@@ -30,12 +24,6 @@ namespace MoreTransferReasons
             }
             Object.Destroy(_gameObject1);
             _gameObject1 = null;
-        } 
-
-        public override void OnReleased()
-        {
-            base.OnReleased();
-            ItemClasses.Unregister();
         }
     }
 }
